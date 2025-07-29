@@ -480,8 +480,6 @@ result
 }
 -- Fim do arquivo: arsh64-reg.lean
 
-#eval exeConformanceDebug progarsh64_reg memoryarsh64_reg
-
 -- Início do arquivo: be16-high.lean
 ------------------------------
 
@@ -959,6 +957,8 @@ result
 0x1
 }
 -- Fim do arquivo: j-signed-imm.lean
+
+#eval exeConformanceCompareResult progj_signed_imm memoryj_signed_imm
 
 -- Início do arquivo: ja32.lean
 ------------------------------
@@ -3502,6 +3502,8 @@ result
 }
 -- Fim do arquivo: mem-len.lean
 
+#eval exeConformanceCompareResult progmem_len memorymem_len
+
 -- Início do arquivo: mod-by-zero-reg.lean
 ------------------------------
 
@@ -4116,6 +4118,9 @@ result
 0x1
 }
 -- Fim do arquivo: prime.lean
+
+#eval exeConformanceCompareResult progprime memoryprime
+#eval exeConformanceDebug progprime memoryprime
 
 -- Início do arquivo: rsh32-imm-high.lean
 ------------------------------
@@ -5422,7 +5427,7 @@ result
 -- Fim do arquivo: swap64.lean
 
 -- Lista de defs realizados
-def prog_list := [
+def prog_list := [--[38, 112, 141]
 progadd,
 progadd64,
 progalu_arith,
@@ -5432,7 +5437,7 @@ progalu64_bit,
 progarsh32_imm_high,
 progarsh32_imm_neg,
 progarsh32_imm,
-progarsh32_reg_high,
+progarsh32_reg_high,--10
 progarsh32_reg_neg,
 progarsh32_reg,
 progarsh64_imm_high,
@@ -5441,12 +5446,12 @@ progarsh64_imm,
 progarsh64_reg_high,
 progarsh64_reg_neg,
 progarsh64_reg,
-progbe16_high,--18
-progbe16,
+progbe16_high,
+progbe16, --20
 progbe32_high,
 progbe32,
 progbe64,
-progcallx,
+progcallx, -- 24
 progcall_local,
 progcall_unwind_fail,
 progdiv32_zero_reg_2,
@@ -5456,15 +5461,15 @@ progdiv32_imm,
 progdiv32_reg,
 progdiv64_zero_reg,
 progdiv64_imm,
-progdiv64_negative_imm,
+progdiv64_negative_imm, -- 34
 progdiv64_negative_reg,
 progdiv64_reg,
---progexit_not_last, -- Jump negativo
-progexit,
-progj_signed_imm,-- 34
---progja32, -- Jump negativo
-progjeq_imm,
-progjeq_reg,
+progexit_not_last, -- Jump negativo
+progexit, -- 37
+progj_signed_imm,-- 38
+progja32, -- Jump negativo
+progjeq_imm, --39
+progjeq_reg, --40
 progjeq32_imm,
 progjeq32_reg,
 progjge_imm,
@@ -5474,7 +5479,7 @@ progjge32_reg,
 progjgt_imm,
 progjgt_reg,
 progjgt32_imm,
-progjgt32_reg,
+progjgt32_reg,--50
 progjit_bounce,
 progjle_imm,
 progjle_reg,
@@ -5484,7 +5489,7 @@ progjlt_imm,
 progjlt_reg,
 progjlt32_imm,
 progjlt32_reg,
-progjne_reg,
+progjne_reg,--60
 progjne32_imm,
 progjne32_reg,
 progjset_imm,
@@ -5494,7 +5499,7 @@ progjset32_reg,
 progjsge_imm,
 progjsge_reg,
 progjsge32_imm,
-progjsge32_reg,
+progjsge32_reg,--70
 progjsgt_imm,
 progjsgt_reg,
 progjsgt32_imm,
@@ -5504,7 +5509,7 @@ progjsle_reg,
 progjsle32_imm,
 progjsle32_reg,
 progjslt_imm,
-progjslt_reg,
+progjslt_reg,--80
 progjslt32_imm,
 progjslt32_reg,
 proglddw,
@@ -5514,7 +5519,7 @@ progldxb,
 progldxdw,
 progldxh_all,
 progldxh_all2,
-progldxh_same_reg,
+progldxh_same_reg,--90
 progldxh,
 progldxw_all,
 progldxw,
@@ -5522,7 +5527,7 @@ progle16_high,
 progle16,
 progle32_high,
 progle32,
-progle64,
+progle64,--99
 /-proglock_add,
 proglock_add32,
 proglock_and,
@@ -5544,7 +5549,7 @@ proglock_xchg32,
 proglock_xor,
 proglock_xor32,-/
 proglsh32_imm_high,
-proglsh32_imm_neg,
+proglsh32_imm_neg,--100
 proglsh32_imm,
 proglsh32_reg_high,
 proglsh32_reg_neg,
@@ -5555,7 +5560,7 @@ proglsh64_imm,
 proglsh64_reg_high,
 proglsh64_reg_neg,
 proglsh64_reg,
-progmem_len,
+progmem_len, -- 112
 progmod_zero_reg,
 progmod,
 progmod32,
@@ -5584,7 +5589,7 @@ progneg32_intmin_reg,
 progneg64_intmin_imm,
 progneg64_intmin_reg,
 progneg64,
---progprime, -- Jump negativo
+progprime, -- Jump negativo
 progrsh32_imm_high,
 progrsh32_imm_neg,
 progrsh32_imm,
@@ -5683,10 +5688,10 @@ memorydiv64_imm,
 memorydiv64_negative_imm,
 memorydiv64_negative_reg,
 memorydiv64_reg,
---memoryexit_not_last, -- Jump negativo
+memoryexit_not_last, -- Jump negativo
 memoryexit,
 memoryj_signed_imm,
---memoryja32, -- Jump negativo
+memoryja32, -- Jump negativo
 memoryjeq_imm,
 memoryjeq_reg,
 memoryjeq32_imm,
@@ -5808,7 +5813,7 @@ memoryneg32_intmin_reg,
 memoryneg64_intmin_imm,
 memoryneg64_intmin_reg,
 memoryneg64,
---memoryprime, -- Jump negativo
+memoryprime, -- Jump negativo
 memoryrsh32_imm_high,
 memoryrsh32_imm_neg,
 memoryrsh32_imm,

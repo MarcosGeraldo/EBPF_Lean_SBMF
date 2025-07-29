@@ -5,15 +5,6 @@ set_option maxRecDepth 1000
 open Lean
 open Lean Elab  Meta
 
----- Inicio da semantica para ler o padrão dos Testes de Conformidade
-
-
---------->>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<
---------->>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<
---------->>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<
---------->>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<
------ Inicio do parser para ler os testes de conformidade
-
 def hexParser (c : Char) : Hex :=
   match c with
   | '0' => Hex.x0  | '1' => Hex.x1  | '2' => Hex.x2  | '3' => Hex.x3
@@ -25,28 +16,7 @@ def hexParser (c : Char) : Hex :=
   | 'D' => Hex.xD | 'E' => Hex.xE | 'F' => Hex.xF
   | _ => Hex.x0
 declare_syntax_cat imp_StackWord
-/-
-syntax char char : imp_StackWord  -- Caso base
-syntax char char imp_StackWord : imp_StackWord
 
-partial def elabStackWord : Syntax → TermElabM Expr
-  | `(imp_StackWord| $a:char $b:char) => do
-      let aExpr := mkRawNatLit (hexCharToNatParser a.getChar)
-      let bExpr := mkRawNatLit (hexCharToNatParser b.getChar)
-      mkAppM ``StackWord.mk #[aExpr, bExpr, mkConst ``StackWord.nil]
-  | `(imp_StackWord| $a:char $b:char $rest:imp_StackWord) => do
-      let restExpr ← elabStackWord rest
-      let aExpr := mkRawNatLit (hexCharToNatParser a.getChar)
-      let bExpr := mkRawNatLit (hexCharToNatParser b.getChar)
-      mkAppM ``StackWord.mk #[aExpr, bExpr, restExpr]
-  | _ => throwUnsupportedSyntax
-
-elab "test_elabStackWord" l:imp_StackWord : term => elabStackWord l
-
-
-
-elab "{mem|" p: imp_StackWord "}" : term => elabStackWord p
--/
 instance : Lean.ToExpr Hex where
   toExpr
     | .x0 => mkConst ``Hex.x0
@@ -68,7 +38,7 @@ instance : Lean.ToExpr Hex where
   toTypeExpr := mkConst ``Hex
 
 
-syntax char char : imp_StackWord  -- Caso base
+syntax char char : imp_StackWord
 syntax char char imp_StackWord : imp_StackWord
 
 partial def elabStackWord : Syntax → TermElabM Expr
@@ -84,12 +54,10 @@ partial def elabStackWord : Syntax → TermElabM Expr
       mkAppM ``StackWord.mk #[toExpr hexA, toExpr hexB, restExpr]
   | _ => throwUnsupportedSyntax
 
-elab "test_elabStackWord " l:imp_StackWord : term => elabStackWord l
-
 elab "{mem|" p:imp_StackWord "}" : term => elabStackWord p
 
 --------->>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<
---------->>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<
+
 declare_syntax_cat imp_RegisterCode
 syntax "%r0" : imp_RegisterCode
 syntax "%r1" : imp_RegisterCode
@@ -117,11 +85,7 @@ def elabRegisterCode : Syntax → MetaM Expr
 | `(imp_RegisterCode| %r10) => return .const ``RegisterCode.r10 []
 | _ => throwUnsupportedSyntax
 
-elab "test_elabRegisterCode" l:imp_RegisterCode : term => elabRegisterCode l
-
 --------->>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<
---------->>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<
-
 
 declare_syntax_cat imp_SourceReg
 syntax imp_RegisterCode : imp_SourceReg
@@ -132,11 +96,7 @@ def elabSourceReg : Syntax → MetaM Expr
   mkAppM ``SourceReg.mk #[l]
 | _ => throwUnsupportedSyntax
 
-elab "test_elabSourceReg" l:imp_SourceReg : term => elabSourceReg l
-
 --------->>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<
---------->>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<
-
 
 declare_syntax_cat imp_DestinationReg
 syntax imp_RegisterCode : imp_DestinationReg
@@ -147,11 +107,7 @@ def elabDestinationReg : Syntax → MetaM Expr
   mkAppM ``DestinationReg.mk #[l]
 | _ => throwUnsupportedSyntax
 
-elab "test_elabDestinationReg" l:imp_DestinationReg : term => elabDestinationReg l
-
 --------->>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<
---------->>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<
-
 
 declare_syntax_cat imp_Offset
 syntax "+"? num : imp_Offset
@@ -166,9 +122,6 @@ def elabOffset : Syntax → MetaM Expr
 | `(imp_Offset| exit) => mkAppM ``Offset.Exit #[]
 | _ => throwUnsupportedSyntax
 
-elab "test_elabOffset" l:imp_Offset : term => elabOffset l
-
---------->>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<
 --------->>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<
 
 declare_syntax_cat imp_Content
@@ -178,9 +131,6 @@ def elabContent : Syntax → MetaM Expr
 | `(imp_Content| $n:num) => mkAppM ``Content.mk #[mkNatLit n.getNat]
 | _ => throwUnsupportedSyntax
 
-elab "test_elabContent" l:imp_Content : term => elabContent l
-
---------->>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<
 --------->>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<
 
 declare_syntax_cat imp_Immediate
@@ -195,11 +145,7 @@ def elabImmediate : Syntax → MetaM Expr
     mkAppM ``Immediate.mk #[mkNatLit i]
 | _ => throwUnsupportedSyntax
 
-elab "test_elabImmediate" l:imp_Immediate : term => elabImmediate l
-
 --------->>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<
---------->>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<
-
 
 declare_syntax_cat imp_OpCodeK
 syntax "exit" : imp_OpCodeK
@@ -245,17 +191,14 @@ syntax "jgt32" : imp_OpCodeK
 syntax "jneq" : imp_OpCodeK
 syntax "jset" : imp_OpCodeK
 syntax "jset32" : imp_OpCodeK
-
 syntax "jsgt" : imp_OpCodeK
 syntax "jsgt32" : imp_OpCodeK
 syntax "jsge" : imp_OpCodeK
 syntax "jsge32" : imp_OpCodeK
-
 syntax "jslt" : imp_OpCodeK
 syntax "jslt32" : imp_OpCodeK
 syntax "jsle" : imp_OpCodeK
 syntax "jsle32" : imp_OpCodeK
-
 syntax "ldh" : imp_OpCodeK
 syntax "ldxb" : imp_OpCodeK
 syntax "ldxh" : imp_OpCodeK
@@ -284,7 +227,6 @@ syntax "le64" : imp_OpCodeK
 syntax "swap16" : imp_OpCodeK
 syntax "swap32" : imp_OpCodeK
 syntax "swap64" : imp_OpCodeK
-
 syntax "stw" : imp_OpCodeK
 syntax "sth" : imp_OpCodeK
 syntax "stb" : imp_OpCodeK
@@ -385,11 +327,7 @@ partial def elabOpCodeK : Syntax → MetaM Expr
 | `(imp_OpCodeK| stxdw) => return mkAppN (Expr.const ``OpCode.mk []) #[Expr.const ``Msb.bpf_stxdw [], Expr.const ``Source.bpf_k [], Expr.const ``Lsb.bpf_stx []]
 | _ => throwUnsupportedSyntax
 
-elab "test_elabOpCodeK" e:imp_OpCodeK : term => elabOpCodeK e
-
 --------->>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<
---------->>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<
-
 
 declare_syntax_cat imp_OpCodeX
 syntax "exit" : imp_OpCodeX
@@ -428,17 +366,14 @@ syntax "jge" : imp_OpCodeX
 syntax "jge32" : imp_OpCodeX
 syntax "jne" : imp_OpCodeX
 syntax "jne32" : imp_OpCodeX
-
 syntax "jsgt" : imp_OpCodeX
 syntax "jsgt32" : imp_OpCodeX
 syntax "jsge" : imp_OpCodeX
 syntax "jsge32" : imp_OpCodeX
-
 syntax "jslt" : imp_OpCodeX
 syntax "jslt32" : imp_OpCodeX
 syntax "jsle" : imp_OpCodeX
 syntax "jsle32" : imp_OpCodeX
-
 syntax "jlt" : imp_OpCodeX
 syntax "jlt32" : imp_OpCodeX
 syntax "jset" : imp_OpCodeX
@@ -482,7 +417,6 @@ syntax "stxw" : imp_OpCodeX
 syntax "stxh" : imp_OpCodeX
 syntax "stxb" : imp_OpCodeX
 syntax "stxdw" : imp_OpCodeX
---Adicionar Call
 
 partial def elabOpCodeX : Syntax → MetaM Expr
 | `(imp_OpCodeX| add32) => return mkAppN (Expr.const ``OpCode.mk []) #[Expr.const ``Msb.bpf_add [], Expr.const ``Source.bpf_x [], Expr.const ``Lsb.bpf_alu []]
@@ -573,9 +507,6 @@ partial def elabOpCodeX : Syntax → MetaM Expr
 
 | _ => throwUnsupportedSyntax
 
-elab "test_elabOpCodeX" e:imp_OpCodeX : term => elabOpCodeX e
-
---------->>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<
 --------->>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<
 
 declare_syntax_cat imp_Word
@@ -669,10 +600,7 @@ def elabWord : Syntax → MetaM Expr
   let opCode ← elabOpCodeX a
   let offsetExpr := mkApp (Expr.const ``Offset.mk []) (mkNatLit 0)
   let imm := mkApp (Expr.const ``Immediate.mk []) (mkNatLit 0)
-  --let regExprSrc := mkAppN (Expr.const ``SourceReg.mk []) #[Expr.const ``RegisterCode.r0 []]
   let reg ← elabRegisterCode b
-  --let regExprDst ← elabRegisterCode reg
-  --let regExprSrc ← elabRegisterCode reg
   let regExprSrc := mkAppN (Expr.const ``SourceReg.mk []) #[reg]
   let regExprDst := mkAppN (Expr.const ``DestinationReg.mk []) #[reg]
   return mkAppN (Expr.const ``Word.mk []) #[imm, offsetExpr, regExprSrc , regExprDst, opCode]
@@ -733,9 +661,6 @@ def elabWord : Syntax → MetaM Expr
 
 | _ => throwUnsupportedSyntax
 
-elab "test_elabWord" e:imp_Word : term => elabWord e
-
---------->>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<
 --------->>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<
 
 declare_syntax_cat imp_Instructions
@@ -752,24 +677,6 @@ partial def elabInstructions : Syntax → MetaM Expr
   mkAppM ``Instructions.Nil #[l]
 | _ => throwUnsupportedSyntax
 
-elab "test_elabInstructions" e:imp_Instructions : term => elabInstructions e
-
---------->>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<
---------->>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<
-
-
-declare_syntax_cat imp_Pc
-syntax num : imp_Pc
-
-def elabPc : Syntax → MetaM Expr
-| `(imp_Pc| $n:num) => mkAppM ``Pc.mk #[mkNatLit n.getNat]
-| _ => throwUnsupportedSyntax
-
-elab "test_elabPc" l:imp_Pc : term => elabPc l
---#reduce test_elabPc 3
-
-
---------->>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<
 --------->>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<
 
 instance : Repr Registers where
@@ -777,7 +684,6 @@ instance : Repr Registers where
     s!"Registers(r0 := {regs.r0}, r1 := {regs.r1}, r2 := {regs.r2}, r3 := {regs.r3}, r4 := {regs.r4}, " ++
     s!"r5 := {regs.r5}, r6 := {regs.r6}, r7 := {regs.r7}, r8 := {regs.r8}, r9 := {regs.r9})"
 
---------->>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<
 --------->>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<
 
 instance : Repr MemorySpace where
@@ -793,7 +699,6 @@ instance : Repr MemorySpace where
     s!"MemorySpace({memStr})"
 
 --------->>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<
---------->>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<
 
 instance : Repr Instructions where
   reprPrec ins _ :=
@@ -805,7 +710,6 @@ instance : Repr Instructions where
     let instrStr := String.intercalate ", " instrList
     s!"Instructions([{instrStr}])"
 
---------->>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<
 --------->>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<
 
 declare_syntax_cat newline  -- Define uma categoria de sintaxe para nova linha
@@ -819,11 +723,7 @@ def elabComment : Syntax → MetaM Expr
   return mkStrLit comment_str
 | _ => throwUnsupportedSyntax
 
-elab "test_elabComment" e:imp_Comment : term => elabComment e
-
 --------->>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<
---------->>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<
-
 
 declare_syntax_cat imp_TestEval
 syntax "#" ident* "#" ident* "asm" imp_Instructions "result" num : imp_TestEval
@@ -834,7 +734,5 @@ def elabTestEval : Syntax → MetaM Expr
   let c : Expr := mkNatLit c.getNat  -- Converte o número para um literal de número
   mkAppM ``TestEval.mk #[ b, c]  -- Cria uma instância do construtor TestEval
 | _ => throwUnsupportedSyntax
-
-elab "test_elabTestEval" e:imp_TestEval : term => elabTestEval e
 
 elab "{exe|" p: imp_TestEval "}" : term => elabTestEval p

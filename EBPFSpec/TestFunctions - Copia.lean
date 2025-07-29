@@ -9,14 +9,14 @@ def exeConformance ( input : TestEval ) (stack : MemorySpace) : MemorySpace × R
   match input with
   | TestEval.mk instructions _expectedResult =>
     let fuel := 1000
-    let returnedResult := exeMain stack initialRegisters instructions fuel 0
+    let returnedResult := exeMain stack initialRegisters instructions fuel
     returnedResult
 
 def exeConformanceDebug ( input : TestEval ) (stack : MemorySpace) : MemorySpace × Registers × Instructions × List ℕ :=
   match input with
   | TestEval.mk instructions _expectedResult =>
     let fuel := 1000
-    let returnedResult := exeMainDebug stack initialRegisters instructions fuel 0 []
+    let returnedResult := exeMainDebug stack initialRegisters instructions fuel []
     returnedResult
 
 

@@ -190,10 +190,6 @@ def hexToNatList (input : List ℕ) (acc : Nat) : Nat :=
   | n :: rest =>
     hexToNatList rest (16 * acc + n)
 
--- Convert a hexadecimal string to a natural number
-def hexToNat (s : String) : Nat :=
-  hexToNatCharList s.toList 0
-
 -- Converte um número (0-15) para o caractere hexadecimal correspondente
 def natToHexChar (n : ℕ) : Char :=
   if n < 10 then
@@ -210,10 +206,6 @@ def natToHexRec (n : ℕ) : List Char :=
 def natToHexCharList (n : ℕ) : List Char :=
   if n = 0 then ['0']
   else natToHexRec n
-
-def natToHexString (n : ℕ) : String :=
-  if n = 0 then String.mk ['0']
-  else String.mk (natToHexRec n)
 
 def getDestCode (destReg : DestinationReg) :  RegisterCode  :=
   match destReg with
@@ -256,7 +248,6 @@ theorem provaFin (index : Nat) : index % 512 < 512 := by
   have h : index % 512 < 512 := Nat.mod_lt index (by decide)
   -- Use the fact to prove the goal
   exact h
-
 
 def hexStackToNat (h : Hex) : ℕ :=
   match h with

@@ -55,8 +55,6 @@ deriving Repr, DecidableEq
 
 inductive StackWord
   | nil : StackWord
-  --| mk : Char → Char → StackWord → StackWord
-  --| mk : ℕ  → ℕ → StackWord → StackWord
   | mk : Hex  → Hex → StackWord → StackWord
 deriving Repr
 
@@ -64,10 +62,6 @@ inductive Immediate : Type
 | mk : ℕ  → Immediate
 | mkN : ℕ → Immediate
 deriving Repr, DecidableEq
-
-inductive Pc : Type
-| mk : ℕ → Pc
-deriving Repr
 
 inductive Offset: Type
 | mk : ℕ → Offset
