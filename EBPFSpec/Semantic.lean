@@ -1,7 +1,7 @@
 import Mathlib.Data.Nat.Defs
 
 -- Comando para definir o tamanho maximo da arvore de recursão
-set_option maxRecDepth 1000
+set_option maxRecDepth 100000
 
 --------->>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<
 --------->>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<

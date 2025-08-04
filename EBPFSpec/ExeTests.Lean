@@ -1,5 +1,6 @@
 import «EBPFSpec».TestFunctions
 
+set_option maxRecDepth 100000
 
 ------------------------------------------------------------------------------
 /-
@@ -20,7 +21,7 @@ def prog_only_arp : TestEval :=
 # Copyright Big Switch Networks Inc
 # SPDX_License_Identifier Apache_2_0
 asm
-ldh %r1, [12]
+ldxh %r1, [12]
 mov32 %r0, 1
 jne %r1, 0x0608, 1
 exit
@@ -30,10 +31,15 @@ result
 0x1
 }
 /-
-#eval exeConformance prog_only_arp (inputPackgeGeneratorArp true)
+#eval exeConformanceDebug prog_only_arp (inputPackgeGeneratorArp false) -- Exit R0 == 0
+#eval exeConformanceDebug prog_only_arp (inputPackgeGeneratorArp true) -- Exit R0 == 1
 
 #eval evaluateEbpfProg prog_only_arp (cratePackgesArp 5 10)
 -/
+def numtests := 20000
+def numAccept := 500
+
+#eval evaluateEbpfProgCont prog_only_arp (cratePackgesArp numAccept numtests)
 
 -------------------------------------------------------------------------------
 /-
@@ -49,7 +55,7 @@ def prog_only_IPV44 : TestEval :=
 # Copyright Big Switch Networks Inc
 # SPDX_License_Identifier Apache_2_0
 asm
-ldh %r1, [12]
+ldxh %r1, [12]
 mov32 %r0, 1
 jne %r1, 0x0008, 1
 exit
@@ -58,11 +64,13 @@ exit
 result
 0x1
 }
-/-
-#eval exeConformance prog_only_IPV44 (inputPackgeGeneratorIPv4 true)
 
-#eval evaluateEbpfProg prog_only_IPV44 (cratePackgesIPV4 15 100)
--/
+#eval exeConformanceDebug prog_only_IPV44 (inputPackgeGeneratorIPv4 false) -- Exit R0 == 0
+#eval exeConformanceDebug prog_only_IPV44 (inputPackgeGeneratorIPv4 true) -- Exit R0 == 1
+
+#eval evaluateEbpfProg prog_only_IPV44 (cratePackgesIPV4 30 70)
+
+#eval evaluateEbpfProgCont prog_only_IPV44 (cratePackgesIPV4 30 70)
 
 
 -----------------------------------------------------------------------------

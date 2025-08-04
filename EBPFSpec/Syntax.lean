@@ -128,15 +128,6 @@ def evalJmpCond (regs : Registers) (word : Word) (bits : ℕ ) : Bool :=
           | Msb.bpf_ja  => true
           | _ => false
 
-def execJmp (instr : Instructions) (word : Word) : Instructions :=
-  match word with
-  | Word.mk imm offset srcReg destReg opCode =>
-    match instr, offset with
-     | Instructions.Cons _ _, Offset.mk 0 => instr
-     | Instructions.Cons _w ws, Offset.mk off => execJmp ws (Word.mk imm (Offset.mk (off-1)) srcReg destReg opCode)
-     | Instructions.Nil _w, Offset.mk _ => Instructions.Nil (Word.mk imm offset srcReg destReg OpCode.Eof)
-     | _, _ => Instructions.Nil (Word.mk imm offset srcReg destReg OpCode.Eof)
-
 def countInstructions : Instructions → Nat
   | Instructions.Nil _ => 0
   | Instructions.Cons _ rest => 1 + countInstructions rest

@@ -95,7 +95,6 @@ def createBooleanList(valid n : ℕ) : List Bool :=
       | 0 => false :: createBooleanList 0 n'
   |0 => []
 
-
 --Função que cria uma lista de pacotes ARP
 --E retorna quais são validos e quais não pacote
 def cratePackgesArp ( valid n : ℕ ) : List MemorySpace × List Bool :=
@@ -117,9 +116,22 @@ def evalEbpfProg (prog : TestEval) (inputs : List MemorySpace) (validList : List
       | v :: vs =>
         let (_retMemory, retVal, _inst) := exeConformance prog i
         match prog with
-        | TestEval.mk _instr expectedVal => ((expectedVal == retVal.r0) && v) :: evalEbpfProg prog is vs
+        | TestEval.mk _instr expectedVal => ((expectedVal == retVal.r0) == v) :: evalEbpfProg prog is vs
       |[]=> []
   | [] => []
+
+def evalEbpfProgCont (prog : TestEval) (inputs : List MemorySpace) (validList : List Bool) : ℕ :=
+  match inputs with
+  | i :: is =>
+    match validList with
+      | v :: vs =>
+        let (_retMemory, retVal, _inst) := exeConformance prog i
+        match prog with
+        | TestEval.mk _instr expectedVal => if (expectedVal == retVal.r0) == v
+          then 1 + evalEbpfProgCont prog is vs
+          else evalEbpfProgCont prog is vs
+      |[]=> 0
+  | [] => 0
 
 def exeConformanceCompareResult (prog : TestEval) (inputs : MemorySpace) :=
   let (_retMemory, retVal, _inst) := exeConformance prog inputs
@@ -130,3 +142,8 @@ def exeConformanceCompareResult (prog : TestEval) (inputs : MemorySpace) :=
 def evaluateEbpfProg (prog : TestEval) (input : List MemorySpace × List Bool) : List Bool :=
   match input with
   | (inputMemory, validList) => evalEbpfProg prog inputMemory validList
+
+-- Função para "Desembrulhar" o retorno do cratePackges
+def evaluateEbpfProgCont (prog : TestEval) (input : List MemorySpace × List Bool) : ℕ :=
+  match input with
+  | (inputMemory, validList) => evalEbpfProgCont prog inputMemory validList
