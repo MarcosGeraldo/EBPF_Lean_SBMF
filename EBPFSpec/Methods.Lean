@@ -33,7 +33,6 @@ def andLogical (x y : Nat) : Nat :=
   let resultBin := bitwiseAnd binX binY
   binToNat resultBin
 
-
 def bitwiseOr (a b : List Bool) : List Bool :=
   let len := max a.length b.length
   let aPadded := List.replicate (len - a.length) false ++ a
