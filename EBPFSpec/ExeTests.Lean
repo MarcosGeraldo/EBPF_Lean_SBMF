@@ -36,8 +36,8 @@ result
 
 #eval evaluateEbpfProg prog_only_arp (cratePackgesArp 5 10)
 -/
-def numtests := 20000
-def numAccept := 500
+def numtests := 9000
+def numAccept := 4500
 
 #eval evaluateEbpfProgCont prog_only_arp (cratePackgesArp numAccept numtests)
 

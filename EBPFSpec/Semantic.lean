@@ -27,12 +27,6 @@ deriving Repr
 -------------------Definição da Pilha de Memoria
 structure MemorySpace where
   data : Fin 512 → Nat
-/-
-inductive StackWord
-  | nil : StackWord
-  | mk : Char → Char → StackWord → StackWord
-deriving Repr
--/
 
 inductive Hex : Type
 | x0  : Hex

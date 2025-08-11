@@ -957,11 +957,6 @@ result
 0x1
 }
 -- Fim do arquivo: j-signed-imm.lean
-def negativeSub ( x y bits : ℕ ) : ℕ :=
-  bitTrim ( x + makeSigned y bits ) bits
-  --bitTrim ( x - returnSigned y bits ) bits
-  --( x + makeSigned y bits )
-  --bitTrim ( x - y ) bits
 
 def evalNeg (n bits : ℕ ) : Bool :=
   let binList := natToBin n
@@ -972,10 +967,64 @@ def evalNeg (n bits : ℕ ) : Bool :=
     | _ => false
   else false
 
+
+--- Problema O immediato tem apenas 32 bits
+--- O codigo como um todo usa apenas palavras de 64 bits
+--- Não existe nenhum caso que defina uma palavra de 218 bits
+def negativeSub ( x y bits' : ℕ ) : ℕ :=
+  let bits := bits'
+  match (evalNeg x bits) , (evalNeg y bits) with
+  -- se os dois forem negativos
+  | true, true => bitTrim ( x + y ) bits
+  -- se somente x for negativo
+  | true, false => bitTrim ( x +  (makeSigned y bits) ) bits
+  --| true, false =>  makeSigned ( bitTrim  ((makeSigned x bits) -  (makeSigned y bits)) bits) bits
+  --| true, false => bitTrim ( x +  y ) bits
+  --| true, false => bitTrim ( x +  y ) bits
+  -- se somente y for negativo
+  --| false, true => makeSigned ( bitTrim  ((makeSigned y bits) -  (makeSigned x bits)) bits) bits
+  | false, true => bitTrim ( x +  y ) bits
+-- se os dois forem positivos
+  | false, false => bitTrim ( x + (makeSigned y bits) ) bits -- ok
+  --| false, false => makeSigned ( bitTrim  ((makeSigned x bits) -  (makeSigned y 32)) bits) bits -- ok
+  --| false, false =>  bitTrim ( makeSigned ( x +  (makeSigned y bits)) bits) bits -- ok
+  --| false, false =>  makeSigned ( bitTrim ((makeSigned x bits) +  (makeSigned y bits)) bits ) bits -- ok
+
+def negativeSubBool ( x y bits : ℕ ) : Bool :=
+  evalNeg ( makeSigned ( bitTrim ( (makeSigned x bits) -  (makeSigned y bits) ) bits ) bits) bits
+
+#eval negativeSubBool 5 10 32
+#eval negativeSubBool 10 5 32
+
+#eval negativeSub 10 10 64
+
+#eval [1,2,3].head!
+
+--Casos Corretos
+-- == x+y // makeSigned do negativo + o positivo
+-- JLT negativo + makeSigned do positivo// negativo + returnSigned do positivo
+-- JGT // makeSigned do positivo + o negativo
+
+#eval evalNeg (makeSigned ((makeSigned 5 32) - (makeSigned 10 32)) 32) 32
+#eval evalNeg (makeSigned ((makeSigned 10 32) - (makeSigned 5 32)) 32) 32
+
+#eval evalNeg (makeSigned ((makeSigned 0x80000000 64) - (makeSigned 0x80000000 64)) 64) 64
+
+#eval natToHexCharList (returnSigned 0x80000001 64)
+#eval negativeSub 10 10 64
+
+#eval natToHexCharList (returnSigned 0xFFFFFFFF80000001 64)
+
+
+#eval natToHexCharList (makeSigned 0x80000000 64)
+#eval evalNeg 0x80000001 64
+
 #eval negativeSub 0x80000001 0xFFFFFFFF80000000 64
 #eval negativeSub 0xFFFFFFFF80000000 0x80000001 64
 #eval natToBin (negativeSub 0xFFFFFFFF80000000 0x80000001 64)
 #eval List.length ( natToBin (makeSigned 0xFFFFFFFF80000000 64))
+
+#eval natToHexCharList (makeSigned 0xFFFFFFFF80000000 64)
 
 #eval (makeSigned 0x80000000 64) - 0xFFFFFFFF80000000
 #eval natToBin (0xFFFFFFFF80000000)
@@ -984,16 +1033,35 @@ def evalNeg (n bits : ℕ ) : Bool :=
 #eval List.length (natToBin (0xFFFFFFFF80000000 + 0xFFFFFFFF80000000))
 --Jeq  DST ++ SRC ->  DST - SRC == 0
 #eval 0 == negativeSub 0x80000000 0xFFFFFFFF80000000 64
+#eval 0 == negativeSub 0xFFFFFFFF80000000 0x80000000 64
+
+---Como deveria ser a operação
+#eval 0 == ( bitTrim (0x80000000 + (makeSigned 0xFFFFFFFF80000000 64)) 64)
+#eval 0 == ( bitTrim (0xFFFFFFFF80000000 + (makeSigned 0x80000000 32)) 64)
+#eval 0 == ( bitTrim (10 + (makeSigned 10 64)) 64)
+
 #eval 0 == negativeSub 5 10 64
 #eval 0 == negativeSub 10 10 64
 --JLT DST < SRC -> DST - SRC == Neg
 #eval evalNeg (negativeSub 0xFFFFFFFF80000000 0x80000001 64) 64
-#eval evalNeg (negativeSub 10 5 64) 64 --DST = 10; SRC = 5
-#eval evalNeg (negativeSub 5 10 64) 64 --DST = 5; SRC = 10
+#eval evalNeg (negativeSub 10 5 64) 64 --DST = 10; SRC = 5 false
+#eval evalNeg (negativeSub 5 10 64) 64 --DST = 5; SRC = 10 true
+
+---Como deveria ser a operação
+#eval evalNeg ( bitTrim (0xFFFFFFFF80000000 + (makeSigned 0x80000001 32)) 64) 64
+#eval evalNeg ( bitTrim (0xFFFFFFFF80000000 + (makeSigned 0x80000001 64)) 64) 64
+
 --JGT  DST > SRC -> SRC - DST == Neg
-#eval evalNeg (negativeSub 0x80000000 0xFFFFFFFF80000001 64) 64
-#eval evalNeg (negativeSub 5 10 64) 64 --DST = 10; SRC = 5
-#eval evalNeg (negativeSub 10 5 64) 64 --DST = 5; SRC = 10
+#eval evalNeg (negativeSub 0x80000000 0xFFFFFFFF80000001 64) 64 -- correto
+#eval evalNeg (negativeSub 0xFFFFFFFF80000001 0x80000000 64) 64
+#eval evalNeg (negativeSub 5 10 64) 64 --DST = 10; SRC = 5 true
+#eval evalNeg (negativeSub 10 5 64) 64 --DST = 5; SRC = 10 false
+
+---Como deveria ser a operação
+#eval evalNeg ( bitTrim (0x80000000 + (makeSigned 0xFFFFFFFF80000001 64)) 64) 64
+#eval evalNeg ( bitTrim (0x80000000 + 0xFFFFFFFF80000001 ) 64) 64
+#eval evalNeg ( bitTrim ((makeSigned 0x80000000 64) + 0xFFFFFFFF80000001 ) 64) 64
+#eval evalNeg ( bitTrim ((makeSigned 0x80000000 32) + 0xFFFFFFFF80000001 ) 64) 64
 
 #eval negativeSub 0x80000000 0xFFFFFFFF80000001 64
 #eval natToBin (negativeSub 0x80000000 0xFFFFFFFF80000001 64)
@@ -1004,6 +1072,20 @@ def evalNeg (n bits : ℕ ) : Bool :=
 
 --Jne
 #eval 0 != (negativeSub 0x80000000 0x80000000 64)
+
+---Como deveria ser a operação
+#eval 0 != ( bitTrim (0x80000000 + (makeSigned 0x80000000 32)) 64)
+
+#eval (negativeSub 0x80000000 0x80000000 64)
+#eval 0x80000000 + (makeSigned 0x80000000 64)
+#eval natToBin (0x80000000 + (makeSigned 0x80000000 64))
+#eval List.length (natToBin (0x80000000 + (makeSigned 0x80000000 64)))
+#eval (makeSigned 0x80000000 64) + (makeSigned 0x80000000 64)
+#eval natToBin ((makeSigned 0x80000000 64) + (makeSigned 0x80000000 64))
+#eval List.length (natToBin ((makeSigned 0x80000000 64) + (makeSigned 0x80000000 64)))
+#eval natToBin (makeSigned ((makeSigned 0x80000000 64) + (makeSigned 0x80000000 64)) 64)
+#eval List.length (natToBin (makeSigned ((makeSigned 0x80000000 64) + (makeSigned 0x80000000 64)) 64))
+
 --Jset Fazer makeSigned com o SRC tamanho e valor ok
 #eval andLogical (makeSigned 0x80000000 64) 0xFFFFFFFF00000000
 #eval (natToBin (andLogical (makeSigned 0x80000000 64) 0xFFFFFFFF00000000))
