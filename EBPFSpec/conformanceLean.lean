@@ -958,6 +958,16 @@ result
 }
 -- Fim do arquivo: j-signed-imm.lean
 
+#eval exeConformanceCompareResult progj_signed_imm memoryj_signed_imm
+
+#check -5
+#check Nat.toUInt64 0x80000000
+#eval 0xFFFFFFFF80000000 - 0x80000000
+#eval (Int.ofNat 0x80000000 - Int.ofNat 0xFFFFFFFF80000000)
+#eval (Int.ofNat  0xFFFFFFFF80000000 - Int.ofNat 0x80000000)
+#eval (Int.ofNat 0x80000000 - Int.ofNat 0xFFFFFFFF80000000) * -1
+#eval bitTrim ( Int.toNat ((Int.ofNat 0x80000000 - Int.ofNat 0xFFFFFFFF80000000) * -1)) 64
+
 def evalNeg (n bits : ℕ ) : Bool :=
   let binList := natToBin n
   if List.length binList == bits
@@ -967,10 +977,6 @@ def evalNeg (n bits : ℕ ) : Bool :=
     | _ => false
   else false
 
-
---- Problema O immediato tem apenas 32 bits
---- O codigo como um todo usa apenas palavras de 64 bits
---- Não existe nenhum caso que defina uma palavra de 218 bits
 def negativeSub ( x y bits' : ℕ ) : ℕ :=
   let bits := bits'
   match (evalNeg x bits) , (evalNeg y bits) with
@@ -993,230 +999,36 @@ def negativeSub ( x y bits' : ℕ ) : ℕ :=
 def negativeSubBool ( x y bits : ℕ ) : Bool :=
   evalNeg ( makeSigned ( bitTrim ( (makeSigned x bits) -  (makeSigned y bits) ) bits ) bits) bits
 
-#eval negativeSubBool 5 10 32
-#eval negativeSubBool 10 5 32
+#eval negativeSubBool 5 10 32 --True 5 - 10 negativo
+#eval negativeSubBool 10 5 32 --False 10 - 5 positivo
 
-#eval negativeSub 10 10 64
+#eval 0 == ( bitTrim (0x80000000 + (makeSigned 0xFFFFFFFF80000000 64)) 64)-- correto -- True
+#eval 0 == ( bitTrim (0xFFFFFFFF80000000 + (makeSigned 0x80000000 32)) 64)-- correto -- True
+#eval 0 == ( bitTrim (0xFFFFFFFF80000000 + (makeSigned 0x80000000 64)) 64)-- Errado -- False
+#eval 0 == ( bitTrim (10 + (makeSigned 10 64)) 64) -- True 10 - 10
 
-#eval [1,2,3].head!
-
---Casos Corretos
--- == x+y // makeSigned do negativo + o positivo
--- JLT negativo + makeSigned do positivo// negativo + returnSigned do positivo
--- JGT // makeSigned do positivo + o negativo
-
-#eval evalNeg (makeSigned ((makeSigned 5 32) - (makeSigned 10 32)) 32) 32
-#eval evalNeg (makeSigned ((makeSigned 10 32) - (makeSigned 5 32)) 32) 32
-
-#eval evalNeg (makeSigned ((makeSigned 0x80000000 64) - (makeSigned 0x80000000 64)) 64) 64
-
-#eval natToHexCharList (returnSigned 0x80000001 64)
-#eval negativeSub 10 10 64
-
-#eval natToHexCharList (returnSigned 0xFFFFFFFF80000001 64)
-
-
-#eval natToHexCharList (makeSigned 0x80000000 64)
-#eval evalNeg 0x80000001 64
-
-#eval negativeSub 0x80000001 0xFFFFFFFF80000000 64
-#eval negativeSub 0xFFFFFFFF80000000 0x80000001 64
-#eval natToBin (negativeSub 0xFFFFFFFF80000000 0x80000001 64)
-#eval List.length ( natToBin (makeSigned 0xFFFFFFFF80000000 64))
-
-#eval natToHexCharList (makeSigned 0xFFFFFFFF80000000 64)
-
-#eval (makeSigned 0x80000000 64) - 0xFFFFFFFF80000000
-#eval natToBin (0xFFFFFFFF80000000)
-#eval natToBin (0xFFFFFFFF80000000 + 0xFFFFFFFF80000000)
-#eval List.length (natToBin (0xFFFFFFFF80000000))
-#eval List.length (natToBin (0xFFFFFFFF80000000 + 0xFFFFFFFF80000000))
---Jeq  DST ++ SRC ->  DST - SRC == 0
-#eval 0 == negativeSub 0x80000000 0xFFFFFFFF80000000 64
-#eval 0 == negativeSub 0xFFFFFFFF80000000 0x80000000 64
-
----Como deveria ser a operação
-#eval 0 == ( bitTrim (0x80000000 + (makeSigned 0xFFFFFFFF80000000 64)) 64)
-#eval 0 == ( bitTrim (0xFFFFFFFF80000000 + (makeSigned 0x80000000 32)) 64)
-#eval 0 == ( bitTrim (10 + (makeSigned 10 64)) 64)
-
-#eval 0 == negativeSub 5 10 64
-#eval 0 == negativeSub 10 10 64
 --JLT DST < SRC -> DST - SRC == Neg
 #eval evalNeg (negativeSub 0xFFFFFFFF80000000 0x80000001 64) 64
 #eval evalNeg (negativeSub 10 5 64) 64 --DST = 10; SRC = 5 false
 #eval evalNeg (negativeSub 5 10 64) 64 --DST = 5; SRC = 10 true
 
 ---Como deveria ser a operação
-#eval evalNeg ( bitTrim (0xFFFFFFFF80000000 + (makeSigned 0x80000001 32)) 64) 64
-#eval evalNeg ( bitTrim (0xFFFFFFFF80000000 + (makeSigned 0x80000001 64)) 64) 64
+#eval evalNeg ( bitTrim (0xFFFFFFFF80000000 + 0x80000001 ) 64) 64
+#eval evalNeg ( bitTrim (0xFFFFFFFF80000000 + (makeSigned 0x80000001 32)) 64) 64 -- correto --False
+#eval evalNeg ( bitTrim (0xFFFFFFFF80000000 + (makeSigned 0x80000001 64)) 64) 64 -- Errado == True
 
 --JGT  DST > SRC -> SRC - DST == Neg
-#eval evalNeg (negativeSub 0x80000000 0xFFFFFFFF80000001 64) 64 -- correto
-#eval evalNeg (negativeSub 0xFFFFFFFF80000001 0x80000000 64) 64
+#eval evalNeg (negativeSub 0x80000000 0xFFFFFFFF80000001 64) 64 -- correto ==False
+#eval evalNeg (negativeSub 0xFFFFFFFF80000001 0x80000000 64) 64 -- Errado == True
 #eval evalNeg (negativeSub 5 10 64) 64 --DST = 10; SRC = 5 true
 #eval evalNeg (negativeSub 10 5 64) 64 --DST = 5; SRC = 10 false
 
 ---Como deveria ser a operação
-#eval evalNeg ( bitTrim (0x80000000 + (makeSigned 0xFFFFFFFF80000001 64)) 64) 64
-#eval evalNeg ( bitTrim (0x80000000 + 0xFFFFFFFF80000001 ) 64) 64
-#eval evalNeg ( bitTrim ((makeSigned 0x80000000 64) + 0xFFFFFFFF80000001 ) 64) 64
-#eval evalNeg ( bitTrim ((makeSigned 0x80000000 32) + 0xFFFFFFFF80000001 ) 64) 64
+#eval evalNeg ( bitTrim (0x80000000 + (makeSigned 0xFFFFFFFF80000001 64)) 64) 64 -- Correto == False
+#eval evalNeg ( bitTrim (0x80000000 + 0xFFFFFFFF80000001 ) 64) 64 -- False
+#eval evalNeg ( bitTrim ((makeSigned 0x80000000 64) + 0xFFFFFFFF80000001 ) 64) 64 -- Errado == True
+#eval evalNeg ( bitTrim ((makeSigned 0x80000000 32) + 0xFFFFFFFF80000001 ) 64) 64 -- Errado == False
 
-#eval negativeSub 0x80000000 0xFFFFFFFF80000001 64
-#eval natToBin (negativeSub 0x80000000 0xFFFFFFFF80000001 64)
-#eval List.length (natToBin 0xFFFFFFFF80000001)
-#eval returnSigned 0xFFFFFFFF80000001 64
-#eval natToHexCharList ((returnSigned 0xFFFFFFFF80000001 64) + 0)
-#eval natToHexCharList ((returnSigned 0xFFFFFFFF80000000 64) + 0)
-
---Jne
-#eval 0 != (negativeSub 0x80000000 0x80000000 64)
-
----Como deveria ser a operação
-#eval 0 != ( bitTrim (0x80000000 + (makeSigned 0x80000000 32)) 64)
-
-#eval (negativeSub 0x80000000 0x80000000 64)
-#eval 0x80000000 + (makeSigned 0x80000000 64)
-#eval natToBin (0x80000000 + (makeSigned 0x80000000 64))
-#eval List.length (natToBin (0x80000000 + (makeSigned 0x80000000 64)))
-#eval (makeSigned 0x80000000 64) + (makeSigned 0x80000000 64)
-#eval natToBin ((makeSigned 0x80000000 64) + (makeSigned 0x80000000 64))
-#eval List.length (natToBin ((makeSigned 0x80000000 64) + (makeSigned 0x80000000 64)))
-#eval natToBin (makeSigned ((makeSigned 0x80000000 64) + (makeSigned 0x80000000 64)) 64)
-#eval List.length (natToBin (makeSigned ((makeSigned 0x80000000 64) + (makeSigned 0x80000000 64)) 64))
-
---Jset Fazer makeSigned com o SRC tamanho e valor ok
-#eval andLogical (makeSigned 0x80000000 64) 0xFFFFFFFF00000000
-#eval (natToBin (andLogical (makeSigned 0x80000000 64) 0xFFFFFFFF00000000))
-#eval List.length (natToBin (andLogical (makeSigned 0x80000000 64) 0xFFFFFFFF00000000))
-
-#eval andLogical (returnSigned 0xFFFFFFFF00000000 64) 0x80000000
-#eval andLogical (returnSigned 0x80000000  64) 0xFFFFFFFF00000000
-#eval andLogical (makeSigned 0xFFFFFFFF00000000 64) 0x80000000
-#eval andLogical 0xFFFFFFFF00000000 0x80000000
-
-#eval evalNeg (negativeSub 5 5 64) 64
-
-#eval natToBin 0x80000000
-#eval natToBin (makeSigned 0x8000 16)
-#eval List.length (natToBin 0x80000000)
-#eval List.length (natToBin 0x8000)
-#eval natToBin (makeSigned 0x80000000 64)
-#eval List.length (natToBin (makeSigned 0x80000000 64))
-
-
-#eval natToBin 0x80000000
-#eval List.length (natToBin 0x80000000)
-
--- 0xFFFFFFFF80000000 == [true, .. , true](32) ++ 0x80000000
-#eval 0xFFFFFFFF80000000 + 0x80000000
-#eval bitTrim (0xFFFFFFFF80000000 + 0x80000000) 64
-#eval natToBin 0xFFFFFFFF80000000
-#eval List.length (natToBin 0xFFFFFFFF80000000)
-
-#eval natToBin 0x80000000
-#eval natToBin (returnSigned 0xFFFFFFFF80000001 64)
-#eval List.length (natToBin (returnSigned 0xFFFFFFFF80000001 64))
-
-#eval exeConformanceCompareResult progj_signed_imm memoryj_signed_imm
-
-#eval returnSigned (makeSigned 1 32) 32
-
-#eval returnSigned ((makeSigned 15 32) + 5) 32
---Somas com complemento 2 funciona Comp A + B == NatA-B
--- Se eu tenho uma valor do tipo a - CompB = a + B
-
-
--- Jeq Equal
--- Igual (a == b) -> a + CompB == 0
--- subtrai a - b e verifica se o resultado é 0.
-#eval natToBin (0xFFFFFFFF80000000 + 0x80000000)
-#eval bitTrim (0xFFFFFFFF80000000 + 0x80000000) 64
-
-#eval List.length (natToBin (0xFFFFFFFF80000000 + 0x80000000))
-#eval natToBin (0xFFFFFFFF80000000 + (makeSigned 0x80000000 64))
-#eval natToBin (0x80000000 + (makeSigned 0xFFFFFFFF80000000 64))
-#eval List.length (natToBin (0x80000000 + (makeSigned 0xFFFFFFFF80000000 64)))
-#eval List.length (natToBin (0xFFFFFFFF80000000 - 0x80000000))
-#eval 0xFFFFFFFF80000000 - 0x80000000
-#eval bitTrim (0xFFFFFFFF80000000 + (makeSigned 0x80000000 64)) 64
-#eval (returnSigned 0xFFFFFFFF80000000 64) == 0x80000000
-#eval 0xFFFFFFFF80000000 == (makeSigned 0x80000000 64)
-#eval (makeSigned 0xFFFFFFFF80000000 64) == 0x80000000
-#eval 0xFFFFFFFF80000000 == 0x80000000
-
-#eval makeSigned (makeSigned 10 32) 32
-
--- Jlt Little dst < Imm/Src
--- dst == 0xFFFFFFFF80000000
--- Menor que (a < b) a - b == neg / CompA + B == neg
--- Menor que (a < b) a - b == neg / A + CompB == neg -- Correto
-#eval natToBin (0xFFFFFFFF80000000 - 0x80000001)
-#eval natToBin (0xFFFFFFFF80000000 + 0x80000001)
-#eval bitTrim (0xFFFFFFFF80000000 + 0x80000001) 64
-
-#eval natToBin (0x80000001 + (makeSigned 0xFFFFFFFF80000000 64))
-#eval List.length (natToBin (0x80000001 + (makeSigned 0xFFFFFFFF80000000 64)))
-#eval List.length (natToBin (0xFFFFFFFF80000000 - 0x80000001))
-#eval List.length (natToBin (0xFFFFFFFF80000000 + 0x80000001))
-#eval 0xFFFFFFFF80000000 - 0x80000001
-#eval 0xFFFFFFFF80000000 + 0x80000001
-#eval bitTrim (0xFFFFFFFF80000000 + 0x80000001) 64
-#eval (returnSigned 0xFFFFFFFF80000000 64) < 0x80000001
-#eval 0xFFFFFFFF80000000 < (makeSigned 0x80000001 64)
-#eval 0xFFFFFFFF80000000 < 0x80000001
-#eval 0xFFFFFFFF80000000 < 0x80000001
-
--- Jgt Greater (dst > Imm/Src) imm - dst
--- dst == 0xFFFFFFFF80000001
--- Maior que (a > b)
--- Internamente (b < a) b - a == negativo / B + CompA == neg
--- Quando você inverte os operadores o valor fica correto
-#eval natToBin (5 + makeSigned 10 64)
-#eval List.length (natToBin (5 + makeSigned 10 64))
-#eval natToBin (0xFFFFFFFF80000001 + 0x80000000)
-#eval bitTrim (0xFFFFFFFF80000001 + 0x80000000) 64
-
-#eval natToBin (0x80000000 + (makeSigned 0xFFFFFFFF80000001 64))
-#eval List.length (natToBin (0x80000000 + (makeSigned 0xFFFFFFFF80000001 64)))
-#eval (returnSigned 0xFFFFFFFF80000001 64) > 0x80000000
-#eval 0xFFFFFFFF80000001 > (makeSigned 0x80000000 64)
-#eval 0xFFFFFFFF80000001 > 0x80000000
-#eval 0xFFFFFFFF80000001 > 0x80000000
-
-
-#eval natToBin (5 + makeSigned 10 32)
-#eval natToBin (10 + makeSigned 5 32)
-#eval List.length (natToBin (5 + makeSigned 10 32))
-#eval List.length (natToBin (10 + makeSigned 5 32))
-#eval natToBin (10 + makeSigned 10 32)
-#eval List.length (natToBin (10 + makeSigned 10 32))
-#eval bitTrim (10 + makeSigned 10 32) 32
-#eval natToBin (11 + makeSigned 10 32)
-#eval List.length (natToBin (11 + makeSigned 10 32))
-#eval bitTrim (11 + makeSigned 10 32) 32
-
-
--- Jne NotEqual dst != Imm/Src
-#eval 0x80000000 - 0x80000000
-#eval 0x80000000 + 0x80000000
-#eval natToBin (0x80000000 + 0x80000000)
-#eval List.length (natToBin (0x80000000 + 0x80000000))
-#eval natToBin (0x80000000 + (makeSigned 0x80000000 64))
-#eval List.length (natToBin (0x80000000 + (makeSigned 0x80000000 64)))
-#eval natToBin (0x80000000 + (makeSigned 0x80000000 64))
-#eval bitTrim (0x80000000 + (makeSigned 0x80000000 64)) 64
-#eval (returnSigned 0x80000000 64) != 0x80000000
-#eval 0x80000000 != (makeSigned 0x80000000 64)
-#eval 0x80000000 != 0x80000000
-#eval 0x80000000 != 0x80000000
-
--- Jset And dst && Imm/Src
-#eval 0 == andLogical (returnSigned 0xFFFFFFFF00000000 64) 0x80000000
-#eval 0 == andLogical 0xFFFFFFFF00000000 (makeSigned 0x80000000 64)
-#eval 0 == andLogical 0xFFFFFFFF00000000 0x80000000
-#eval 0 == andLogical 0xFFFFFFFF00000000 0x80000000
 
 -- Início do arquivo: ja32.lean
 ------------------------------
@@ -4359,7 +4171,7 @@ asm
 mov %r1, 67
 mov %r0, 0x1
 mov %r2, 0x2
-jgt %r1, 0x2, 6
+jgt %r1, 0x2, 5
 ja exit
 add %r2, 0x1
 mov %r0, 0x1
@@ -4370,7 +4182,7 @@ mul %r3, %r2
 mov %r4, %r1
 sub %r4, %r3
 mov %r0, 0x0
-jne %r4, 0x0, -12
+jne %r4, 0x0, -10
 exit
 result
 0x1

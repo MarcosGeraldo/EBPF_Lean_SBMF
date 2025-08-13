@@ -40,7 +40,6 @@ def generateRandomList (size : ℕ) (seed : ℕ) : List Char :=
   | size' + 1 =>
       generateChar seed :: generateRandomList (size') (seed + 17)
 
-
 --Função que dado uma lista de caracteres popula um espaço de memoria
 def formatMemorySpace (input : List Char) : MemorySpace :=
   createStackMemoryCharList 0 emptyMemory input
@@ -50,39 +49,39 @@ def ipv4 := ['0','8','0','0']--0x0800
 def arp := ['0','8','0','6']--0x0806
 
 --Função que cria um pacote Arp, demais valores estão sendo randomizados
-def inputPackgeGeneratorArp ( valid : Bool ) : MemorySpace :=
-  let macDestino := generateRandomList 12 8
-  let macOrigem := generateRandomList 12 8
+def inputPackgeGeneratorArp ( valid : Bool ) (seed : ℕ ) : MemorySpace :=
+  let macDestino := generateRandomList 12 seed
+  let macOrigem := generateRandomList 12 seed
   let eth_type :=  if valid then arp
     else
         generateRandomList 8 8
-  let ipV4Header := generateRandomList 40 8
-  let tcpHeader := generateRandomList 80 8
+  let ipV4Header := generateRandomList 40 seed
+  let tcpHeader := generateRandomList 80 seed
   formatMemorySpace (macDestino ++ macOrigem ++ eth_type ++ ipV4Header ++ tcpHeader)
 
 --Função que cria um pacote IPv4, demais valores estão sendo randomizados
-def inputPackgeGeneratorIPv4 ( valid : Bool ) : MemorySpace :=
-  let macDestino := generateRandomList 12 8
-  let macOrigem := generateRandomList 12 8
+def inputPackgeGeneratorIPv4 ( valid : Bool ) (seed : ℕ ) : MemorySpace :=
+  let macDestino := generateRandomList 12 seed
+  let macOrigem := generateRandomList 12 seed
   let eth_type :=  if valid then ipv4
     else
         generateRandomList 8 8
-  let ipV4Header := generateRandomList 40 8
-  let tcpHeader := generateRandomList 80 8
+  let ipV4Header := generateRandomList 40 seed
+  let tcpHeader := generateRandomList 80 seed
   formatMemorySpace (macDestino ++ macOrigem ++ eth_type ++ ipV4Header ++ tcpHeader)
 
 -- Função que dado uma lista de booleanos retorna uma lista de pacotes Arp
 -- Onde para cada boleano da lista fica definido se o pacote deve ser aceito ou não
-def inputPackgeGeneratorListArp (validList : List Bool ) : List MemorySpace:=
+def inputPackgeGeneratorListArp (validList : List Bool ) (seed : ℕ ) : List MemorySpace:=
   match validList with
-  | valid :: xs => inputPackgeGeneratorArp valid :: inputPackgeGeneratorListArp xs
+  | valid :: xs => inputPackgeGeneratorArp valid seed :: inputPackgeGeneratorListArp xs (seed + 7)
   | [] => []
 
 -- Função que dado uma lista de booleanos retorna uma lista de pacotes IPv4
 -- Onde para cada boleano da lista fica definido se o pacote deve ser aceito ou não
-def inputPackgeGeneratorListIPv4 (validList : List Bool ) : List MemorySpace:=
+def inputPackgeGeneratorListIPv4 (validList : List Bool ) (seed : ℕ ) : List MemorySpace:=
   match validList with
-  | valid :: xs => inputPackgeGeneratorIPv4 valid :: inputPackgeGeneratorListIPv4 xs
+  | valid :: xs => inputPackgeGeneratorIPv4 valid seed :: inputPackgeGeneratorListIPv4 xs (seed + 7)
   | [] => []
 
 -- Função que dado uma contagem de pacotes validos e um tamanho total
@@ -97,15 +96,15 @@ def createBooleanList(valid n : ℕ) : List Bool :=
 
 --Função que cria uma lista de pacotes ARP
 --E retorna quais são validos e quais não pacote
-def cratePackgesArp ( valid n : ℕ ) : List MemorySpace × List Bool :=
+def cratePackgesArp ( valid n : ℕ ) (seed : ℕ )  : List MemorySpace × List Bool :=
     let validList := createBooleanList valid n
-    (inputPackgeGeneratorListArp validList, validList)
+    (inputPackgeGeneratorListArp validList seed, validList)
 
 --Função que cria uma lista de pacotes IPV4
 --E retorna quais são validos e quais não pacote
-def cratePackgesIPV4 ( valid n : ℕ ) : List MemorySpace × List Bool :=
+def cratePackgesIPV4 ( valid n : ℕ ) (seed : ℕ ) : List MemorySpace × List Bool :=
     let validList := createBooleanList valid n
-    (inputPackgeGeneratorListIPv4 validList, validList)
+    (inputPackgeGeneratorListIPv4 validList seed, validList)
 
 -- Função que recebe um programa , uma lista de pacotes de entrada
 -- E compara o resultado esperado com o obtido
@@ -147,3 +146,12 @@ def evaluateEbpfProg (prog : TestEval) (input : List MemorySpace × List Bool) :
 def evaluateEbpfProgCont (prog : TestEval) (input : List MemorySpace × List Bool) : ℕ :=
   match input with
   | (inputMemory, validList) => evalEbpfProgCont prog inputMemory validList
+
+def evaluateEbpfProgContListSeeds
+  (prog : TestEval) (packetGenerator : ℕ → ℕ → ℕ → List MemorySpace × List Bool) (numAccept numtests initialSeed n : ℕ) : ℕ :=
+  let input := packetGenerator numAccept numtests initialSeed
+  match n with
+     | n' + 1 =>
+         evaluateEbpfProgCont prog input +
+         evaluateEbpfProgContListSeeds prog packetGenerator numAccept numtests initialSeed n'
+     | 0 => evaluateEbpfProgCont prog input

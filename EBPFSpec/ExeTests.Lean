@@ -1,7 +1,5 @@
 import «EBPFSpec».TestFunctions
 
-set_option maxRecDepth 100000
-
 ------------------------------------------------------------------------------
 /-
 Only allow ARP packets:
@@ -36,10 +34,14 @@ result
 
 #eval evaluateEbpfProg prog_only_arp (cratePackgesArp 5 10)
 -/
-def numtests := 9000
-def numAccept := 4500
 
-#eval evaluateEbpfProgCont prog_only_arp (cratePackgesArp numAccept numtests)
+def numTests := 9000
+def numAccept := 4500
+def numSeeds := 10
+
+--#eval evaluateEbpfProgContListSeeds prog_only_arp cratePackgesArp numAccept numTests 15 numSeeds
+
+--#eval evaluateEbpfProgCont prog_only_arp (cratePackgesArp numAccept numtests 10) + evaluateEbpfProgCont prog_only_arp (cratePackgesArp numAccept numtests 10)
 
 -------------------------------------------------------------------------------
 /-
@@ -50,6 +52,7 @@ Only allow IPV4 packets:
          ret #-1
          drop: ret #0
 -/
+
 def prog_only_IPV44 : TestEval :=
 {exe|
 # Copyright Big Switch Networks Inc
@@ -64,14 +67,16 @@ exit
 result
 0x1
 }
+/-
+#eval exeConformanceDebug prog_only_IPV44 (inputPackgeGeneratorIPv4 false 11) -- Exit R0 == 0
+#eval exeConformanceDebug prog_only_IPV44 (inputPackgeGeneratorIPv4 true  11) -- Exit R0 == 1
 
-#eval exeConformanceDebug prog_only_IPV44 (inputPackgeGeneratorIPv4 false) -- Exit R0 == 0
-#eval exeConformanceDebug prog_only_IPV44 (inputPackgeGeneratorIPv4 true) -- Exit R0 == 1
+#eval evaluateEbpfProg prog_only_IPV44 (cratePackgesIPV4 30 70 12)
 
-#eval evaluateEbpfProg prog_only_IPV44 (cratePackgesIPV4 30 70)
+#eval evaluateEbpfProgCont prog_only_IPV44 (cratePackgesIPV4 30 70 13)
+-/
 
-#eval evaluateEbpfProgCont prog_only_IPV44 (cratePackgesIPV4 30 70)
-
+--#eval evaluateEbpfProgContListSeeds prog_only_IPV44 cratePackgesIPV4 numAccept numTests 15 numSeeds
 
 -----------------------------------------------------------------------------
 /-
