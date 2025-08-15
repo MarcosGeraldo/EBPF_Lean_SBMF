@@ -157,123 +157,146 @@ def getInstruction (instrs : Instructions) (pc : ℕ ) : Word :=
     | Instructions.Nil word => word
     | Instructions.Cons _word instrs => getInstruction instrs pc'
 
+def virtualMachine (state : Option State) (fuel : ℕ ) : Option State :=
+  match fuel with
+  | 0 => none  -- Returns the current state without executing more instructions
+  | fuel' + 1 =>
+    match state with
+    | none => none
+    | some (State.mk stack regs instr pc) =>
+      let word := getInstruction instr pc
+      match word with
+      | Word.mk _imm _offset _srcReg _destReg opCode =>
+        match opCode with
+        | OpCode.Eof => state -- Stop execution at EOF returning Some state
+        | OpCode.mk _msb _source lsb =>
+            match lsb with
+            | Lsb.bpf_alu =>
+              -- Operations that change registers
+              let regs' := applyWordAlu regs word 32
+              virtualMachine (State.mk stack regs' instr (pc + 1)) fuel'
+
+            | Lsb.bpf_alu64 =>
+              -- Operations that change registers
+              let regs' := applyWordAlu regs word 64
+              virtualMachine (State.mk stack regs' instr (pc + 1) ) fuel'
+
+            | Lsb.bpf_ld | Lsb.bpf_ldx =>
+              -- Operations that change memory
+              let regs' := applyWordMemoryLD regs stack word
+              virtualMachine (State.mk stack regs' instr (pc + 1) ) fuel'
+
+            | Lsb.bpf_st =>
+              -- Operations that change memory
+              let stack' := applyWordMemoryST regs stack word
+              virtualMachine (State.mk stack' regs instr (pc + 1) ) fuel'
+
+            | Lsb.bpf_stx =>
+              -- Operations that change memory
+              let stack' := applyWordMemoryST regs stack word
+              virtualMachine (State.mk stack' regs instr (pc + 1) ) fuel'
+
+            | Lsb.bpf_jmp32 =>
+              -- Jump operations that change the instructions
+              let offsetJMP := applyWordJmp stack regs instr word 32
+              virtualMachine (State.mk stack regs instr (pc + offsetJMP) ) fuel'
+
+            | Lsb.bpf_jmp =>
+              -- Jump operations that change the instructions
+              match word with
+              | Word.mk _imm offset _srcReg _destReg (OpCode.mk Msb.bpf_call_local _source _lsb) => -- If it's a call, I call the function
+                let ret := virtualMachine (State.mk stack regs instr (pc + (getNatOffset offset 1)) ) fuel'-- I execute the function and receive the return values
+                match ret with
+                | none => none
+                | some (State.mk _retFuncStack retFuncRegs _retFuncInstr _retPc) =>
+                  virtualMachine (State.mk stack (updateRegistersCall regs retFuncRegs) instr (pc + 1) ) fuel'
+                -- In the line above, it updates the r0 value returned by the function
+                -- Consumes an instruction from the instruction list
+                -- And finally continues the execution of the Main
+              | _ =>
+                let offsetJMP := applyWordJmp stack regs instr word 64
+                virtualMachine (State.mk stack regs instr (pc + offsetJMP) ) fuel'
+
+def virtualMachineDebug (state : Option State) (fuel : ℕ ) (history: List ℕ ) : List ℕ × Option State :=
+  match fuel with
+  | 0 => ([],none)  -- Returns the current state without executing more instructions
+  | fuel' + 1 =>
+    match state with
+    | none => ([],none)
+    | some (State.mk stack regs instr pc) =>
+      let word := getInstruction instr pc
+      match word with
+      | Word.mk _imm _offset _srcReg _destReg opCode =>
+        match opCode with
+        | OpCode.Eof => (history,state) -- Stop execution at EOF returning Some state
+        | OpCode.mk _msb _source lsb =>
+            match lsb with
+            | Lsb.bpf_alu =>
+              -- Operations that change registers
+              let regs' := applyWordAlu regs word 32
+              let history' := regs'.r0 :: history
+              virtualMachineDebug (State.mk stack regs' instr (pc + 1)) fuel' history'
+
+            | Lsb.bpf_alu64 =>
+              -- Operations that change registers
+              let regs' := applyWordAlu regs word 64
+              let history' := regs'.r0 :: history
+              virtualMachineDebug (State.mk stack regs' instr (pc + 1) ) fuel' history'
+
+            | Lsb.bpf_ld | Lsb.bpf_ldx =>
+              -- Operations that change memory
+              let regs' := applyWordMemoryLD regs stack word
+              let history' := regs'.r0 :: history
+              virtualMachineDebug (State.mk stack regs' instr (pc + 1) ) fuel' history'
+
+            | Lsb.bpf_st =>
+              -- Operations that change memory
+              let stack' := applyWordMemoryST regs stack word
+              let history' := regs.r0 :: history
+              virtualMachineDebug (State.mk stack' regs instr (pc + 1) ) fuel' history'
+
+            | Lsb.bpf_stx =>
+              -- Operations that change memory
+              let stack' := applyWordMemoryST regs stack word
+              let history' := regs.r0 :: history
+              virtualMachineDebug (State.mk stack' regs instr (pc + 1) ) fuel' history'
+
+            | Lsb.bpf_jmp32 =>
+              -- Jump operations that change the instructions
+              let offsetJMP := applyWordJmp stack regs instr word 32
+              let history' := regs.r0 :: history
+              virtualMachineDebug (State.mk stack regs instr (pc + offsetJMP) ) fuel' history'
+
+            | Lsb.bpf_jmp =>
+              -- Jump operations that change the instructions
+              match word with
+              | Word.mk _imm offset _srcReg _destReg (OpCode.mk Msb.bpf_call_local _source _lsb) => -- If it's a call, I call the function
+                let ret := virtualMachine (State.mk stack regs instr (pc + (getNatOffset offset 1)) ) fuel'-- I execute the function and receive the return values
+                match ret with
+                | none => ([],none)
+                | some (State.mk _retFuncStack retFuncRegs _retFuncInstr _retPc) =>
+                  let history' := regs.r0 :: history
+                  virtualMachineDebug (State.mk stack (updateRegistersCall regs retFuncRegs) instr (pc + 1) ) fuel' history'
+                -- In the line above, it updates the r0 value returned by the function
+                -- Consumes an instruction from the instruction list
+                -- And finally continues the execution of the Main
+              | _ =>
+                let offsetJMP := applyWordJmp stack regs instr word 64
+                let history' := regs.r0 :: history
+                virtualMachineDebug (State.mk stack regs instr (pc + offsetJMP) ) fuel' history'
+
+--Function to format the virtual machine input and unwrap the output
 def exeMain (stack : MemorySpace) (regs : Registers) (instr : Instructions) (fuel : ℕ) (pc : ℕ) : MemorySpace × Registers × Instructions :=
-  --let regs := if fuel == 1000 then updateRegisters regs stack else regs
-  match fuel with
-  | 0 => (stack, regs, instr)  -- Returns the current state without executing more instructions
-  | fuel' + 1 =>
-        let word := getInstruction instr pc
-        match word with
-        | Word.mk _imm _offset _srcReg _destReg opCode =>
-          match opCode with
-          | OpCode.Eof => (stack, regs, instr)  -- Stop execution at EOF
-          | OpCode.mk _msb _source lsb =>
-            match lsb with
-            | Lsb.bpf_alu =>
-              -- Operations that change registers
-              let regs' := applyWordAlu regs word 32
-              exeMain stack regs' instr fuel' (pc + 1)
+  let state := (State.mk stack regs instr pc)
+  let progExecution := virtualMachine state fuel
+  match progExecution with
+  | none => (emptyMemory, initialRegisters, (Instructions.Nil emptyWord) )
+  | some (State.mk stack regs instr _pc) => (stack,regs,instr)
 
-            | Lsb.bpf_alu64 =>
-              -- Operations that change registers
-              let regs' := applyWordAlu regs word 64
-              exeMain stack regs' instr fuel' (pc + 1)
-
-            | Lsb.bpf_ld | Lsb.bpf_ldx =>
-              -- Operations that change memory
-              let regs' := applyWordMemoryLD regs stack word
-              exeMain stack regs' instr fuel' (pc + 1)
-
-            | Lsb.bpf_st =>
-              -- Operations that change memory
-              let stack' := applyWordMemoryST regs stack word
-              exeMain stack' regs instr fuel' (pc + 1)
-
-            | Lsb.bpf_stx =>
-              -- Operations that change memory
-              let stack' := applyWordMemoryST regs stack word
-              exeMain stack' regs instr fuel' (pc + 1)
-
-            | Lsb.bpf_jmp32 =>
-              -- Jump operations that change the instructions
-              let offsetJMP := applyWordJmp stack regs instr word 32
-              exeMain stack regs instr fuel' (pc + offsetJMP)
-
-            | Lsb.bpf_jmp =>
-              -- Jump operations that change the instructions
-              match word with
-              | Word.mk _imm offset _srcReg _destReg (OpCode.mk Msb.bpf_call_local _source _lsb) => -- If it's a call, I call the function
-                --let pc_call := execJmp instr word -- I jump to the function's position
-                let (_retFuncStack,retFuncRegs,_retFuncInstr) := exeMain stack regs instr fuel' (pc + (getNatOffset offset 1))-- I execute the function and receive the return values
-
-                exeMain stack (updateRegistersCall regs retFuncRegs) instr fuel' (pc + 1)
-                -- In the line above, it updates the r0 value returned by the function
-                -- Consumes an instruction from the instruction list
-                -- And finally continues the execution of the Main
-              | _ =>
-                let offsetJMP := applyWordJmp stack regs instr word 64
-                exeMain stack regs instr fuel' (pc + offsetJMP)
-
-
+--Function to format the virtual machine input and unwrap the output
 def exeMainDebug (stack : MemorySpace) (regs : Registers) (instr : Instructions) (fuel : ℕ) (pc : ℕ) (history: List ℕ ) : MemorySpace × Registers × Instructions × List ℕ :=
-  let regs := if fuel == 1000 then updateRegisters regs stack else regs
-  match fuel with
-  | 0 => (stack, regs, instr,history)  -- Returns the current state without executing more instructions
-  | fuel' + 1 =>
-        let word := getInstruction instr pc
-        match word with
-        | Word.mk _imm _offset _srcReg _destReg opCode =>
-          match opCode with
-          | OpCode.Eof => (stack, regs, instr,history)  -- Stop execution at EOF
-          | OpCode.mk _msb _source lsb =>
-            match lsb with
-            | Lsb.bpf_alu =>
-              -- Operations that change registers
-              let regs' := applyWordAlu regs word 32
-              let history' := regs'.r0 :: history
-              exeMainDebug stack regs' instr fuel' (pc + 1) history'
-
-            | Lsb.bpf_alu64 =>
-              -- Operations that change registers
-              let regs' := applyWordAlu regs word 64
-              let history' := regs'.r0 :: history
-              exeMainDebug stack regs' instr fuel' (pc + 1) history'
-
-            | Lsb.bpf_ld | Lsb.bpf_ldx =>
-              -- Operations that change memory
-              let regs' := applyWordMemoryLD regs stack word
-              let history' := regs'.r0 :: history
-              exeMainDebug stack regs' instr fuel' (pc + 1) history'
-
-            | Lsb.bpf_st =>
-              -- Operations that change memory
-              let stack' := applyWordMemoryST regs stack word
-              let history' := regs.r0 :: history
-              exeMainDebug stack' regs instr fuel' (pc + 1) history'
-
-            | Lsb.bpf_stx =>
-              -- Operations that change memory
-              let stack' := applyWordMemoryST regs stack word
-              let history' := regs.r0 :: history
-              exeMainDebug stack' regs instr fuel' (pc + 1) history'
-
-            | Lsb.bpf_jmp32 =>
-              -- Jump operations that change the instructions
-              let offsetJMP := applyWordJmp stack regs instr word 32
-              let history' := regs.r0 :: history
-              exeMainDebug stack regs instr fuel' (pc + offsetJMP) history'
-
-            | Lsb.bpf_jmp =>
-              -- Jump operations that change the instructions
-              match word with
-              | Word.mk _imm offset _srcReg _destReg (OpCode.mk Msb.bpf_call_local _source _lsb) => -- If it's a call, I call the function
-                let (_retFuncStack,retFuncRegs,_retFuncInstr) := exeMain stack regs instr fuel' (pc + (getNatOffset offset 1))-- I execute the function and receive the return values
-                let history' := regs.r0 :: history
-                exeMainDebug stack (updateRegistersCall regs retFuncRegs) instr fuel' (pc + 1) history'
-                -- In the line above, it updates the r0 value returned by the function
-                -- Consumes an instruction from the instruction list
-                -- And finally continues the execution of the Main
-              | _ =>
-                let offsetJMP := applyWordJmp stack regs instr word 64
-                let history' := regs.r0 :: history
-                exeMainDebug stack regs instr fuel' (pc + offsetJMP) history'
+  let state := (State.mk stack regs instr pc)
+  let progExecution := virtualMachineDebug state fuel history
+  match progExecution with
+  | (list, none) => (emptyMemory, initialRegisters, (Instructions.Nil emptyWord),list )
+  | (list, some (State.mk stack regs instr _pc)) => (stack,regs,instr,list)

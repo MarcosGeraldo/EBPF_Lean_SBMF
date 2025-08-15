@@ -195,3 +195,6 @@ deriving Repr
 inductive TestEval: Type
 | mk : Instructions → ℕ → TestEval
 deriving Repr
+
+inductive State: Type
+| mk : MemorySpace → Registers → Instructions → ℕ → State

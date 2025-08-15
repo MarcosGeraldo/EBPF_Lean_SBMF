@@ -1,5 +1,11 @@
 import «EBPFSpec».Semantic
 
+def initialRegisters : Registers :=
+  { r0 := 0, r1 := 0, r2 := 0, r3 := 0, r4 := 0
+  , r5 := 0, r6 := 0, r7 := 0, r8 := 0, r9 := 0, r10 := 0 }
+
+def emptyWord := (Word.mk (Immediate.mk 0) (Offset.mk 0) (SourceReg.mk (RegisterCode.rP)) (DestinationReg.mk (RegisterCode.rP)) (OpCode.Eof))
+
 -- Converts a natural number to a list of bits (binary)
 def natToBinAux (n : Nat) (fuel : Nat) : List Bool :=
 match fuel with
