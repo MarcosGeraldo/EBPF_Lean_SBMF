@@ -1,5 +1,7 @@
 import «EBPFSpec».TestFunctions
 
+set_option maxRecDepth 100000
+
 ------------------------------------------------------------------------------
 /-
 Only allow ARP packets:
@@ -9,10 +11,10 @@ Only allow ARP packets:
          ret #-1
          drop: ret #0
 -/
--- Usar %r1 como o Acumulador
--- Substituir o ret pelo exit
--- Trocar as labels pelo valor do Offset
--- Valor invertido devido a particularidades dos testes de Conformidade
+-- Use %r1 as the Accumulator
+-- Replace ret with exit
+-- Swap labels for the Offset value
+-- Inverted value due to peculiarities of the Conformance tests
 
 def prog_only_arp : TestEval :=
 {exe|
@@ -32,16 +34,17 @@ result
 #eval exeConformanceDebug prog_only_arp (inputPackgeGeneratorArp false) -- Exit R0 == 0
 #eval exeConformanceDebug prog_only_arp (inputPackgeGeneratorArp true) -- Exit R0 == 1
 
-#eval evaluateEbpfProg prog_only_arp (cratePackgesArp 5 10)
+#eval evaluateEbpfProg prog_only_arp (cratePackgesArp 30 70 12)
+#eval evaluateEbpfProgCont prog_only_arp (cratePackgesArp 30 70 13)
+
 -/
 
 def numTests := 9000
 def numAccept := 4500
 def numSeeds := 10
 
---#eval evaluateEbpfProgContListSeeds prog_only_arp cratePackgesArp numAccept numTests 15 numSeeds
-
---#eval evaluateEbpfProgCont prog_only_arp (cratePackgesArp numAccept numtests 10) + evaluateEbpfProgCont prog_only_arp (cratePackgesArp numAccept numtests 10)
+#eval "Number of packets correctly evaluated by the Only_Arp program"
+#eval evaluateEbpfProgContListSeeds prog_only_arp cratePackgesArp numAccept numTests 15 numSeeds
 
 -------------------------------------------------------------------------------
 /-
@@ -52,8 +55,7 @@ Only allow IPV4 packets:
          ret #-1
          drop: ret #0
 -/
-
-def prog_only_IPV44 : TestEval :=
+def prog_only_IPV4 : TestEval :=
 {exe|
 # Copyright Big Switch Networks Inc
 # SPDX_License_Identifier Apache_2_0
@@ -67,81 +69,14 @@ exit
 result
 0x1
 }
-/-
-#eval exeConformanceDebug prog_only_IPV44 (inputPackgeGeneratorIPv4 false 11) -- Exit R0 == 0
-#eval exeConformanceDebug prog_only_IPV44 (inputPackgeGeneratorIPv4 true  11) -- Exit R0 == 1
-
-#eval evaluateEbpfProg prog_only_IPV44 (cratePackgesIPV4 30 70 12)
-
-#eval evaluateEbpfProgCont prog_only_IPV44 (cratePackgesIPV4 30 70 13)
--/
-
---#eval evaluateEbpfProgContListSeeds prog_only_IPV44 cratePackgesIPV4 numAccept numTests 15 numSeeds
-
------------------------------------------------------------------------------
-/-
- Only allow IPv4 TCP packets:
-
-         ldh [12] --Load half-word into A where A = 32 bit wide accumulator
-         jne #0x800, drop
-         ldb [23]
-         jneq #6, drop
-         ret #-1
-         drop: ret #0
--/
--- Usar %r1 como o Acumulador
--- Substituir o ret pelo exit
--- Trocar as labels pelo valor do Offset
-def prog_only_IPv4_TCP : TestEval :=
-{exe|
-# Copyright Big Switch Networks Inc
-# SPDX_License_Identifier Apache_2_0
-asm
-ldh %r1, [12]
-jne %r1, 0x0008, 1
-mov32 %r0, 0
-ldh %r1, [12]
-jne %r1, 0x0006, 1
-mov32 %r0, 0
-mov32 %r0, 1
-exit
-result
-0x0
-}
 
 /-
-Only allow IPv4 TCP SSH traffic:
+#eval exeConformanceDebug prog_only_IPV4 (inputPackgeGeneratorIPv4 false 11) -- Exit R0 == 0
+#eval exeConformanceDebug prog_only_IPV4 (inputPackgeGeneratorIPv4 true  11) -- Exit R0 == 1
 
-         ldh [12]
-         jne #0x800, drop
-         ldb [23]
-         jneq #6, drop
-         ldh [20]
-         jset #0x1fff, drop
-         ldxb 4 * ([14] & 0xf)
-         ldh [x + 14]
-         jeq #0x16, pass
-         ldh [x + 16]
-         jne #0x16, drop
-         pass: ret #-1
-         drop: ret #0
+#eval evaluateEbpfProg prog_only_IPV4 (cratePackgesIPV4 30 70 12)
+#eval evaluateEbpfProgCont prog_only_IPV4 (cratePackgesIPV4 30 70 13)
 -/
--- Usar %r0 como o Acumulador
--- Substituir o ret pelo exit
--- Trocar as labels pelo valor do Offset
 
-def prog_only_IPv4_SSH : TestEval :=
-{exe|
-# Copyright Big Switch Networks Inc
-# SPDX_License_Identifier Apache_2_0
-asm
-mov32 %r0, 0
-mov32 %r1, 2
-add32 %r0, 1
-add32 %r0, %r1
-add32 %r0, %r0
-add32 %r0, -3
-exit
-result
-0x3
-}
+#eval "Number of packets correctly evaluated by the Only_IPV4 program"
+#eval evaluateEbpfProgContListSeeds prog_only_IPV4 cratePackgesIPV4 numAccept numTests 15 numSeeds

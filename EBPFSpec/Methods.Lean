@@ -1,6 +1,6 @@
 import «EBPFSpec».Semantic
 
--- Converte um número natural para uma lista de bits (binário)
+-- Converts a natural number to a list of bits (binary)
 def natToBinAux (n : Nat) (fuel : Nat) : List Bool :=
 match fuel with
 | 0 => []
@@ -9,11 +9,11 @@ match fuel with
   | 0 => []
   | _ => (n % 2 == 1) :: (natToBinAux (n / 2) fuel')
 
--- Converte um número natural para uma lista de bits
+-- Converts a natural number to a list of bits
 def natToBin (n : Nat) : List Bool :=
   List.reverse ( natToBinAux n (n*2))
 
--- Realiza a operação AND bit a bit entre duas listas de bits
+-- Performs a bitwise AND operation between two lists of bits
 def bitwiseAnd (a b : List Bool) : List Bool :=
   let len := max a.length b.length
   let aPadded := List.replicate (len - a.length) false ++ a
@@ -21,12 +21,12 @@ def bitwiseAnd (a b : List Bool) : List Bool :=
   List.zipWith (· && ·) aPadded bPadded
 
 
--- Converte uma lista de bits de volta para um número natural
+-- Converts a list of bits back to a natural number
 def binToNat (bits : List Bool) : Nat :=
   bits.foldl (fun acc b => acc * 2 + if b then 1 else 0) 0
 
 
--- Função principal que faz a operação AND lógica bit a bit
+-- Main function that performs the bitwise logical AND operation
 def andLogical (x y : Nat) : Nat :=
   let binX := natToBin x
   let binY := natToBin y
@@ -39,21 +39,21 @@ def bitwiseOr (a b : List Bool) : List Bool :=
   let bPadded := List.replicate (len - b.length) false ++ b
   List.zipWith (· || ·) aPadded bPadded
 
--- Função principal que faz a operação OR lógica bit a bit
+-- Main function that performs the bitwise logical OR operation
 def orLogical (x y : Nat) : Nat :=
   let binX := natToBin x
   let binY := natToBin y
   let resultBin := bitwiseOr binX binY
   binToNat resultBin
 
--- Realiza a operação XOR bit a bit entre duas listas de bits
+-- Performs a bitwise XOR operation between two lists of bits
 def bitwiseXor (a b : List Bool) : List Bool :=
   let len := max a.length b.length
   let aPadded := List.replicate (len - a.length) false ++ a
   let bPadded := List.replicate (len - b.length) false ++ b
   List.zipWith (fun x y => x != y) aPadded bPadded
 
--- Função principal que faz a operação XOR lógica bit a bit
+-- Main function that performs the bitwise logical XOR operation
 def xorLogical (x y : Nat) : Nat :=
   let binX := natToBin x
   let binY := natToBin y
@@ -68,14 +68,14 @@ def bitTrim (n size: ℕ) : ℕ :=
 
 def leftShift  (n shift bits : ℕ) : ℕ :=
   let list := natToBin n
-  let shift := if shift <= bits then shift else shift % bits -- Tratar valores de Shift maiores que o tamanho da operação
+  let shift := if shift <= bits then shift else shift % bits -- Handle Shift values greater than the operation size
   let padding := List.replicate (shift) false
   binToNat (list ++ padding)
 
 def rightShift  (n shift bits : ℕ) : ℕ :=
   let list := natToBin n
   let listSize := list.length
-  let shift := if shift <= bits then shift else shift % bits -- Tratar valores de Shift maiores que o tamanho da operação
+  let shift := if shift <= bits then shift else shift % bits -- Handle Shift values greater than the operation size
   let listCutted := list.take ( listSize - shift )
   let padding := List.replicate shift false
   binToNat ( padding ++ listCutted)
@@ -83,7 +83,7 @@ def rightShift  (n shift bits : ℕ) : ℕ :=
 def assignedRightShift  (n shift bits : ℕ) : ℕ :=
   let list := natToBin n
   let listSize := list.length
-  let shift := if shift <= bits then shift else shift % bits -- Tratar valores de Shift maiores que o tamanho da operação
+  let shift := if shift <= bits then shift else shift % bits -- Handle Shift values greater than the operation size
   let listCutted := list.take ( listSize - shift )
   let padding := List.replicate shift true
   binToNat ( padding ++ listCutted)
@@ -114,18 +114,18 @@ def returnSigned (n bits : ℕ) : ℕ :=
   bitTrim (binToNat ( negBinary ((natToBin n')) ) + incr ) bits
 
 def signedMod (x y bits : ℕ ) : ℕ :=
-  let flagX := (((natToBin x).headD true) == true) &&  ((natToBin x).length == bits) --Se o bit de sinal(32) foi true
-  let x':= if flagX then (returnSigned x bits) else x --Verifica se o operador x é negativo
-  let flagY := (((natToBin y).headD true) == true) &&  ((natToBin y).length == bits) --Se o bit de sinal(32) foi true
-  let y':= if flagY then (returnSigned y bits) else y --Verifica se o operador y é negativo
-  if flagX then makeSigned (x' % y') bits else (x' % y') -- Retorna negativo caso X seja negativo
+  let flagX := (((natToBin x).headD true) == true) &&  ((natToBin x).length == bits) --If the sign bit(32) was true
+  let x':= if flagX then (returnSigned x bits) else x --Checks if operator x is negative
+  let flagY := (((natToBin y).headD true) == true) &&  ((natToBin y).length == bits) --If the sign bit(32) was true
+  let y':= if flagY then (returnSigned y bits) else y --Checks if operator y is negative
+  if flagX then makeSigned (x' % y') bits else (x' % y') -- Returns negative if X is negative
 
 def signedDivision (x y bits : ℕ ) : ℕ :=
-  let flagX := (((natToBin x).headD true) == true) &&  ((natToBin x).length == bits) --Se o bit de sinal(32) foi true
-  let x':= if flagX then (returnSigned x bits) else x --Verifica se o operador x é negativo
-  let flagY := (((natToBin y).headD true) == true) &&  ((natToBin y).length == bits) --Se o bit de sinal(32) foi true
-  let y':= if flagY then (returnSigned y bits) else y --Verifica se o operador y é negativo
-  if flagX || flagY then makeSigned (x' / y') bits else (x' / y') -- Retorna negativo caso X seja negativo
+  let flagX := (((natToBin x).headD true) == true) &&  ((natToBin x).length == bits) --If the sign bit(32) was true
+  let x':= if flagX then (returnSigned x bits) else x --Checks if operator x is negative
+  let flagY := (((natToBin y).headD true) == true) &&  ((natToBin y).length == bits) --If the sign bit(32) was true
+  let y':= if flagY then (returnSigned y bits) else y --Checks if operator y is negative
+  if flagX || flagY then makeSigned (x' / y') bits else (x' / y') -- Returns negative if X is negative
 
 
 def emptyMemory : MemorySpace :=
@@ -189,19 +189,19 @@ def hexToNatList (input : List ℕ) (acc : Nat) : Nat :=
   | n :: rest =>
     hexToNatList rest (16 * acc + n)
 
--- Converte um número (0-15) para o caractere hexadecimal correspondente
+-- Converts a number (0-15) to the corresponding hexadecimal character
 def natToHexChar (n : ℕ) : Char :=
   if n < 10 then
-    Char.ofNat (n + 48)  -- '0' é representado por 48 na tabela ASCII
+    Char.ofNat (n + 48)  -- '0' is represented by 48 in the ASCII table
   else
-    Char.ofNat (n - 10 + 97)  -- 'a' é representado por 97 na tabela ASCII
+    Char.ofNat (n - 10 + 97)  -- 'a' is represented by 97 in the ASCII table
 
--- Função recursiva para gerar a representação hexadecimal como uma lista de caracteres
+-- Recursive function to generate the hexadecimal representation as a list of characters
 def natToHexRec (n : ℕ) : List Char :=
   if n = 0 then []
   else natToHexRec (n / 16) ++ [natToHexChar (n % 16)]
 
--- Função principal que lida com o caso em que n = 0
+-- Main function that handles the case where n = 0
 def natToHexCharList (n : ℕ) : List Char :=
   if n = 0 then ['0']
   else natToHexRec n
@@ -235,7 +235,7 @@ def writeMem (mem : MemorySpace) (addr : Fin 512) (val : Nat) : MemorySpace :=
 def readMem (mem : MemorySpace) (addr : Fin 512) : Nat :=
   mem.data addr
 
--- Le o espaço de memoria retornando o valor natural contido no indice index
+-- Reads the memory space returning the natural value contained in the index
 def readMemNat (mem : MemorySpace) (index : Nat) : Nat :=
   mem.data (⟨ index % 512, by {
   have h : index % 512 < 512 := Nat.mod_lt index (by decide)
@@ -280,8 +280,8 @@ def createStackMemoryCharList (index : ℕ )(stack : MemorySpace) (input : List 
   | _ :: [] => stack
   | [] => stack
 
---Passar tamanho da palavra -1
---Começa a obter os valores a partir do indice passado e guarda a palavra de forma inversa igual ao subnet
+-- Pass word size - 1
+-- Starts getting the values from the passed index and stores the word in reverse order, same as subnet
 def returnMemoryBlockChar ( stack : MemorySpace ) ( index: ℕ ) ( size : ℕ ) : List Char  :=
   match size with
   | 0 =>
@@ -340,10 +340,10 @@ def updateRegisters (regs : Registers) (stack : MemorySpace) : Registers:=
 
 def writeMemoryBlockAux (stack : MemorySpace) (index : ℕ ) (values : List ℕ ): MemorySpace :=
   match values with
-  | [] => stack  -- Quando não há mais valores a escrever, retorna a memória final
+  | [] => stack  -- When there are no more values to write, return the final memory
   | v :: vs =>
       let updatedStack := writeMem stack ⟨ index % 512, provaFin index ⟩ v
-      writeMemoryBlockAux updatedStack (index+1) vs -- Chama recursivamente para escrever os próximos valores
+      writeMemoryBlockAux updatedStack (index+1) vs -- Calls recursively to write the next values
 
 def writeMemoryBlock (stack : MemorySpace) (index : ℕ ) (values : List ℕ ) (size : ℕ ) : MemorySpace :=
   let listSize := values.length
@@ -368,39 +368,40 @@ def reverseHexList (list : List Char) : List Char :=
   | [] => []
 
 def byteSwapInstructionBe (input size: ℕ ) : ℕ :=
-  let binaryInput := natToHexCharList input -- Transforma de Natural para Lista de Hexadecimais
-  let binaryInputSize := binaryInput.length -- Captura o tamanho da lista transformada
+  let binaryInput := natToHexCharList input -- Converts from Natural to List of Hexadecimals
+  let binaryInputSize := binaryInput.length -- Captures the size of the transformed list
   let binaryInput := if binaryInputSize > size then binaryInput.drop (binaryInputSize - size) else binaryInput
-  let paddingSize := if binaryInputSize < size then size - binaryInput.length else 0 --Calcula o tamanho do Padding
-  let padding := List.replicate (paddingSize) '0' -- Cria a lista de valores nulos para o padding
-  let paddedList :=  (padding ++ binaryInput ) -- Cria a lista de valores já com o preenchimento
+  let paddingSize := if binaryInputSize < size then size - binaryInput.length else 0 -- Calculates the padding size
+  let padding := List.replicate (paddingSize) '0' -- Creates the list of null values for padding
+  let paddedList :=  (padding ++ binaryInput ) -- Creates the list of values already with padding
   let paddedListBe16 :=  reverseHexList paddedList
   hexToNatCharList paddedListBe16 0
 
 def byteSwapInstructionSwap (input size: ℕ ) : ℕ :=
-  let binaryInput := natToHexCharList input -- Transforma de Natural para Lista de Hexadecimais
-  let binaryInputSize := binaryInput.length -- Captura o tamanho da lista transformada
+  let binaryInput := natToHexCharList input -- Converts from Natural to List of Hexadecimals
+  let binaryInputSize := binaryInput.length -- Captures the size of the transformed list
   let binaryInput := if binaryInputSize > size then binaryInput.drop (binaryInputSize - size) else binaryInput
-  let paddingSize := if binaryInputSize < size then size - binaryInput.length else 0 --Calcula o tamanho do Padding
-  let padding := List.replicate (paddingSize) '0' -- Cria a lista de valores nulos para o padding
-  let paddedList :=  (padding ++ binaryInput ) -- Cria a lista de valores já com o preenchimento
+  let paddingSize := if binaryInputSize < size then size - binaryInput.length else 0 -- Calculates the padding size
+  let padding := List.replicate (paddingSize) '0' -- Creates the list of null values for padding
+  let paddedList :=  (padding ++ binaryInput ) -- Creates the list of values already with padding
   let paddedListSwap :=  reverseHexList paddedList
   hexToNatCharList paddedListSwap 0
 
--- Função que expande de index1 para index2 bits, preservando o sinal
+-- Function that expands from index1 to index2 bits, preserving the sign
 def movsx (n index1 index2: Nat) : Nat :=
-  let binaryList := natToBin n       -- Converte para binário
-  let binaryListIndex1 := binaryList.drop (binaryList.length - index1)    -- Pega os index1 bits menos significativos
-  let signBit := binaryListIndex1.headD false  -- Pega o bit de sinal (mais significativo dos 16 bits)
+  let binaryList := natToBin n       -- Converts to binary
+  let binaryListIndex1 := binaryList.drop (binaryList.length - index1)    -- Gets the index1 least significant bits
+  let signBit := binaryListIndex1.headD false  -- Gets the sign bit (most significant of the 16 bits)
 
-  -- Expande para 32 bits: se o bit de sinal for 1, preenche com 1s; caso contrário, com 0s
+  -- Expands to 32 bits: if the sign bit is 1, pads with 1s;
+  -- otherwise, with 0s
   let binaryListIndex2 := List.replicate (index2 - binaryListIndex1.length) signBit ++ binaryListIndex1
   binToNat binaryListIndex2
 
 def evalSigned(x _bits : ℕ ) : ℕ :=
-  let flagX := (((natToBin x).headD true) == true) &&  (((natToBin x).length == 32) || ((natToBin x).length == 64)) --Se o bit de sinal(32) foi true
+  let flagX := (((natToBin x).headD true) == true) &&  (((natToBin x).length == 32) || ((natToBin x).length == 64)) --If the sign bit(32) was true
   let bitsSize := if ((natToBin x).length == 32) then 32 else 64
-  if flagX then returnSigned x bitsSize else x -- Retorna negativo caso X seja negativo
+  if flagX then returnSigned x bitsSize else x -- Returns negative if X is negative
 
 def getRegAddress (reg : RegisterCode) : ℕ :=
   match reg with

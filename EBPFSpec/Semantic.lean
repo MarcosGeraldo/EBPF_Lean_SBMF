@@ -1,15 +1,15 @@
 import Mathlib.Data.Nat.Defs
 
--- Comando para definir o tamanho maximo da arvore de recursão
+-- Command to define the maximum recursion tree size
 set_option maxRecDepth 100000
 
 --------->>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<
 --------->>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<
 --------->>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<
 --------->>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<
--- Inicio da semantica do Ebpf
+-- Start of the Ebpf semantics
 
--------Memoria de registradores do eBPF
+-------eBPF register memory
 structure Registers where
   r0 : Nat
   r1 : Nat
@@ -24,7 +24,7 @@ structure Registers where
   r10 : Nat
 deriving Repr
 
--------------------Definição da Pilha de Memoria
+-------------------Definition of Memory Stack
 structure MemorySpace where
   data : Fin 512 → Nat
 

@@ -1,6 +1,6 @@
 import «EBPFSpec».TestFunctions
 
--- Início do arquivo: add.lean
+-- Start of file: add.lean
 ------------------------------
 
 def memoryadd :=
@@ -22,9 +22,9 @@ exit
 result
 0x3
 }
--- Fim do arquivo: add.lean
+-- End of file: add.lean
 
--- Início do arquivo: add64.lean
+-- Start of file: add64.lean
 ------------------------------
 
 def memoryadd64 :=
@@ -46,9 +46,9 @@ exit
 result
 0x3
 }
--- Fim do arquivo: add64.lean
+-- End of file: add64.lean
 
--- Início do arquivo: alu-arith.lean
+-- Start of file: alu-arith.lean
 ------------------------------
 
 def memoryalu_arith :=
@@ -88,9 +88,9 @@ exit
 result
 0x2a
 }
--- Fim do arquivo: alu-arith.lean
+-- End of file: alu-arith.lean
 
--- Início do arquivo: alu-bit.lean
+-- Start of file: alu-bit.lean
 ------------------------------
 
 def memoryalu_bit :=
@@ -133,9 +133,9 @@ exit
 result
 0x11
 }
--- Fim do arquivo: alu-bit.lean
+-- End of file: alu-bit.lean
 
--- Início do arquivo: alu64-arith.lean
+-- Start of file: alu64-arith.lean
 ------------------------------
 
 def memoryalu64_arith :=
@@ -174,9 +174,9 @@ exit
 result
 0x2a
 }
--- Fim do arquivo: alu64-arith.lean
+-- End of file: alu64-arith.lean
 
--- Início do arquivo: alu64-bit.lean
+-- Start of file: alu64-bit.lean
 ------------------------------
 
 def memoryalu64_bit :=
@@ -220,9 +220,9 @@ exit
 result
 0x11
 }
--- Fim do arquivo: alu64-bit.lean
+-- End of file: alu64-bit.lean
 
--- Início do arquivo: arsh32-imm-high.lean
+-- Start of file: arsh32-imm-high.lean
 ------------------------------
 
 def memoryarsh32_imm_high :=
@@ -241,9 +241,9 @@ exit
 result
 0xffff8000
 }
--- Fim do arquivo: arsh32-imm-high.lean
+-- End of file: arsh32-imm-high.lean
 
--- Início do arquivo: arsh32-imm-neg.lean
+-- Start of file: arsh32-imm-neg.lean
 ------------------------------
 
 def memoryarsh32_imm_neg :=
@@ -262,9 +262,9 @@ exit
 result
 0xffff8000
 }
--- Fim do arquivo: arsh32-imm-neg.lean
+-- End of file: arsh32-imm-neg.lean
 
--- Início do arquivo: arsh32-imm.lean
+-- Start of file: arsh32-imm.lean
 ------------------------------
 
 def memoryarsh32_imm :=
@@ -283,9 +283,9 @@ exit
 result
 0xffff8000
 }
--- Fim do arquivo: arsh32-imm.lean
+-- End of file: arsh32-imm.lean
 
--- Início do arquivo: arsh32-reg-high.lean
+-- Start of file: arsh32-reg-high.lean
 ------------------------------
 
 def memoryarsh32_reg_high :=
@@ -305,9 +305,9 @@ exit
 result
 0xffff8000
 }
--- Fim do arquivo: arsh32-reg-high.lean
+-- End of file: arsh32-reg-high.lean
 
--- Início do arquivo: arsh32-reg-neg.lean
+-- Start of file: arsh32-reg-neg.lean
 ------------------------------
 
 def memoryarsh32_reg_neg :=
@@ -327,9 +327,9 @@ exit
 result
 0xffff8000
 }
--- Fim do arquivo: arsh32-reg-neg.lean
+-- End of file: arsh32-reg-neg.lean
 
--- Início do arquivo: arsh32-reg.lean
+-- Start of file: arsh32-reg.lean
 ------------------------------
 
 def memoryarsh32_reg :=
@@ -349,9 +349,9 @@ exit
 result
 0xffff8000
 }
--- Fim do arquivo: arsh32-reg.lean
+-- End of file: arsh32-reg.lean
 
--- Início do arquivo: arsh64-imm-high.lean
+-- Start of file: arsh64-imm-high.lean
 ------------------------------
 
 def memoryarsh64_imm_high :=
@@ -370,9 +370,9 @@ exit
 result
 0xfffffffffffffff8
 }
--- Fim do arquivo: arsh64-imm-high.lean
+-- End of file: arsh64-imm-high.lean
 
--- Início do arquivo: arsh64-imm-neg.lean
+-- Start of file: arsh64-imm-neg.lean
 ------------------------------
 
 def memoryarsh64_imm_neg :=
@@ -391,9 +391,9 @@ exit
 result
 0xfffffffffffffff8
 }
--- Fim do arquivo: arsh64-imm-neg.lean
+-- End of file: arsh64-imm-neg.lean
 
--- Início do arquivo: arsh64-imm.lean
+-- Start of file: arsh64-imm.lean
 ------------------------------
 
 def memoryarsh64_imm :=
@@ -412,9 +412,9 @@ exit
 result
 0xfffffffffffffff8
 }
--- Fim do arquivo: arsh64-imm.lean
+-- End of file: arsh64-imm.lean
 
--- Início do arquivo: arsh64-reg-high.lean
+-- Start of file: arsh64-reg-high.lean
 ------------------------------
 
 def memoryarsh64_reg_high :=
@@ -434,9 +434,9 @@ exit
 result
 0xfffffffffffffff8
 }
--- Fim do arquivo: arsh64-reg-high.lean
+-- End of file: arsh64-reg-high.lean
 
--- Início do arquivo: arsh64-reg-neg.lean
+-- Start of file: arsh64-reg-neg.lean
 ------------------------------
 
 def memoryarsh64_reg_neg :=
@@ -456,9 +456,9 @@ exit
 result
 0xfffffffffffffff8
 }
--- Fim do arquivo: arsh64-reg-neg.lean
+-- End of file: arsh64-reg-neg.lean
 
--- Início do arquivo: arsh64-reg.lean
+-- Start of file: arsh64-reg.lean
 ------------------------------
 
 def memoryarsh64_reg :=
@@ -478,9 +478,9 @@ exit
 result
 0xfffffffffffffff8
 }
--- Fim do arquivo: arsh64-reg.lean
+-- End of file: arsh64-reg.lean
 
--- Início do arquivo: be16-high.lean
+-- Start of file: be16-high.lean
 ------------------------------
 
 def memorybe16_high :=
@@ -499,9 +499,9 @@ exit
 result
 0x1122
 }
--- Fim do arquivo: be16-high.lean
+-- End of file: be16-high.lean
 
--- Início do arquivo: be16.lean
+-- Start of file: be16.lean
 ------------------------------
 
 def memorybe16 :=
@@ -519,9 +519,9 @@ exit
 result
 0x1122
 }
--- Fim do arquivo: be16.lean
+-- End of file: be16.lean
 
--- Início do arquivo: be32-high.lean
+-- Start of file: be32-high.lean
 ------------------------------
 
 def memorybe32_high :=
@@ -539,9 +539,9 @@ exit
 result
 0x11223344
 }
--- Fim do arquivo: be32-high.lean
+-- End of file: be32-high.lean
 
--- Início do arquivo: be32.lean
+-- Start of file: be32.lean
 ------------------------------
 
 def memorybe32 :=
@@ -559,9 +559,9 @@ exit
 result
 0x11223344
 }
--- Fim do arquivo: be32.lean
+-- End of file: be32.lean
 
--- Início do arquivo: be64.lean
+-- Start of file: be64.lean
 ------------------------------
 
 def memorybe64 :=
@@ -579,9 +579,9 @@ exit
 result
 0x1122334455667788
 }
--- Fim do arquivo: be64.lean
+-- End of file: be64.lean
 
--- Início do arquivo: callx.lean
+-- Start of file: callx.lean
 ------------------------------
 
 def memorycallx :=
@@ -601,9 +601,9 @@ exit
 result
 0x2
 }
--- Fim do arquivo: callx.lean
+-- End of file: callx.lean
 
--- Início do arquivo: call_local.lean
+-- Start of file: call_local.lean
 ------------------------------
 
 def memorycall_local :=
@@ -649,9 +649,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: call_local.lean
+-- End of file: call_local.lean
 
--- Início do arquivo: call_unwind_fail.lean
+-- Start of file: call_unwind_fail.lean
 ------------------------------
 
 def memorycall_unwind_fail :=
@@ -670,9 +670,9 @@ exit
 result
 0x2
 }
--- Fim do arquivo: call_unwind_fail.lean
+-- End of file: call_unwind_fail.lean
 
--- Início do arquivo: div32-by-zero-reg-2.lean
+-- Start of file: div32-by-zero-reg-2.lean
 ------------------------------
 
 def memorydiv32_zero_reg_2 :=
@@ -691,9 +691,9 @@ exit
 result
 0x0
 }
--- Fim do arquivo: div32-by-zero-reg-2.lean
+-- End of file: div32-by-zero-reg-2.lean
 
--- Início do arquivo: div32-by-zero-reg.lean
+-- Start of file: div32-by-zero-reg.lean
 ------------------------------
 
 def memorydiv32_zero_reg :=
@@ -712,9 +712,9 @@ exit
 result
 0x0
 }
--- Fim do arquivo: div32-by-zero-reg.lean
+-- End of file: div32-by-zero-reg.lean
 
--- Início do arquivo: div32-high-divisor.lean
+-- Start of file: div32-high-divisor.lean
 ------------------------------
 
 def memorydiv32_high_divisor :=
@@ -733,9 +733,9 @@ exit
 result
 0x3
 }
--- Fim do arquivo: div32-high-divisor.lean
+-- End of file: div32-high-divisor.lean
 
--- Início do arquivo: div32-imm.lean
+-- Start of file: div32-imm.lean
 ------------------------------
 
 def memorydiv32_imm :=
@@ -753,9 +753,9 @@ exit
 result
 0x3
 }
--- Fim do arquivo: div32-imm.lean
+-- End of file: div32-imm.lean
 
--- Início do arquivo: div32-reg.lean
+-- Start of file: div32-reg.lean
 ------------------------------
 
 def memorydiv32_reg :=
@@ -774,9 +774,9 @@ exit
 result
 0x3
 }
--- Fim do arquivo: div32-reg.lean
+-- End of file: div32-reg.lean
 
--- Início do arquivo: div64-by-zero-reg.lean
+-- Start of file: div64-by-zero-reg.lean
 ------------------------------
 
 def memorydiv64_zero_reg :=
@@ -795,9 +795,9 @@ exit
 result
 0x0
 }
--- Fim do arquivo: div64-by-zero-reg.lean
+-- End of file: div64-by-zero-reg.lean
 
--- Início do arquivo: div64-imm.lean
+-- Start of file: div64-imm.lean
 ------------------------------
 
 def memorydiv64_imm :=
@@ -816,9 +816,9 @@ exit
 result
 0x300000000
 }
--- Fim do arquivo: div64-imm.lean
+-- End of file: div64-imm.lean
 
--- Início do arquivo: div64-negative-imm.lean
+-- Start of file: div64-negative-imm.lean
 ------------------------------
 
 def memorydiv64_negative_imm :=
@@ -836,9 +836,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: div64-negative-imm.lean
+-- End of file: div64-negative-imm.lean
 
--- Início do arquivo: div64-negative-reg.lean
+-- Start of file: div64-negative-reg.lean
 ------------------------------
 
 def memorydiv64_negative_reg :=
@@ -857,9 +857,9 @@ exit
 result
 0x10000000A
 }
--- Fim do arquivo: div64-negative-reg.lean
+-- End of file: div64-negative-reg.lean
 
--- Início do arquivo: div64-reg.lean
+-- Start of file: div64-reg.lean
 ------------------------------
 
 def memorydiv64_reg :=
@@ -879,9 +879,9 @@ exit
 result
 0x300000000
 }
--- Fim do arquivo: div64-reg.lean
+-- End of file: div64-reg.lean
 
--- Início do arquivo: exit-not-last.lean
+-- Start of file: exit-not-last.lean
 ------------------------------
 
 def memoryexit_not_last :=
@@ -902,9 +902,9 @@ ja -6
 result
 0x0
 }
--- Fim do arquivo: exit-not-last.lean
+-- End of file: exit-not-last.lean
 
--- Início do arquivo: exit.lean
+-- Start of file: exit.lean
 ------------------------------
 
 def memoryexit :=
@@ -921,9 +921,9 @@ exit
 result
 0x0
 }
--- Fim do arquivo: exit.lean
+-- End of file: exit.lean
 
--- Início do arquivo: j-signed-imm.lean
+-- Start of file: j-signed-imm.lean
 ------------------------------
 
 def memoryj_signed_imm :=
@@ -956,81 +956,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: j-signed-imm.lean
+-- End of file: j-signed-imm.lean
 
-#eval exeConformanceCompareResult progj_signed_imm memoryj_signed_imm
-
-#check -5
-#check Nat.toUInt64 0x80000000
-#eval 0xFFFFFFFF80000000 - 0x80000000
-#eval (Int.ofNat 0x80000000 - Int.ofNat 0xFFFFFFFF80000000)
-#eval (Int.ofNat  0xFFFFFFFF80000000 - Int.ofNat 0x80000000)
-#eval (Int.ofNat 0x80000000 - Int.ofNat 0xFFFFFFFF80000000) * -1
-#eval bitTrim ( Int.toNat ((Int.ofNat 0x80000000 - Int.ofNat 0xFFFFFFFF80000000) * -1)) 64
-
-def evalNeg (n bits : ℕ ) : Bool :=
-  let binList := natToBin n
-  if List.length binList == bits
-  then
-    match binList with
-    | x :: _xs => x
-    | _ => false
-  else false
-
-def negativeSub ( x y bits' : ℕ ) : ℕ :=
-  let bits := bits'
-  match (evalNeg x bits) , (evalNeg y bits) with
-  -- se os dois forem negativos
-  | true, true => bitTrim ( x + y ) bits
-  -- se somente x for negativo
-  | true, false => bitTrim ( x +  (makeSigned y bits) ) bits
-  --| true, false =>  makeSigned ( bitTrim  ((makeSigned x bits) -  (makeSigned y bits)) bits) bits
-  --| true, false => bitTrim ( x +  y ) bits
-  --| true, false => bitTrim ( x +  y ) bits
-  -- se somente y for negativo
-  --| false, true => makeSigned ( bitTrim  ((makeSigned y bits) -  (makeSigned x bits)) bits) bits
-  | false, true => bitTrim ( x +  y ) bits
--- se os dois forem positivos
-  | false, false => bitTrim ( x + (makeSigned y bits) ) bits -- ok
-  --| false, false => makeSigned ( bitTrim  ((makeSigned x bits) -  (makeSigned y 32)) bits) bits -- ok
-  --| false, false =>  bitTrim ( makeSigned ( x +  (makeSigned y bits)) bits) bits -- ok
-  --| false, false =>  makeSigned ( bitTrim ((makeSigned x bits) +  (makeSigned y bits)) bits ) bits -- ok
-
-def negativeSubBool ( x y bits : ℕ ) : Bool :=
-  evalNeg ( makeSigned ( bitTrim ( (makeSigned x bits) -  (makeSigned y bits) ) bits ) bits) bits
-
-#eval negativeSubBool 5 10 32 --True 5 - 10 negativo
-#eval negativeSubBool 10 5 32 --False 10 - 5 positivo
-
-#eval 0 == ( bitTrim (0x80000000 + (makeSigned 0xFFFFFFFF80000000 64)) 64)-- correto -- True
-#eval 0 == ( bitTrim (0xFFFFFFFF80000000 + (makeSigned 0x80000000 32)) 64)-- correto -- True
-#eval 0 == ( bitTrim (0xFFFFFFFF80000000 + (makeSigned 0x80000000 64)) 64)-- Errado -- False
-#eval 0 == ( bitTrim (10 + (makeSigned 10 64)) 64) -- True 10 - 10
-
---JLT DST < SRC -> DST - SRC == Neg
-#eval evalNeg (negativeSub 0xFFFFFFFF80000000 0x80000001 64) 64
-#eval evalNeg (negativeSub 10 5 64) 64 --DST = 10; SRC = 5 false
-#eval evalNeg (negativeSub 5 10 64) 64 --DST = 5; SRC = 10 true
-
----Como deveria ser a operação
-#eval evalNeg ( bitTrim (0xFFFFFFFF80000000 + 0x80000001 ) 64) 64
-#eval evalNeg ( bitTrim (0xFFFFFFFF80000000 + (makeSigned 0x80000001 32)) 64) 64 -- correto --False
-#eval evalNeg ( bitTrim (0xFFFFFFFF80000000 + (makeSigned 0x80000001 64)) 64) 64 -- Errado == True
-
---JGT  DST > SRC -> SRC - DST == Neg
-#eval evalNeg (negativeSub 0x80000000 0xFFFFFFFF80000001 64) 64 -- correto ==False
-#eval evalNeg (negativeSub 0xFFFFFFFF80000001 0x80000000 64) 64 -- Errado == True
-#eval evalNeg (negativeSub 5 10 64) 64 --DST = 10; SRC = 5 true
-#eval evalNeg (negativeSub 10 5 64) 64 --DST = 5; SRC = 10 false
-
----Como deveria ser a operação
-#eval evalNeg ( bitTrim (0x80000000 + (makeSigned 0xFFFFFFFF80000001 64)) 64) 64 -- Correto == False
-#eval evalNeg ( bitTrim (0x80000000 + 0xFFFFFFFF80000001 ) 64) 64 -- False
-#eval evalNeg ( bitTrim ((makeSigned 0x80000000 64) + 0xFFFFFFFF80000001 ) 64) 64 -- Errado == True
-#eval evalNeg ( bitTrim ((makeSigned 0x80000000 32) + 0xFFFFFFFF80000001 ) 64) 64 -- Errado == False
-
-
--- Início do arquivo: ja32.lean
+-- Start of file: ja32.lean
 ------------------------------
 
 def memoryja32 :=
@@ -1051,9 +979,9 @@ ja32 -6
 result
 0x0
 }
--- Fim do arquivo: ja32.lean
+-- End of file: ja32.lean
 
--- Início do arquivo: jeq-imm.lean
+-- Start of file: jeq-imm.lean
 ------------------------------
 
 def memoryjeq_imm :=
@@ -1076,9 +1004,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: jeq-imm.lean
+-- End of file: jeq-imm.lean
 
--- Início do arquivo: jeq-reg.lean
+-- Start of file: jeq-reg.lean
 ------------------------------
 
 def memoryjeq_reg :=
@@ -1104,9 +1032,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: jeq-reg.lean
+-- End of file: jeq-reg.lean
 
--- Início do arquivo: jeq32-imm.lean
+-- Start of file: jeq32-imm.lean
 ------------------------------
 
 def memoryjeq32_imm :=
@@ -1132,9 +1060,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: jeq32-imm.lean
+-- End of file: jeq32-imm.lean
 
--- Início do arquivo: jeq32-reg.lean
+-- Start of file: jeq32-reg.lean
 ------------------------------
 
 def memoryjeq32_reg :=
@@ -1163,9 +1091,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: jeq32-reg.lean
+-- End of file: jeq32-reg.lean
 
--- Início do arquivo: jge-imm.lean
+-- Start of file: jge-imm.lean
 ------------------------------
 
 def memoryjge_imm :=
@@ -1188,9 +1116,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: jge-imm.lean
+-- End of file: jge-imm.lean
 
--- Início do arquivo: jge-reg.lean
+-- Start of file: jge-reg.lean
 ------------------------------
 
 def memoryjge_reg :=
@@ -1216,9 +1144,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: jge-reg.lean
+-- End of file: jge-reg.lean
 
--- Início do arquivo: jge32-imm.lean
+-- Start of file: jge32-imm.lean
 ------------------------------
 
 def memoryjge32_imm :=
@@ -1244,9 +1172,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: jge32-imm.lean
+-- End of file: jge32-imm.lean
 
--- Início do arquivo: jge32-reg.lean
+-- Start of file: jge32-reg.lean
 ------------------------------
 
 def memoryjge32_reg :=
@@ -1275,9 +1203,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: jge32-reg.lean
+-- End of file: jge32-reg.lean
 
--- Início do arquivo: jgt-imm.lean
+-- Start of file: jgt-imm.lean
 ------------------------------
 
 def memoryjgt_imm :=
@@ -1300,9 +1228,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: jgt-imm.lean
+-- End of file: jgt-imm.lean
 
--- Início do arquivo: jgt-reg.lean
+-- Start of file: jgt-reg.lean
 ------------------------------
 
 def memoryjgt_reg :=
@@ -1327,9 +1255,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: jgt-reg.lean
+-- End of file: jgt-reg.lean
 
--- Início do arquivo: jgt32-imm.lean
+-- Start of file: jgt32-imm.lean
 ------------------------------
 
 def memoryjgt32_imm :=
@@ -1355,9 +1283,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: jgt32-imm.lean
+-- End of file: jgt32-imm.lean
 
--- Início do arquivo: jgt32-reg.lean
+-- Start of file: jgt32-reg.lean
 ------------------------------
 
 def memoryjgt32_reg :=
@@ -1386,9 +1314,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: jgt32-reg.lean
+-- End of file: jgt32-reg.lean
 
--- Início do arquivo: jit-bounce.lean
+-- Start of file: jit-bounce.lean
 ------------------------------
 
 def memoryjit_bounce :=
@@ -1410,9 +1338,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: jit-bounce.lean
+-- End of file: jit-bounce.lean
 
--- Início do arquivo: jle-imm.lean
+-- Start of file: jle-imm.lean
 ------------------------------
 
 def memoryjle_imm :=
@@ -1436,9 +1364,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: jle-imm.lean
+-- End of file: jle-imm.lean
 
--- Início do arquivo: jle-reg.lean
+-- Start of file: jle-reg.lean
 ------------------------------
 
 def memoryjle_reg :=
@@ -1464,9 +1392,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: jle-reg.lean
+-- End of file: jle-reg.lean
 
--- Início do arquivo: jle32-imm.lean
+-- Start of file: jle32-imm.lean
 ------------------------------
 
 def memoryjle32_imm :=
@@ -1493,9 +1421,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: jle32-imm.lean
+-- End of file: jle32-imm.lean
 
--- Início do arquivo: jle32-reg.lean
+-- Start of file: jle32-reg.lean
 ------------------------------
 
 def memoryjle32_reg :=
@@ -1524,9 +1452,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: jle32-reg.lean
+-- End of file: jle32-reg.lean
 
--- Início do arquivo: jlt-imm.lean
+-- Start of file: jlt-imm.lean
 ------------------------------
 
 def memoryjlt_imm :=
@@ -1549,9 +1477,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: jlt-imm.lean
+-- End of file: jlt-imm.lean
 
--- Início do arquivo: jlt-reg.lean
+-- Start of file: jlt-reg.lean
 ------------------------------
 
 def memoryjlt_reg :=
@@ -1576,9 +1504,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: jlt-reg.lean
+-- End of file: jlt-reg.lean
 
--- Início do arquivo: jlt32-imm.lean
+-- Start of file: jlt32-imm.lean
 ------------------------------
 
 def memoryjlt32_imm :=
@@ -1604,9 +1532,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: jlt32-imm.lean
+-- End of file: jlt32-imm.lean
 
--- Início do arquivo: jlt32-reg.lean
+-- Start of file: jlt32-reg.lean
 ------------------------------
 
 def memoryjlt32_reg :=
@@ -1634,9 +1562,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: jlt32-reg.lean
+-- End of file: jlt32-reg.lean
 
--- Início do arquivo: jne-reg.lean
+-- Start of file: jne-reg.lean
 ------------------------------
 
 def memoryjne_reg :=
@@ -1661,9 +1589,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: jne-reg.lean
+-- End of file: jne-reg.lean
 
--- Início do arquivo: jne32-imm.lean
+-- Start of file: jne32-imm.lean
 ------------------------------
 
 def memoryjne32_imm :=
@@ -1690,9 +1618,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: jne32-imm.lean
+-- End of file: jne32-imm.lean
 
--- Início do arquivo: jne32-reg.lean
+-- Start of file: jne32-reg.lean
 ------------------------------
 
 def memoryjne32_reg :=
@@ -1721,9 +1649,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: jne32-reg.lean
+-- End of file: jne32-reg.lean
 
--- Início do arquivo: jset-imm.lean
+-- Start of file: jset-imm.lean
 ------------------------------
 
 def memoryjset_imm :=
@@ -1746,9 +1674,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: jset-imm.lean
+-- End of file: jset-imm.lean
 
--- Início do arquivo: jset-reg.lean
+-- Start of file: jset-reg.lean
 ------------------------------
 
 def memoryjset_reg :=
@@ -1774,9 +1702,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: jset-reg.lean
+-- End of file: jset-reg.lean
 
--- Início do arquivo: jset32-imm.lean
+-- Start of file: jset32-imm.lean
 ------------------------------
 
 def memoryjset32_imm :=
@@ -1802,9 +1730,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: jset32-imm.lean
+-- End of file: jset32-imm.lean
 
--- Início do arquivo: jset32-reg.lean
+-- Start of file: jset32-reg.lean
 ------------------------------
 
 def memoryjset32_reg :=
@@ -1833,9 +1761,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: jset32-reg.lean
+-- End of file: jset32-reg.lean
 
--- Início do arquivo: jsge-imm.lean
+-- Start of file: jsge-imm.lean
 ------------------------------
 
 def memoryjsge_imm :=
@@ -1859,9 +1787,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: jsge-imm.lean
+-- End of file: jsge-imm.lean
 
--- Início do arquivo: jsge-reg.lean
+-- Start of file: jsge-reg.lean
 ------------------------------
 
 def memoryjsge_reg :=
@@ -1889,9 +1817,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: jsge-reg.lean
+-- End of file: jsge-reg.lean
 
--- Início do arquivo: jsge32-imm.lean
+-- Start of file: jsge32-imm.lean
 ------------------------------
 
 def memoryjsge32_imm :=
@@ -1918,9 +1846,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: jsge32-imm.lean
+-- End of file: jsge32-imm.lean
 
--- Início do arquivo: jsge32-reg.lean
+-- Start of file: jsge32-reg.lean
 ------------------------------
 
 def memoryjsge32_reg :=
@@ -1951,9 +1879,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: jsge32-reg.lean
+-- End of file: jsge32-reg.lean
 
--- Início do arquivo: jsgt-imm.lean
+-- Start of file: jsgt-imm.lean
 ------------------------------
 
 def memoryjsgt_imm :=
@@ -1976,9 +1904,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: jsgt-imm.lean
+-- End of file: jsgt-imm.lean
 
--- Início do arquivo: jsgt-reg.lean
+-- Start of file: jsgt-reg.lean
 ------------------------------
 
 def memoryjsgt_reg :=
@@ -2003,9 +1931,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: jsgt-reg.lean
+-- End of file: jsgt-reg.lean
 
--- Início do arquivo: jsgt32-imm.lean
+-- Start of file: jsgt32-imm.lean
 ------------------------------
 
 def memoryjsgt32_imm :=
@@ -2031,9 +1959,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: jsgt32-imm.lean
+-- End of file: jsgt32-imm.lean
 
--- Início do arquivo: jsgt32-reg.lean
+-- Start of file: jsgt32-reg.lean
 ------------------------------
 
 def memoryjsgt32_reg :=
@@ -2061,9 +1989,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: jsgt32-reg.lean
+-- End of file: jsgt32-reg.lean
 
--- Início do arquivo: jsle-imm.lean
+-- Start of file: jsle-imm.lean
 ------------------------------
 
 def memoryjsle_imm :=
@@ -2087,9 +2015,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: jsle-imm.lean
+-- End of file: jsle-imm.lean
 
--- Início do arquivo: jsle-reg.lean
+-- Start of file: jsle-reg.lean
 ------------------------------
 
 def memoryjsle_reg :=
@@ -2118,9 +2046,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: jsle-reg.lean
+-- End of file: jsle-reg.lean
 
--- Início do arquivo: jsle32-imm.lean
+-- Start of file: jsle32-imm.lean
 ------------------------------
 
 def memoryjsle32_imm :=
@@ -2147,9 +2075,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: jsle32-imm.lean
+-- End of file: jsle32-imm.lean
 
--- Início do arquivo: jsle32-reg.lean
+-- Start of file: jsle32-reg.lean
 ------------------------------
 
 def memoryjsle32_reg :=
@@ -2181,9 +2109,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: jsle32-reg.lean
+-- End of file: jsle32-reg.lean
 
--- Início do arquivo: jslt-imm.lean
+-- Start of file: jslt-imm.lean
 ------------------------------
 
 def memoryjslt_imm :=
@@ -2206,9 +2134,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: jslt-imm.lean
+-- End of file: jslt-imm.lean
 
--- Início do arquivo: jslt-reg.lean
+-- Start of file: jslt-reg.lean
 ------------------------------
 
 def memoryjslt_reg :=
@@ -2233,9 +2161,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: jslt-reg.lean
+-- End of file: jslt-reg.lean
 
--- Início do arquivo: jslt32-imm.lean
+-- Start of file: jslt32-imm.lean
 ------------------------------
 
 def memoryjslt32_imm :=
@@ -2261,9 +2189,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: jslt32-imm.lean
+-- End of file: jslt32-imm.lean
 
--- Início do arquivo: jslt32-reg.lean
+-- Start of file: jslt32-reg.lean
 ------------------------------
 
 def memoryjslt32_reg :=
@@ -2291,9 +2219,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: jslt32-reg.lean
+-- End of file: jslt32-reg.lean
 
--- Início do arquivo: lddw.lean
+-- Start of file: lddw.lean
 ------------------------------
 
 def memorylddw :=
@@ -2310,9 +2238,9 @@ exit
 result
 0x1122334455667788
 }
--- Fim do arquivo: lddw.lean
+-- End of file: lddw.lean
 
--- Início do arquivo: lddw2.lean
+-- Start of file: lddw2.lean
 ------------------------------
 
 def memorylddw2 :=
@@ -2329,9 +2257,9 @@ exit
 result
 0x0000000080000000
 }
--- Fim do arquivo: lddw2.lean
+-- End of file: lddw2.lean
 
--- Início do arquivo: ldxb-all.lean
+-- Start of file: ldxb-all.lean
 ------------------------------
 
 def memoryldxb_all :=
@@ -2377,9 +2305,9 @@ exit
 result
 0x9876543210
 }
--- Fim do arquivo: ldxb-all.lean
+-- End of file: ldxb-all.lean
 
--- Início do arquivo: ldxb.lean
+-- Start of file: ldxb.lean
 ------------------------------
 
 def memoryldxb :=
@@ -2396,9 +2324,9 @@ exit
 result
 0x11
 }
--- Fim do arquivo: ldxb.lean
+-- End of file: ldxb.lean
 
--- Início do arquivo: ldxdw.lean
+-- Start of file: ldxdw.lean
 ------------------------------
 
 def memoryldxdw :=
@@ -2415,9 +2343,9 @@ exit
 result
 0x8877665544332211
 }
--- Fim do arquivo: ldxdw.lean
+-- End of file: ldxdw.lean
 
--- Início do arquivo: ldxh-all.lean
+-- Start of file: ldxh-all.lean
 ------------------------------
 
 def memoryldxh_all :=
@@ -2473,9 +2401,9 @@ exit
 result
 0x9876543210
 }
--- Fim do arquivo: ldxh-all.lean
+-- End of file: ldxh-all.lean
 
--- Início do arquivo: ldxh-all2.lean
+-- Start of file: ldxh-all2.lean
 ------------------------------
 
 def memoryldxh_all2 :=
@@ -2530,9 +2458,9 @@ exit
 result
 0x3ff
 }
--- Fim do arquivo: ldxh-all2.lean
+-- End of file: ldxh-all2.lean
 
--- Início do arquivo: ldxh-same-reg.lean
+-- Start of file: ldxh-same-reg.lean
 ------------------------------
 
 def memoryldxh_same_reg :=
@@ -2551,9 +2479,9 @@ exit
 result
 0x1234
 }
--- Fim do arquivo: ldxh-same-reg.lean
+-- End of file: ldxh-same-reg.lean
 
--- Início do arquivo: ldxh.lean
+-- Start of file: ldxh.lean
 ------------------------------
 
 def memoryldxh :=
@@ -2570,9 +2498,9 @@ exit
 result
 0x2211
 }
--- Fim do arquivo: ldxh.lean
+-- End of file: ldxh.lean
 
--- Início do arquivo: ldxw-all.lean
+-- Start of file: ldxw-all.lean
 ------------------------------
 
 def memoryldxw_all :=
@@ -2627,9 +2555,9 @@ exit
 result
 0x030f0f
 }
--- Fim do arquivo: ldxw-all.lean
+-- End of file: ldxw-all.lean
 
--- Início do arquivo: ldxw.lean
+-- Start of file: ldxw.lean
 ------------------------------
 
 def memoryldxw :=
@@ -2646,9 +2574,9 @@ exit
 result
 0x44332211
 }
--- Fim do arquivo: ldxw.lean
+-- End of file: ldxw.lean
 
--- Início do arquivo: le16-high.lean
+-- Start of file: le16-high.lean
 ------------------------------
 
 def memoryle16_high :=
@@ -2666,9 +2594,9 @@ exit
 result
 0x1122
 }
--- Fim do arquivo: le16-high.lean
+-- End of file: le16-high.lean
 
--- Início do arquivo: le16.lean
+-- Start of file: le16.lean
 ------------------------------
 
 def memoryle16 :=
@@ -2686,9 +2614,9 @@ exit
 result
 0x1122
 }
--- Fim do arquivo: le16.lean
+-- End of file: le16.lean
 
--- Início do arquivo: le32-high.lean
+-- Start of file: le32-high.lean
 ------------------------------
 
 def memoryle32_high :=
@@ -2706,9 +2634,9 @@ exit
 result
 0x11223344
 }
--- Fim do arquivo: le32-high.lean
+-- End of file: le32-high.lean
 
--- Início do arquivo: le32.lean
+-- Start of file: le32.lean
 ------------------------------
 
 def memoryle32 :=
@@ -2726,9 +2654,9 @@ exit
 result
 0x11223344
 }
--- Fim do arquivo: le32.lean
+-- End of file: le32.lean
 
--- Início do arquivo: le64.lean
+-- Start of file: le64.lean
 ------------------------------
 
 def memoryle64 :=
@@ -2746,567 +2674,9 @@ exit
 result
 0x1122334455667788
 }
--- Fim do arquivo: le64.lean
+-- End of file: le64.lean
 
-/-
--- Início do arquivo: lock_add.lean
-------------------------------
-
-def memorylock_add :=
-createStackMemory 0 emptyMemory
-{mem|
-'0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' }
-def proglock_add : TestEval :=
-{exe|
-# Copyright Big Switch Networks Inc
-# SPDX_License_Identifier Apache_2_0
-asm
-lddw %r0, 0x123456789abcdef0
-stxdw [%r10-8], %r0
-mov %r1, 1
-lock add [%r10-8], %r1
-ldxdw %r1, [%r10-8]
-lddw %r0, 0x123456789abcdef1
-jne %r0, %r1, exit
-mov %r0, 0
-exit
-result
-0x0
-}
--- Fim do arquivo: lock_add.lean
-
--- Início do arquivo: lock_add32.lean
-------------------------------
-
-def memorylock_add32 :=
-createStackMemory 0 emptyMemory
-{mem|
-'0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' }
-def proglock_add32 : TestEval :=
-{exe|
-# Copyright Big Switch Networks Inc
-# SPDX_License_Identifier Apache_2_0
-asm
-lddw %r0, 0x123456789abcdef0
-stxdw [%r10-8], %r0
-mov %r1, 1
-lock add32 [%r10-8], %r1
-ldxdw %r1, [%r10-8]
-lddw %r0, 0x123456789abcdef1
-jne %r0, %r1, exit
-mov %r0, 0
-exit
-result
-0x0
-}
--- Fim do arquivo: lock_add32.lean
-
--- Início do arquivo: lock_and.lean
-------------------------------
-
-def memorylock_and :=
-createStackMemory 0 emptyMemory
-{mem|
-'0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' }
-def proglock_and : TestEval :=
-{exe|
-# Copyright Big Switch Networks Inc
-# SPDX_License_Identifier Apache_2_0
-asm
-lddw %r0, 0x123456789abcdef0
-stxdw [%r10-8], %r0
-lddw %r1, 0x00ff00ff00ff00ff
-lock and [%r10-8], %r1
-ldxdw %r0, [%r10-8]
-lddw %r1, 0x0034007800bc00f0
-jne %r0, %r1, exit
-mov %r0, 0
-exit
-result
-0x0
-}
--- Fim do arquivo: lock_and.lean
-
--- Início do arquivo: lock_and32.lean
-------------------------------
-
-def memorylock_and32 :=
-createStackMemory 0 emptyMemory
-{mem|
-'0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' }
-def proglock_and32 : TestEval :=
-{exe|
-# Copyright Big Switch Networks Inc
-# SPDX_License_Identifier Apache_2_0
-asm
-lddw %r0, 0x123456789abcdef0
-stxdw [%r10-8], %r0
-lddw %r1, 0x00ff00ff00ff00ff
-lock and32 [%r10-8], %r1
-ldxdw %r0, [%r10-8]
-lddw %r1, 0x1234567800bc00f0
-jne %r0, %r1, exit
-mov %r0, 0
-exit
-result
-0x0
-}
--- Fim do arquivo: lock_and32.lean
-
--- Início do arquivo: lock_cmpxchg.lean
-------------------------------
-
-def memorylock_cmpxchg :=
-createStackMemory 0 emptyMemory
-{mem|
-'0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' }
-def proglock_cmpxchg : TestEval :=
-{exe|
-# Copyright Big Switch Networks Inc
-# SPDX_License_Identifier Apache_2_0
-asm
-lddw %r0, 0x123456789abcdef0
-stxdw [%r10-8], %r0
-lddw %r1, 0x1122334455667788
-lddw %r0, 0xfedcba987654321
-lock cmpxchg [%r10-8], %r1
-lddw %r1, 0x123456789abcdef0
-jne %r0, %r1, exit
-ldxdw %r0, [%r10-8]
-jne %r0, %r1, exit
-lddw %r0, 0x123456789abcdef0
-stxdw [%r10-8], %r0
-lddw %r1, 0x1122334455667788
-lock cmpxchg [%r10-8], %r1
-lddw %r1, 0x123456789abcdef0
-jne %r0, %r1, exit
-ldxdw %r0, [%r10-8]
-lddw %r1, 0x1122334455667788
-jne %r0, %r1, exit
-mov %r0, 0
-exit
-result
-0x0
-}
--- Fim do arquivo: lock_cmpxchg.lean
-
--- Início do arquivo: lock_cmpxchg32.lean
-------------------------------
-
-def memorylock_cmpxchg32 :=
-createStackMemory 0 emptyMemory
-{mem|
-'0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' }
-def proglock_cmpxchg32 : TestEval :=
-{exe|
-# Copyright Big Switch Networks Inc
-# SPDX_License_Identifier Apache_2_0
-asm
-lddw %r0, 0x123456789abcdef0
-stxdw [%r10-8], %r0
-mov32 %r1, 0x876543210
-mov32 %r0, 0x12345678
-lock cmpxchg32 [%r10-8], %r1
-mov32 %r1, 0x9abcdef0
-jne %r0, %r1, exit
-ldxdw %r0, [%r10-8]
-lddw %r1, 0x123456789abcdef0
-jne %r0, %r1, exit
-lddw %r0, 0x123456789abcdef0
-stxdw [%r10-8], %r0
-mov32 %r1, 0x11223344
-lock cmpxchg32 [%r10-8], %r1
-mov32 %r1, 0x9abcdef0
-jne %r0, %r1, exit
-ldxdw %r0, [%r10-8]
-lddw %r1, 0x1234567811223344
-jne %r0, %r1, exit
-mov %r0, 0
-exit
-result
-0x0
-}
--- Fim do arquivo: lock_cmpxchg32.lean
-
--- Início do arquivo: lock_fetch_add.lean
-------------------------------
-
-def memorylock_fetch_add :=
-createStackMemory 0 emptyMemory
-{mem|
-'0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' }
-def proglock_fetch_add : TestEval :=
-{exe|
-# Copyright Big Switch Networks Inc
-# SPDX_License_Identifier Apache_2_0
-asm
-lddw %r0, 0x123456789abcdef0
-stxdw [%r10-8], %r0
-mov %r1, 1
-lock fetch add [%r10-8], %r1
-jne %r1, %r0, exit
-ldxdw %r1, [%r10-8]
-lddw %r0, 0x123456789abcdef1
-jne %r0, %r1, exit
-mov %r0, 0
-exit
-result
-0x0
-}
--- Fim do arquivo: lock_fetch_add.lean
-
--- Início do arquivo: lock_fetch_add32.lean
-------------------------------
-
-def memorylock_fetch_add32 :=
-createStackMemory 0 emptyMemory
-{mem|
-'0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' }
-def proglock_fetch_add32 : TestEval :=
-{exe|
-# Copyright Big Switch Networks Inc
-# SPDX_License_Identifier Apache_2_0
-asm
-lddw %r0, 0x123456789abcdef0
-stxdw [%r10-8], %r0
-mov %r1, 1
-lock fetch add32 [%r10-8], %r1
-jne32 %r1, %r0, exit
-ldxdw %r1, [%r10-8]
-lddw %r0, 0x123456789abcdef1
-jne %r0, %r1, exit
-mov %r0, 0
-exit
-result
-0x0
-}
--- Fim do arquivo: lock_fetch_add32.lean
-
--- Início do arquivo: lock_fetch_and.lean
-------------------------------
-
-def memorylock_fetch_and :=
-createStackMemory 0 emptyMemory
-{mem|
-'0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' }
-def proglock_fetch_and : TestEval :=
-{exe|
-# Copyright Big Switch Networks Inc
-# SPDX_License_Identifier Apache_2_0
-asm
-lddw %r0, 0x123456789abcdef0
-stxdw [%r10-8], %r0
-lddw %r1, 0x00ff00ff00ff00ff
-lock fetch and [%r10-8], %r1
-jne %r1, %r0, exit
-ldxdw %r0, [%r10-8]
-lddw %r1, 0x0034007800bc00f0
-jne %r0, %r1, exit
-mov %r0, 0
-exit
-result
-0x0
-}
--- Fim do arquivo: lock_fetch_and.lean
-
--- Início do arquivo: lock_fetch_and32.lean
-------------------------------
-
-def memorylock_fetch_and32 :=
-createStackMemory 0 emptyMemory
-{mem|
-'0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' }
-def proglock_fetch_and32 : TestEval :=
-{exe|
-# Copyright Big Switch Networks Inc
-# SPDX_License_Identifier Apache_2_0
-asm
-lddw %r0, 0x123456789abcdef0
-stxdw [%r10-8], %r0
-lddw %r1, 0x00ff00ff00ff00ff
-lock fetch and32 [%r10-8], %r1
-jne32 %r1, %r0, exit
-ldxdw %r0, [%r10-8]
-lddw %r1, 0x1234567800bc00f0
-jne %r0, %r1, exit
-mov %r0, 0
-exit
-result
-0x0
-}
--- Fim do arquivo: lock_fetch_and32.lean
-
--- Início do arquivo: lock_fetch_or.lean
-------------------------------
-
-def memorylock_fetch_or :=
-createStackMemory 0 emptyMemory
-{mem|
-'0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' }
-def proglock_fetch_or : TestEval :=
-{exe|
-# Copyright Big Switch Networks Inc
-# SPDX_License_Identifier Apache_2_0
-asm
-lddw %r0, 0x1100110011001100
-lddw %r1, 0x0011001100110011
-stxdw [%r10-8], %r0
-lock fetch or [%r10-8], %r1
-jne %r1, %r0, exit
-ldxdw %r0, [%r10-8]
-lddw %r1, 0x1111111111111111
-jne %r0, %r1, exit
-mov %r0, 0
-exit
-result
-0
-}
--- Fim do arquivo: lock_fetch_or.lean
-
--- Início do arquivo: lock_fetch_or32.lean
-------------------------------
-
-def memorylock_fetch_or32 :=
-createStackMemory 0 emptyMemory
-{mem|
-'0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' }
-def proglock_fetch_or32 : TestEval :=
-{exe|
-# Copyright Big Switch Networks Inc
-# SPDX_License_Identifier Apache_2_0
-asm
-lddw %r0, 0x1100110011001100
-lddw %r1, 0x0011001100110011
-stxdw [%r10-8], %r0
-lock fetch or32 [%r10-8], %r1
-jne32 %r1, %r0, exit
-ldxdw %r0, [%r10-8]
-lddw %r1, 0x1100110011111111
-jne %r0, %r1, exit
-mov %r0, 0
-exit
-result
-0
-}
--- Fim do arquivo: lock_fetch_or32.lean
-
--- Início do arquivo: lock_fetch_xor.lean
-------------------------------
-
-def memorylock_fetch_xor :=
-createStackMemory 0 emptyMemory
-{mem|
-'0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' }
-def proglock_fetch_xor : TestEval :=
-{exe|
-# Copyright Big Switch Networks Inc
-# SPDX_License_Identifier Apache_2_0
-asm
-lddw %r0, 0xcccccccccccccccc
-lddw %r1, 0xffffffffffffffff
-stxdw [%r10-8], %r0
-lock fetch xor [%r10-8], %r1
-jne %r1, %r0, exit
-ldxdw %r0, [%r10-8]
-lddw %r1, 0x3333333333333333
-jne %r0, %r1, exit
-mov %r0, 0
-exit
-result
-0
-}
--- Fim do arquivo: lock_fetch_xor.lean
-
--- Início do arquivo: lock_fetch_xor32.lean
-------------------------------
-
-def memorylock_fetch_xor32 :=
-createStackMemory 0 emptyMemory
-{mem|
-'0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' }
-def proglock_fetch_xor32 : TestEval :=
-{exe|
-# Copyright Big Switch Networks Inc
-# SPDX_License_Identifier Apache_2_0
-asm
-lddw %r0, 0xcccccccccccccccc
-lddw %r1, 0xffffffffffffffff
-stxdw [%r10-8], %r0
-lock fetch xor32 [%r10-8], %r1
-jne32 %r1, %r0, exit
-ldxdw %r0, [%r10-8]
-lddw %r1, 0xcccccccc33333333
-jne %r0, %r1, exit
-mov %r0, 0
-exit
-result
-0
-}
--- Fim do arquivo: lock_fetch_xor32.lean
-
--- Início do arquivo: lock_or.lean
-------------------------------
-
-def memorylock_or :=
-createStackMemory 0 emptyMemory
-{mem|
-'0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' }
-def proglock_or : TestEval :=
-{exe|
-# Copyright Big Switch Networks Inc
-# SPDX_License_Identifier Apache_2_0
-asm
-lddw %r0, 0x1100110011001100
-lddw %r1, 0x0011001100110011
-stxdw [%r10-8], %r0
-lock or [%r10-8], %r1
-ldxdw %r0, [%r10-8]
-lddw %r1, 0x1111111111111111
-jne %r0, %r1, exit
-mov %r0, 0
-exit
-result
-0
-}
--- Fim do arquivo: lock_or.lean
-
--- Início do arquivo: lock_or32.lean
-------------------------------
-
-def memorylock_or32 :=
-createStackMemory 0 emptyMemory
-{mem|
-'0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' }
-def proglock_or32 : TestEval :=
-{exe|
-# Copyright Big Switch Networks Inc
-# SPDX_License_Identifier Apache_2_0
-asm
-lddw %r0, 0x1100110011001100
-lddw %r1, 0x0011001100110011
-stxdw [%r10-8], %r0
-lock or32 [%r10-8], %r1
-ldxdw %r0, [%r10-8]
-lddw %r1, 0x1100110011111111
-jne %r0, %r1, exit
-mov %r0, 0
-exit
-result
-0
-}
--- Fim do arquivo: lock_or32.lean
-
--- Início do arquivo: lock_xchg.lean
-------------------------------
-
-def memorylock_xchg :=
-createStackMemory 0 emptyMemory
-{mem|
-'0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' }
-def proglock_xchg : TestEval :=
-{exe|
-# Copyright Big Switch Networks Inc
-# SPDX_License_Identifier Apache_2_0
-asm
-mov %r0, 1
-lddw %r1, 0x1111111111111111
-stxdw [%r10-8], %r1
-lddw %r1, 0x2222222222222222
-lock xchg [%r10-8], %r1
-ldxdw %r2, [%r10-8]
-lddw %r0, 0x2222222222222222
-jne %r2, %r0, exit
-lddw %r0, 0x1111111111111111
-jne %r1, %r0, exit
-mov %r0, 0
-exit
-result
-0x0
-}
--- Fim do arquivo: lock_xchg.lean
-
--- Início do arquivo: lock_xchg32.lean
-------------------------------
-
-def memorylock_xchg32 :=
-createStackMemory 0 emptyMemory
-{mem|
-'0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' }
-def proglock_xchg32 : TestEval :=
-{exe|
-# Copyright Big Switch Networks Inc
-# SPDX_License_Identifier Apache_2_0
-asm
-mov %r0, 1
-lddw %r1, 0x1111111111111111
-stxdw [%r10-8], %r1
-lddw %r1, 0x2222222222222222
-lock xchg32 [%r10-8], %r1
-ldxdw %r2, [%r10-8]
-lddw %r0, 0x1111111122222222
-jne %r2, %r0, exit
-lddw %r0, 0x11111111
-jne %r1, %r0, exit
-mov %r0, 0
-exit
-result
-0x0
-}
--- Fim do arquivo: lock_xchg32.lean
-
--- Início do arquivo: lock_xor.lean
-------------------------------
-
-def memorylock_xor :=
-createStackMemory 0 emptyMemory
-{mem|
-'0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' }
-def proglock_xor : TestEval :=
-{exe|
-# Copyright Big Switch Networks Inc
-# SPDX_License_Identifier Apache_2_0
-asm
-lddw %r0, 0xcccccccccccccccc
-lddw %r1, 0xffffffffffffffff
-stxdw [%r10-8], %r0
-lock xor [%r10-8], %r1
-ldxdw %r0, [%r10-8]
-lddw %r1, 0x3333333333333333
-jne %r0, %r1, exit
-mov %r0, 0
-exit
-result
-0
-}
--- Fim do arquivo: lock_xor.lean
-
--- Início do arquivo: lock_xor32.lean
-------------------------------
-
-def memorylock_xor32 :=
-createStackMemory 0 emptyMemory
-{mem|
-'0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' }
-def proglock_xor32 : TestEval :=
-{exe|
-# Copyright Big Switch Networks Inc
-# SPDX_License_Identifier Apache_2_0
-asm
-lddw %r0, 0xcccccccccccccccc
-lddw %r1, 0xffffffffffffffff
-stxdw [%r10-8], %r0
-lock xor32 [%r10-8], %r1
-ldxdw %r0, [%r10-8]
-lddw %r1, 0xcccccccc33333333
-jne %r0, %r1, exit
-mov %r0, 0
-exit
-result
-0
-}
--- Fim do arquivo: lock_xor32.lean
--/
--- Início do arquivo: lsh32-imm-high.lean
+-- Start of file: lsh32-imm-high.lean
 ------------------------------
 
 def memorylsh32_imm_high :=
@@ -3324,9 +2694,9 @@ exit
 result
 0x10000000
 }
--- Fim do arquivo: lsh32-imm-high.lean
+-- End of file: lsh32-imm-high.lean
 
--- Início do arquivo: lsh32-imm-neg.lean
+-- Start of file: lsh32-imm-neg.lean
 ------------------------------
 
 def memorylsh32_imm_neg :=
@@ -3344,9 +2714,9 @@ exit
 result
 0x10000000
 }
--- Fim do arquivo: lsh32-imm-neg.lean
+-- End of file: lsh32-imm-neg.lean
 
--- Início do arquivo: lsh32-imm.lean
+-- Start of file: lsh32-imm.lean
 ------------------------------
 
 def memorylsh32_imm :=
@@ -3364,9 +2734,9 @@ exit
 result
 0x10000000
 }
--- Fim do arquivo: lsh32-imm.lean
+-- End of file: lsh32-imm.lean
 
--- Início do arquivo: lsh32-reg-high.lean
+-- Start of file: lsh32-reg-high.lean
 ------------------------------
 
 def memorylsh32_reg_high :=
@@ -3385,9 +2755,9 @@ exit
 result
 0x10000000
 }
--- Fim do arquivo: lsh32-reg-high.lean
+-- End of file: lsh32-reg-high.lean
 
--- Início do arquivo: lsh32-reg-neg.lean
+-- Start of file: lsh32-reg-neg.lean
 ------------------------------
 
 def memorylsh32_reg_neg :=
@@ -3406,9 +2776,9 @@ exit
 result
 0x10000000
 }
--- Fim do arquivo: lsh32-reg-neg.lean
+-- End of file: lsh32-reg-neg.lean
 
--- Início do arquivo: lsh32-reg.lean
+-- Start of file: lsh32-reg.lean
 ------------------------------
 
 def memorylsh32_reg :=
@@ -3427,9 +2797,9 @@ exit
 result
 0x10000000
 }
--- Fim do arquivo: lsh32-reg.lean
+-- End of file: lsh32-reg.lean
 
--- Início do arquivo: lsh64-imm-high.lean
+-- Start of file: lsh64-imm-high.lean
 ------------------------------
 
 def memorylsh64_imm_high :=
@@ -3447,9 +2817,9 @@ exit
 result
 0x10
 }
--- Fim do arquivo: lsh64-imm-high.lean
+-- End of file: lsh64-imm-high.lean
 
--- Início do arquivo: lsh64-imm-neg.lean
+-- Start of file: lsh64-imm-neg.lean
 ------------------------------
 
 def memorylsh64_imm_neg :=
@@ -3467,9 +2837,9 @@ exit
 result
 0x10
 }
--- Fim do arquivo: lsh64-imm-neg.lean
+-- End of file: lsh64-imm-neg.lean
 
--- Início do arquivo: lsh64-imm.lean
+-- Start of file: lsh64-imm.lean
 ------------------------------
 
 def memorylsh64_imm :=
@@ -3487,9 +2857,9 @@ exit
 result
 0x10
 }
--- Fim do arquivo: lsh64-imm.lean
+-- End of file: lsh64-imm.lean
 
--- Início do arquivo: lsh64-reg-high.lean
+-- Start of file: lsh64-reg-high.lean
 ------------------------------
 
 def memorylsh64_reg_high :=
@@ -3508,9 +2878,9 @@ exit
 result
 0x10
 }
--- Fim do arquivo: lsh64-reg-high.lean
+-- End of file: lsh64-reg-high.lean
 
--- Início do arquivo: lsh64-reg-neg.lean
+-- Start of file: lsh64-reg-neg.lean
 ------------------------------
 
 def memorylsh64_reg_neg :=
@@ -3529,9 +2899,9 @@ exit
 result
 0x10
 }
--- Fim do arquivo: lsh64-reg-neg.lean
+-- End of file: lsh64-reg-neg.lean
 
--- Início do arquivo: lsh64-reg.lean
+-- Start of file: lsh64-reg.lean
 ------------------------------
 
 def memorylsh64_reg :=
@@ -3550,9 +2920,9 @@ exit
 result
 0x10
 }
--- Fim do arquivo: lsh64-reg.lean
+-- End of file: lsh64-reg.lean
 
--- Início do arquivo: mem-len.lean
+-- Start of file: mem-len.lean
 ------------------------------
 
 def memorymem_len :=
@@ -3570,11 +2940,9 @@ exit
 result
 0x8
 }
--- Fim do arquivo: mem-len.lean
+-- End of file: mem-len.lean
 
-#eval exeConformanceCompareResult progmem_len memorymem_len
-
--- Início do arquivo: mod-by-zero-reg.lean
+-- Start of file: mod-by-zero-reg.lean
 ------------------------------
 
 def memorymod_zero_reg :=
@@ -3593,9 +2961,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: mod-by-zero-reg.lean
+-- End of file: mod-by-zero-reg.lean
 
--- Início do arquivo: mod.lean
+-- Start of file: mod.lean
 ------------------------------
 
 def memorymod :=
@@ -3616,9 +2984,9 @@ exit
 result
 0x5
 }
--- Fim do arquivo: mod.lean
+-- End of file: mod.lean
 
--- Início do arquivo: mod32.lean
+-- Start of file: mod32.lean
 ------------------------------
 
 def memorymod32 :=
@@ -3636,9 +3004,9 @@ exit
 result
 0x0
 }
--- Fim do arquivo: mod32.lean
+-- End of file: mod32.lean
 
--- Início do arquivo: mod64-by-zero-reg.lean
+-- Start of file: mod64-by-zero-reg.lean
 ------------------------------
 
 def memorymod64_zero_reg :=
@@ -3657,9 +3025,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: mod64-by-zero-reg.lean
+-- End of file: mod64-by-zero-reg.lean
 
--- Início do arquivo: mod64.lean
+-- Start of file: mod64.lean
 ------------------------------
 
 def memorymod64 :=
@@ -3683,9 +3051,9 @@ exit
 result
 0x30ba5a04
 }
--- Fim do arquivo: mod64.lean
+-- End of file: mod64.lean
 
--- Início do arquivo: mov.lean
+-- Start of file: mov.lean
 ------------------------------
 
 def memorymov :=
@@ -3708,9 +3076,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: mov.lean
+-- End of file: mov.lean
 
--- Início do arquivo: mov64-sign-extend.lean
+-- Start of file: mov64-sign-extend.lean
 ------------------------------
 
 def memorymov64_sign_extend :=
@@ -3727,9 +3095,9 @@ exit
 result
 0xFFFFFFFFFFFFFFF6
 }
--- Fim do arquivo: mov64-sign-extend.lean
+-- End of file: mov64-sign-extend.lean
 
--- Início do arquivo: mov64.lean
+-- Start of file: mov64.lean
 ------------------------------
 
 def memorymov64 :=
@@ -3748,9 +3116,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: mov64.lean
+-- End of file: mov64.lean
 
--- Início do arquivo: movsx1632-reg.lean
+-- Start of file: movsx1632-reg.lean
 ------------------------------
 
 def memorymovsx1632_reg :=
@@ -3768,9 +3136,9 @@ exit
 result
 0xffffcdef
 }
--- Fim do arquivo: movsx1632-reg.lean
+-- End of file: movsx1632-reg.lean
 
--- Início do arquivo: movsx1664-reg.lean
+-- Start of file: movsx1664-reg.lean
 ------------------------------
 
 def memorymovsx1664_reg :=
@@ -3788,9 +3156,9 @@ exit
 result
 0xffffffffffffcdef
 }
--- Fim do arquivo: movsx1664-reg.lean
+-- End of file: movsx1664-reg.lean
 
--- Início do arquivo: movsx3264-reg.lean
+-- Start of file: movsx3264-reg.lean
 ------------------------------
 
 def memorymovsx3264_reg :=
@@ -3808,9 +3176,9 @@ exit
 result
 0xffffffff89abcdef
 }
--- Fim do arquivo: movsx3264-reg.lean
+-- End of file: movsx3264-reg.lean
 
--- Início do arquivo: movsx832-reg.lean
+-- Start of file: movsx832-reg.lean
 ------------------------------
 
 def memorymovsx832_reg :=
@@ -3828,9 +3196,9 @@ exit
 result
 0xffffffef
 }
--- Fim do arquivo: movsx832-reg.lean
+-- End of file: movsx832-reg.lean
 
--- Início do arquivo: movsx864-reg.lean
+-- Start of file: movsx864-reg.lean
 ------------------------------
 
 def memorymovsx864_reg :=
@@ -3848,9 +3216,9 @@ exit
 result
 0xffffffffffffffef
 }
--- Fim do arquivo: movsx864-reg.lean
+-- End of file: movsx864-reg.lean
 
--- Início do arquivo: mul32-imm.lean
+-- Start of file: mul32-imm.lean
 ------------------------------
 
 def memorymul32_imm :=
@@ -3868,9 +3236,9 @@ exit
 result
 0xc
 }
--- Fim do arquivo: mul32-imm.lean
+-- End of file: mul32-imm.lean
 
--- Início do arquivo: mul32-intmin-by-negone-imm.lean
+-- Start of file: mul32-intmin-by-negone-imm.lean
 ------------------------------
 
 def memorymul32_intmin_negone_imm :=
@@ -3888,9 +3256,9 @@ exit
 result
 0x80000000
 }
--- Fim do arquivo: mul32-intmin-by-negone-imm.lean
+-- End of file: mul32-intmin-by-negone-imm.lean
 
--- Início do arquivo: mul32-intmin-by-negone-reg.lean
+-- Start of file: mul32-intmin-by-negone-reg.lean
 ------------------------------
 
 def memorymul32_intmin_negone_reg :=
@@ -3909,9 +3277,9 @@ exit
 result
 0x80000000
 }
--- Fim do arquivo: mul32-intmin-by-negone-reg.lean
+-- End of file: mul32-intmin-by-negone-reg.lean
 
--- Início do arquivo: mul32-reg-overflow.lean
+-- Start of file: mul32-reg-overflow.lean
 ------------------------------
 
 def memorymul32_reg_overflow :=
@@ -3930,9 +3298,9 @@ exit
 result
 0x4
 }
--- Fim do arquivo: mul32-reg-overflow.lean
+-- End of file: mul32-reg-overflow.lean
 
--- Início do arquivo: mul32-reg.lean
+-- Start of file: mul32-reg.lean
 ------------------------------
 
 def memorymul32_reg :=
@@ -3951,9 +3319,9 @@ exit
 result
 0xc
 }
--- Fim do arquivo: mul32-reg.lean
+-- End of file: mul32-reg.lean
 
--- Início do arquivo: mul64-imm.lean
+-- Start of file: mul64-imm.lean
 ------------------------------
 
 def memorymul64_imm :=
@@ -3971,9 +3339,9 @@ exit
 result
 0x100000004
 }
--- Fim do arquivo: mul64-imm.lean
+-- End of file: mul64-imm.lean
 
--- Início do arquivo: mul64-intmin-by-negone-imm.lean
+-- Start of file: mul64-intmin-by-negone-imm.lean
 ------------------------------
 
 def memorymul64_intmin_negone_imm :=
@@ -3991,9 +3359,9 @@ exit
 result
 0x8000000000000000
 }
--- Fim do arquivo: mul64-intmin-by-negone-imm.lean
+-- End of file: mul64-intmin-by-negone-imm.lean
 
--- Início do arquivo: mul64-intmin-by-negone-reg.lean
+-- Start of file: mul64-intmin-by-negone-reg.lean
 ------------------------------
 
 def memorymul64_intmin_negone_reg :=
@@ -4012,9 +3380,9 @@ exit
 result
 0x8000000000000000
 }
--- Fim do arquivo: mul64-intmin-by-negone-reg.lean
+-- End of file: mul64-intmin-by-negone-reg.lean
 
--- Início do arquivo: mul64-reg.lean
+-- Start of file: mul64-reg.lean
 ------------------------------
 
 def memorymul64_reg :=
@@ -4033,9 +3401,9 @@ exit
 result
 0x100000004
 }
--- Fim do arquivo: mul64-reg.lean
+-- End of file: mul64-reg.lean
 
--- Início do arquivo: neg.lean
+-- Start of file: neg.lean
 ------------------------------
 
 def memoryneg :=
@@ -4053,9 +3421,9 @@ exit
 result
 0xfffffffe
 }
--- Fim do arquivo: neg.lean
+-- End of file: neg.lean
 
--- Início do arquivo: neg32-intmin-imm.lean
+-- Start of file: neg32-intmin-imm.lean
 ------------------------------
 
 def memoryneg32_intmin_imm :=
@@ -4073,9 +3441,9 @@ exit
 result
 0x80000000
 }
--- Fim do arquivo: neg32-intmin-imm.lean
+-- End of file: neg32-intmin-imm.lean
 
--- Início do arquivo: neg32-intmin-reg.lean
+-- Start of file: neg32-intmin-reg.lean
 ------------------------------
 
 def memoryneg32_intmin_reg :=
@@ -4093,9 +3461,9 @@ exit
 result
 0x80000000
 }
--- Fim do arquivo: neg32-intmin-reg.lean
+-- End of file: neg32-intmin-reg.lean
 
--- Início do arquivo: neg64-intmin-imm.lean
+-- Start of file: neg64-intmin-imm.lean
 ------------------------------
 
 def memoryneg64_intmin_imm :=
@@ -4113,9 +3481,9 @@ exit
 result
 0x8000000000000000
 }
--- Fim do arquivo: neg64-intmin-imm.lean
+-- End of file: neg64-intmin-imm.lean
 
--- Início do arquivo: neg64-intmin-reg.lean
+-- Start of file: neg64-intmin-reg.lean
 ------------------------------
 
 def memoryneg64_intmin_reg :=
@@ -4134,9 +3502,9 @@ exit
 result
 0x8000000000000000
 }
--- Fim do arquivo: neg64-intmin-reg.lean
+-- End of file: neg64-intmin-reg.lean
 
--- Início do arquivo: neg64.lean
+-- Start of file: neg64.lean
 ------------------------------
 
 def memoryneg64 :=
@@ -4154,45 +3522,9 @@ exit
 result
 0xfffffffffffffffe
 }
--- Fim do arquivo: neg64.lean
+-- End of file: neg64.lean
 
--- Início do arquivo: prime.lean
-------------------------------
-
-def memoryprime :=
-createStackMemory 0 emptyMemory
-{mem|
-'0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' }
-def progprime : TestEval :=
-{exe|
-# Copyright Big Switch Networks Inc
-# SPDX_License_Identifier Apache_2_0
-asm
-mov %r1, 67
-mov %r0, 0x1
-mov %r2, 0x2
-jgt %r1, 0x2, 5
-ja exit
-add %r2, 0x1
-mov %r0, 0x1
-jge %r2, %r1, exit
-mov %r3, %r1
-div %r3, %r2
-mul %r3, %r2
-mov %r4, %r1
-sub %r4, %r3
-mov %r0, 0x0
-jne %r4, 0x0, -10
-exit
-result
-0x1
-}
--- Fim do arquivo: prime.lean
-
-#eval exeConformanceCompareResult progprime memoryprime
-#eval exeConformanceDebug progprime memoryprime
-
--- Início do arquivo: rsh32-imm-high.lean
+-- Start of file: rsh32-imm-high.lean
 ------------------------------
 
 def memoryrsh32_imm_high :=
@@ -4211,9 +3543,9 @@ exit
 result
 0x00ffffff
 }
--- Fim do arquivo: rsh32-imm-high.lean
+-- End of file: rsh32-imm-high.lean
 
--- Início do arquivo: rsh32-imm-neg.lean
+-- Start of file: rsh32-imm-neg.lean
 ------------------------------
 
 def memoryrsh32_imm_neg :=
@@ -4232,9 +3564,9 @@ exit
 result
 0x00ffffff
 }
--- Fim do arquivo: rsh32-imm-neg.lean
+-- End of file: rsh32-imm-neg.lean
 
--- Início do arquivo: rsh32-imm.lean
+-- Start of file: rsh32-imm.lean
 ------------------------------
 
 def memoryrsh32_imm :=
@@ -4253,9 +3585,9 @@ exit
 result
 0x00ffffff
 }
--- Fim do arquivo: rsh32-imm.lean
+-- End of file: rsh32-imm.lean
 
--- Início do arquivo: rsh32-reg-high.lean
+-- Start of file: rsh32-reg-high.lean
 ------------------------------
 
 def memoryrsh32_reg_high :=
@@ -4275,9 +3607,9 @@ exit
 result
 0x00ffffff
 }
--- Fim do arquivo: rsh32-reg-high.lean
+-- End of file: rsh32-reg-high.lean
 
--- Início do arquivo: rsh32-reg-neg.lean
+-- Start of file: rsh32-reg-neg.lean
 ------------------------------
 
 def memoryrsh32_reg_neg :=
@@ -4297,9 +3629,9 @@ exit
 result
 0x00ffffff
 }
--- Fim do arquivo: rsh32-reg-neg.lean
+-- End of file: rsh32-reg-neg.lean
 
--- Início do arquivo: rsh32-reg.lean
+-- Start of file: rsh32-reg.lean
 ------------------------------
 
 def memoryrsh32_reg :=
@@ -4319,9 +3651,9 @@ exit
 result
 0x00ffffff
 }
--- Fim do arquivo: rsh32-reg.lean
+-- End of file: rsh32-reg.lean
 
--- Início do arquivo: rsh64-imm-high.lean
+-- Start of file: rsh64-imm-high.lean
 ------------------------------
 
 def memoryrsh64_imm_high :=
@@ -4339,9 +3671,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: rsh64-imm-high.lean
+-- End of file: rsh64-imm-high.lean
 
--- Início do arquivo: rsh64-imm-neg.lean
+-- Start of file: rsh64-imm-neg.lean
 ------------------------------
 
 def memoryrsh64_imm_neg :=
@@ -4359,9 +3691,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: rsh64-imm-neg.lean
+-- End of file: rsh64-imm-neg.lean
 
--- Início do arquivo: rsh64-imm.lean
+-- Start of file: rsh64-imm.lean
 ------------------------------
 
 def memoryrsh64_imm :=
@@ -4379,9 +3711,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: rsh64-imm.lean
+-- End of file: rsh64-imm.lean
 
--- Início do arquivo: rsh64-reg-high.lean
+-- Start of file: rsh64-reg-high.lean
 ------------------------------
 
 def memoryrsh64_reg_high :=
@@ -4400,9 +3732,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: rsh64-reg-high.lean
+-- End of file: rsh64-reg-high.lean
 
--- Início do arquivo: rsh64-reg-neg.lean
+-- Start of file: rsh64-reg-neg.lean
 ------------------------------
 
 def memoryrsh64_reg_neg :=
@@ -4421,9 +3753,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: rsh64-reg-neg.lean
+-- End of file: rsh64-reg-neg.lean
 
--- Início do arquivo: rsh64-reg.lean
+-- Start of file: rsh64-reg.lean
 ------------------------------
 
 def memoryrsh64_reg :=
@@ -4442,9 +3774,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: rsh64-reg.lean
+-- End of file: rsh64-reg.lean
 
--- Início do arquivo: sdiv32-by-zero-imm.lean
+-- Start of file: sdiv32-by-zero-imm.lean
 ------------------------------
 
 def memorysdiv32_zero_imm :=
@@ -4462,9 +3794,9 @@ exit
 result
 0x0
 }
--- Fim do arquivo: sdiv32-by-zero-imm.lean
+-- End of file: sdiv32-by-zero-imm.lean
 
--- Início do arquivo: sdiv32-by-zero-reg.lean
+-- Start of file: sdiv32-by-zero-reg.lean
 ------------------------------
 
 def memorysdiv32_zero_reg :=
@@ -4483,9 +3815,9 @@ exit
 result
 0x0
 }
--- Fim do arquivo: sdiv32-by-zero-reg.lean
+-- End of file: sdiv32-by-zero-reg.lean
 
--- Início do arquivo: sdiv32-imm.lean
+-- Start of file: sdiv32-imm.lean
 ------------------------------
 
 def memorysdiv32_imm :=
@@ -4503,9 +3835,9 @@ exit
 result
 0xfffffffd
 }
--- Fim do arquivo: sdiv32-imm.lean
+-- End of file: sdiv32-imm.lean
 
--- Início do arquivo: sdiv32-intmin-by-negone-imm.lean
+-- Start of file: sdiv32-intmin-by-negone-imm.lean
 ------------------------------
 
 def memorysdiv32_intmin_negone_imm :=
@@ -4523,9 +3855,9 @@ exit
 result
 0x80000000
 }
--- Fim do arquivo: sdiv32-intmin-by-negone-imm.lean
+-- End of file: sdiv32-intmin-by-negone-imm.lean
 
--- Início do arquivo: sdiv32-intmin-by-negone-reg.lean
+-- Start of file: sdiv32-intmin-by-negone-reg.lean
 ------------------------------
 
 def memorysdiv32_intmin_negone_reg :=
@@ -4544,9 +3876,9 @@ exit
 result
 0x80000000
 }
--- Fim do arquivo: sdiv32-intmin-by-negone-reg.lean
+-- End of file: sdiv32-intmin-by-negone-reg.lean
 
--- Início do arquivo: sdiv32-reg.lean
+-- Start of file: sdiv32-reg.lean
 ------------------------------
 
 def memorysdiv32_reg :=
@@ -4565,9 +3897,9 @@ exit
 result
 0xfffffffd
 }
--- Fim do arquivo: sdiv32-reg.lean
+-- End of file: sdiv32-reg.lean
 
--- Início do arquivo: sdiv64-by-zero-imm.lean
+-- Start of file: sdiv64-by-zero-imm.lean
 ------------------------------
 
 def memorysdiv64_zero_imm :=
@@ -4585,9 +3917,9 @@ exit
 result
 0x0
 }
--- Fim do arquivo: sdiv64-by-zero-imm.lean
+-- End of file: sdiv64-by-zero-imm.lean
 
--- Início do arquivo: sdiv64-by-zero-reg.lean
+-- Start of file: sdiv64-by-zero-reg.lean
 ------------------------------
 
 def memorysdiv64_zero_reg :=
@@ -4606,9 +3938,9 @@ exit
 result
 0x0
 }
--- Fim do arquivo: sdiv64-by-zero-reg.lean
+-- End of file: sdiv64-by-zero-reg.lean
 
--- Início do arquivo: sdiv64-imm.lean
+-- Start of file: sdiv64-imm.lean
 ------------------------------
 
 def memorysdiv64_imm :=
@@ -4627,9 +3959,9 @@ exit
 result
 0xfffffffd00000000
 }
--- Fim do arquivo: sdiv64-imm.lean
+-- End of file: sdiv64-imm.lean
 
--- Início do arquivo: sdiv64-intmin-by-negone-imm.lean
+-- Start of file: sdiv64-intmin-by-negone-imm.lean
 ------------------------------
 
 def memorysdiv64_intmin_negone_imm :=
@@ -4647,9 +3979,9 @@ exit
 result
 0x8000000000000000
 }
--- Fim do arquivo: sdiv64-intmin-by-negone-imm.lean
+-- End of file: sdiv64-intmin-by-negone-imm.lean
 
--- Início do arquivo: sdiv64-intmin-by-negone-reg.lean
+-- Start of file: sdiv64-intmin-by-negone-reg.lean
 ------------------------------
 
 def memorysdiv64_intmin_negone_reg :=
@@ -4668,9 +4000,9 @@ exit
 result
 0x8000000000000000
 }
--- Fim do arquivo: sdiv64-intmin-by-negone-reg.lean
+-- End of file: sdiv64-intmin-by-negone-reg.lean
 
--- Início do arquivo: sdiv64-reg.lean
+-- Start of file: sdiv64-reg.lean
 ------------------------------
 
 def memorysdiv64_reg :=
@@ -4690,9 +4022,9 @@ exit
 result
 0xfffffffd00000000
 }
--- Fim do arquivo: sdiv64-reg.lean
+-- End of file: sdiv64-reg.lean
 
--- Início do arquivo: smod32-intmin-by-negone-imm.lean
+-- Start of file: smod32-intmin-by-negone-imm.lean
 ------------------------------
 
 def memorysmod32_intmin_negone_imm :=
@@ -4710,9 +4042,9 @@ exit
 result
 0x0
 }
--- Fim do arquivo: smod32-intmin-by-negone-imm.lean
+-- End of file: smod32-intmin-by-negone-imm.lean
 
--- Início do arquivo: smod32-intmin-by-negone-reg.lean
+-- Start of file: smod32-intmin-by-negone-reg.lean
 ------------------------------
 
 def memorysmod32_intmin_negone_reg :=
@@ -4731,9 +4063,9 @@ exit
 result
 0x0
 }
--- Fim do arquivo: smod32-intmin-by-negone-reg.lean
+-- End of file: smod32-intmin-by-negone-reg.lean
 
--- Início do arquivo: smod32-neg-by-neg-imm.lean
+-- Start of file: smod32-neg-by-neg-imm.lean
 ------------------------------
 
 def memorysmod32_neg_neg_imm :=
@@ -4751,9 +4083,9 @@ exit
 result
 0xffffffff
 }
--- Fim do arquivo: smod32-neg-by-neg-imm.lean
+-- End of file: smod32-neg-by-neg-imm.lean
 
--- Início do arquivo: smod32-neg-by-neg-reg.lean
+-- Start of file: smod32-neg-by-neg-reg.lean
 ------------------------------
 
 def memorysmod32_neg_neg_reg :=
@@ -4772,9 +4104,9 @@ exit
 result
 0xffffffff
 }
--- Fim do arquivo: smod32-neg-by-neg-reg.lean
+-- End of file: smod32-neg-by-neg-reg.lean
 
--- Início do arquivo: smod32-neg-by-pos-imm.lean
+-- Start of file: smod32-neg-by-pos-imm.lean
 ------------------------------
 
 def memorysmod32_neg_pos_imm :=
@@ -4792,9 +4124,9 @@ exit
 result
 0xffffffff
 }
--- Fim do arquivo: smod32-neg-by-pos-imm.lean
+-- End of file: smod32-neg-by-pos-imm.lean
 
--- Início do arquivo: smod32-neg-by-pos-reg.lean
+-- Start of file: smod32-neg-by-pos-reg.lean
 ------------------------------
 
 def memorysmod32_neg_pos_reg :=
@@ -4813,9 +4145,9 @@ exit
 result
 0xffffffff
 }
--- Fim do arquivo: smod32-neg-by-pos-reg.lean
+-- End of file: smod32-neg-by-pos-reg.lean
 
--- Início do arquivo: smod32-neg-by-zero-imm.lean
+-- Start of file: smod32-neg-by-zero-imm.lean
 ------------------------------
 
 def memorysmod32_neg_zero_imm :=
@@ -4833,9 +4165,9 @@ exit
 result
 0xFFFFFFF6
 }
--- Fim do arquivo: smod32-neg-by-zero-imm.lean
+-- End of file: smod32-neg-by-zero-imm.lean
 
--- Início do arquivo: smod32-neg-by-zero-reg.lean
+-- Start of file: smod32-neg-by-zero-reg.lean
 ------------------------------
 
 def memorysmod32_neg_zero_reg :=
@@ -4854,9 +4186,9 @@ exit
 result
 0xFFFFFFF6
 }
--- Fim do arquivo: smod32-neg-by-zero-reg.lean
+-- End of file: smod32-neg-by-zero-reg.lean
 
--- Início do arquivo: smod32-pos-by-neg-imm.lean
+-- Start of file: smod32-pos-by-neg-imm.lean
 ------------------------------
 
 def memorysmod32_pos_neg_imm :=
@@ -4874,9 +4206,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: smod32-pos-by-neg-imm.lean
+-- End of file: smod32-pos-by-neg-imm.lean
 
--- Início do arquivo: smod32-pos-by-neg-reg.lean
+-- Start of file: smod32-pos-by-neg-reg.lean
 ------------------------------
 
 def memorysmod32_pos_neg_reg :=
@@ -4895,9 +4227,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: smod32-pos-by-neg-reg.lean
+-- End of file: smod32-pos-by-neg-reg.lean
 
--- Início do arquivo: smod64-intmin-by-negone-imm.lean
+-- Start of file: smod64-intmin-by-negone-imm.lean
 ------------------------------
 
 def memorysmod64_intmin_negone_imm :=
@@ -4915,9 +4247,9 @@ exit
 result
 0x0
 }
--- Fim do arquivo: smod64-intmin-by-negone-imm.lean
+-- End of file: smod64-intmin-by-negone-imm.lean
 
--- Início do arquivo: smod64-intmin-by-negone-reg.lean
+-- Start of file: smod64-intmin-by-negone-reg.lean
 ------------------------------
 
 def memorysmod64_intmin_negone_reg :=
@@ -4936,9 +4268,9 @@ exit
 result
 0x0
 }
--- Fim do arquivo: smod64-intmin-by-negone-reg.lean
+-- End of file: smod64-intmin-by-negone-reg.lean
 
--- Início do arquivo: smod64-neg-by-neg-imm.lean
+-- Start of file: smod64-neg-by-neg-imm.lean
 ------------------------------
 
 def memorysmod64_neg_neg_imm :=
@@ -4956,9 +4288,9 @@ exit
 result
 0xffffffffffffffff
 }
--- Fim do arquivo: smod64-neg-by-neg-imm.lean
+-- End of file: smod64-neg-by-neg-imm.lean
 
--- Início do arquivo: smod64-neg-by-neg-reg.lean
+-- Start of file: smod64-neg-by-neg-reg.lean
 ------------------------------
 
 def memorysmod64_neg_neg_reg :=
@@ -4977,9 +4309,9 @@ exit
 result
 0xffffffffffffffff
 }
--- Fim do arquivo: smod64-neg-by-neg-reg.lean
+-- End of file: smod64-neg-by-neg-reg.lean
 
--- Início do arquivo: smod64-neg-by-pos-imm.lean
+-- Start of file: smod64-neg-by-pos-imm.lean
 ------------------------------
 
 def memorysmod64_neg_pos_imm :=
@@ -4997,9 +4329,9 @@ exit
 result
 0xffffffffffffffff
 }
--- Fim do arquivo: smod64-neg-by-pos-imm.lean
+-- End of file: smod64-neg-by-pos-imm.lean
 
--- Início do arquivo: smod64-neg-by-pos-reg.lean
+-- Start of file: smod64-neg-by-pos-reg.lean
 ------------------------------
 
 def memorysmod64_neg_pos_reg :=
@@ -5018,9 +4350,9 @@ exit
 result
 0xffffffffffffffff
 }
--- Fim do arquivo: smod64-neg-by-pos-reg.lean
+-- End of file: smod64-neg-by-pos-reg.lean
 
--- Início do arquivo: smod64-neg-by-zero-imm.lean
+-- Start of file: smod64-neg-by-zero-imm.lean
 ------------------------------
 
 def memorysmod64_neg_zero_imm :=
@@ -5038,9 +4370,9 @@ exit
 result
 0xFFFFFFFFFFFFFFF6
 }
--- Fim do arquivo: smod64-neg-by-zero-imm.lean
+-- End of file: smod64-neg-by-zero-imm.lean
 
--- Início do arquivo: smod64-neg-by-zero-reg.lean
+-- Start of file: smod64-neg-by-zero-reg.lean
 ------------------------------
 
 def memorysmod64_neg_zero_reg :=
@@ -5059,9 +4391,9 @@ exit
 result
 0xFFFFFFFFFFFFFFF6
 }
--- Fim do arquivo: smod64-neg-by-zero-reg.lean
+-- End of file: smod64-neg-by-zero-reg.lean
 
--- Início do arquivo: smod64-pos-by-neg-imm.lean
+-- Start of file: smod64-pos-by-neg-imm.lean
 ------------------------------
 
 def memorysmod64_pos_neg_imm :=
@@ -5079,9 +4411,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: smod64-pos-by-neg-imm.lean
+-- End of file: smod64-pos-by-neg-imm.lean
 
--- Início do arquivo: smod64-pos-by-neg-reg.lean
+-- Start of file: smod64-pos-by-neg-reg.lean
 ------------------------------
 
 def memorysmod64_pos_neg_reg :=
@@ -5100,9 +4432,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: smod64-pos-by-neg-reg.lean
+-- End of file: smod64-pos-by-neg-reg.lean
 
--- Início do arquivo: stack.lean
+-- Start of file: stack.lean
 ------------------------------
 
 def memorystack :=
@@ -5126,9 +4458,9 @@ exit
 result
 0xcd
 }
--- Fim do arquivo: stack.lean
+-- End of file: stack.lean
 
--- Início do arquivo: stb.lean
+-- Start of file: stb.lean
 ------------------------------
 
 def memorystb :=
@@ -5146,9 +4478,9 @@ exit
 result
 0x11
 }
--- Fim do arquivo: stb.lean
+-- End of file: stb.lean
 
--- Início do arquivo: stdw.lean
+-- Start of file: stdw.lean
 ------------------------------
 
 def memorystdw :=
@@ -5166,9 +4498,9 @@ exit
 result
 0x0000000044332211
 }
--- Fim do arquivo: stdw.lean
+-- End of file: stdw.lean
 
--- Início do arquivo: sth.lean
+-- Start of file: sth.lean
 ------------------------------
 
 def memorysth :=
@@ -5186,9 +4518,9 @@ exit
 result
 0x2211
 }
--- Fim do arquivo: sth.lean
+-- End of file: sth.lean
 
--- Início do arquivo: stw.lean
+-- Start of file: stw.lean
 ------------------------------
 
 def memorystw :=
@@ -5206,9 +4538,9 @@ exit
 result
 0x44332211
 }
--- Fim do arquivo: stw.lean
+-- End of file: stw.lean
 
--- Início do arquivo: stxb-all.lean
+-- Start of file: stxb-all.lean
 ------------------------------
 
 def memorystxb_all :=
@@ -5242,9 +4574,9 @@ exit
 result
 0xf0f2f3f4f5f6f7f8
 }
--- Fim do arquivo: stxb-all.lean
+-- End of file: stxb-all.lean
 
--- Início do arquivo: stxb-all2.lean
+-- Start of file: stxb-all2.lean
 ------------------------------
 
 def memorystxb_all2 :=
@@ -5267,9 +4599,9 @@ exit
 result
 0xf1f9
 }
--- Fim do arquivo: stxb-all2.lean
+-- End of file: stxb-all2.lean
 
--- Início do arquivo: stxb-chain.lean
+-- Start of file: stxb-chain.lean
 ------------------------------
 
 def memorystxb_chain :=
@@ -5305,9 +4637,9 @@ exit
 result
 0x2a
 }
--- Fim do arquivo: stxb-chain.lean
+-- End of file: stxb-chain.lean
 
--- Início do arquivo: stxb.lean
+-- Start of file: stxb.lean
 ------------------------------
 
 def memorystxb :=
@@ -5326,9 +4658,9 @@ exit
 result
 0x11
 }
--- Fim do arquivo: stxb.lean
+-- End of file: stxb.lean
 
--- Início do arquivo: stxdw.lean
+-- Start of file: stxdw.lean
 ------------------------------
 
 def memorystxdw :=
@@ -5349,9 +4681,9 @@ exit
 result
 0x8877665544332211
 }
--- Fim do arquivo: stxdw.lean
+-- End of file: stxdw.lean
 
--- Início do arquivo: stxh.lean
+-- Start of file: stxh.lean
 ------------------------------
 
 def memorystxh :=
@@ -5370,12 +4702,12 @@ exit
 result
 0x2211
 }
--- Fim do arquivo: stxh.lean
+-- End of file: stxh.lean
 
 
 
 
--- Início do arquivo: stxw.lean
+-- Start of file: stxw.lean
 ------------------------------
 
 def memorystxw :=
@@ -5394,9 +4726,9 @@ exit
 result
 0x44332211
 }
--- Fim do arquivo: stxw.lean
+-- End of file: stxw.lean
 
--- Início do arquivo: subnet.lean
+-- Start of file: subnet.lean
 ------------------------------
 
 def memorysubnet :=
@@ -5434,9 +4766,9 @@ exit
 result
 0x1
 }
--- Fim do arquivo: subnet.lean
+-- End of file: subnet.lean
 
--- Início do arquivo: swap16.lean
+-- Start of file: swap16.lean
 ------------------------------
 
 def memoryswap16 :=
@@ -5454,9 +4786,9 @@ exit
 result
 0x1122
 }
--- Fim do arquivo: swap16.lean
+-- End of file: swap16.lean
 
--- Início do arquivo: swap32.lean
+-- Start of file: swap32.lean
 ------------------------------
 
 def memoryswap32 :=
@@ -5474,9 +4806,9 @@ exit
 result
 0x11223344
 }
--- Fim do arquivo: swap32.lean
+-- End of file: swap32.lean
 
--- Início do arquivo: swap64.lean
+-- Start of file: swap64.lean
 ------------------------------
 
 def memoryswap64 :=
@@ -5494,10 +4826,10 @@ exit
 result
 0x1122334455667788
 }
--- Fim do arquivo: swap64.lean
+-- End of file: swap64.lean
 
--- Lista de defs realizados
-def prog_list := [--[38, 112, 141]
+-- Programs List
+def prog_list := [
 progadd,
 progadd64,
 progalu_arith,
@@ -5507,7 +4839,7 @@ progalu64_bit,
 progarsh32_imm_high,
 progarsh32_imm_neg,
 progarsh32_imm,
-progarsh32_reg_high,--10
+progarsh32_reg_high,
 progarsh32_reg_neg,
 progarsh32_reg,
 progarsh64_imm_high,
@@ -5517,11 +4849,11 @@ progarsh64_reg_high,
 progarsh64_reg_neg,
 progarsh64_reg,
 progbe16_high,
-progbe16, --20
+progbe16,
 progbe32_high,
 progbe32,
 progbe64,
-progcallx, -- 24
+progcallx,
 progcall_local,
 progcall_unwind_fail,
 progdiv32_zero_reg_2,
@@ -5531,15 +4863,15 @@ progdiv32_imm,
 progdiv32_reg,
 progdiv64_zero_reg,
 progdiv64_imm,
-progdiv64_negative_imm, -- 34
+progdiv64_negative_imm,
 progdiv64_negative_reg,
 progdiv64_reg,
-progexit_not_last, -- Jump negativo
-progexit, -- 37
+progexit_not_last,
+progexit,
 progj_signed_imm,-- 38
-progja32, -- Jump negativo
-progjeq_imm, --39
-progjeq_reg, --40
+progja32,
+progjeq_imm,
+progjeq_reg,
 progjeq32_imm,
 progjeq32_reg,
 progjge_imm,
@@ -5549,7 +4881,7 @@ progjge32_reg,
 progjgt_imm,
 progjgt_reg,
 progjgt32_imm,
-progjgt32_reg,--50
+progjgt32_reg,
 progjit_bounce,
 progjle_imm,
 progjle_reg,
@@ -5559,7 +4891,7 @@ progjlt_imm,
 progjlt_reg,
 progjlt32_imm,
 progjlt32_reg,
-progjne_reg,--60
+progjne_reg,
 progjne32_imm,
 progjne32_reg,
 progjset_imm,
@@ -5569,7 +4901,7 @@ progjset32_reg,
 progjsge_imm,
 progjsge_reg,
 progjsge32_imm,
-progjsge32_reg,--70
+progjsge32_reg,
 progjsgt_imm,
 progjsgt_reg,
 progjsgt32_imm,
@@ -5579,7 +4911,7 @@ progjsle_reg,
 progjsle32_imm,
 progjsle32_reg,
 progjslt_imm,
-progjslt_reg,--80
+progjslt_reg,
 progjslt32_imm,
 progjslt32_reg,
 proglddw,
@@ -5589,7 +4921,7 @@ progldxb,
 progldxdw,
 progldxh_all,
 progldxh_all2,
-progldxh_same_reg,--90
+progldxh_same_reg,
 progldxh,
 progldxw_all,
 progldxw,
@@ -5597,29 +4929,9 @@ progle16_high,
 progle16,
 progle32_high,
 progle32,
-progle64,--99
-/-proglock_add,
-proglock_add32,
-proglock_and,
-proglock_and32,
-proglock_cmpxchg,
-proglock_cmpxchg32,
-proglock_fetch_add,
-proglock_fetch_add32,
-proglock_fetch_and,
-proglock_fetch_and32,
-proglock_fetch_or,
-proglock_fetch_or32,
-proglock_fetch_xor,
-proglock_fetch_xor32,
-proglock_or,
-proglock_or32,
-proglock_xchg,
-proglock_xchg32,
-proglock_xor,
-proglock_xor32,-/
+progle64,
 proglsh32_imm_high,
-proglsh32_imm_neg,--100
+proglsh32_imm_neg,
 proglsh32_imm,
 proglsh32_reg_high,
 proglsh32_reg_neg,
@@ -5659,7 +4971,6 @@ progneg32_intmin_reg,
 progneg64_intmin_imm,
 progneg64_intmin_reg,
 progneg64,
-progprime, -- Jump negativo
 progrsh32_imm_high,
 progrsh32_imm_neg,
 progrsh32_imm,
@@ -5721,6 +5032,8 @@ progswap16,
 progswap32,
 progswap64
 ]
+
+-- Memory Stack List
 def memory_list := [
 memoryadd,
 memoryadd64,
@@ -5758,10 +5071,10 @@ memorydiv64_imm,
 memorydiv64_negative_imm,
 memorydiv64_negative_reg,
 memorydiv64_reg,
-memoryexit_not_last, -- Jump negativo
+memoryexit_not_last,
 memoryexit,
 memoryj_signed_imm,
-memoryja32, -- Jump negativo
+memoryja32,
 memoryjeq_imm,
 memoryjeq_reg,
 memoryjeq32_imm,
@@ -5822,26 +5135,6 @@ memoryle16,
 memoryle32_high,
 memoryle32,
 memoryle64,
-/-memorylock_add,
-memorylock_add32,
-memorylock_and,
-memorylock_and32,
-memorylock_cmpxchg,
-memorylock_cmpxchg32,
-memorylock_fetch_add,
-memorylock_fetch_add32,
-memorylock_fetch_and,
-memorylock_fetch_and32,
-memorylock_fetch_or,
-memorylock_fetch_or32,
-memorylock_fetch_xor,
-memorylock_fetch_xor32,
-memorylock_or,
-memorylock_or32,
-memorylock_xchg,
-memorylock_xchg32,
-memorylock_xor,
-memorylock_xor32,-/
 memorylsh32_imm_high,
 memorylsh32_imm_neg,
 memorylsh32_imm,
@@ -5883,7 +5176,6 @@ memoryneg32_intmin_reg,
 memoryneg64_intmin_imm,
 memoryneg64_intmin_reg,
 memoryneg64,
-memoryprime, -- Jump negativo
 memoryrsh32_imm_high,
 memoryrsh32_imm_neg,
 memoryrsh32_imm,
@@ -5946,8 +5238,6 @@ memoryswap32,
 memoryswap64
 ]
 
-
-
 def evalPrograms (progs : List TestEval) (mems : List MemorySpace) : List Bool :=
   match progs with
   | p :: ps =>
@@ -5956,8 +5246,7 @@ def evalPrograms (progs : List TestEval) (mems : List MemorySpace) : List Bool :
     | [] => []
   | [] => []
 
-set_option maxRecDepth 1000
-
+#eval "Comparison of the obtained output with the expected output:"
 #eval evalPrograms prog_list memory_list
 
 def contFalse (list : List Bool) (cont : ℕ ) : List ℕ :=
@@ -5966,7 +5255,5 @@ def contFalse (list : List Bool) (cont : ℕ ) : List ℕ :=
   | true  :: xs => contFalse xs (cont+1)
   | [] => []
 
-
+#eval "Output indicating which programs returned values differing from the expected output:"
 #eval contFalse (evalPrograms prog_list memory_list) 0
-
--- Implementação do Call

@@ -119,8 +119,8 @@ def evalJmpCond (regs : Registers) (word : Word) (bits : ℕ ) : Bool :=
           | Msb.bpf_jgt=> destinationOperand' > sourceOperandTrimmed'
           | Msb.bpf_jge=> destinationOperand' >= sourceOperandTrimmed'
           | Msb.bpf_jset=> (andLogical destinationOperand' sourceOperandTrimmed') != 0
-          -- Operadores condicionais Signed, trata ambos valores como negativos
-          -- Uso a função returnSigned para obter o valor absoluto
+          -- Conditional Signed operators, treats both values as negative
+          -- Use the returnSigned function to get the absolute value
           | Msb.bpf_jsge=> (returnSigned destinationOperand bits)<= (returnSigned sourceOperandTrimmed bits)
           | Msb.bpf_jsgt=> (returnSigned destinationOperand bits) < (returnSigned sourceOperandTrimmed bits)
           | Msb.bpf_jsle=> (returnSigned destinationOperand bits) >= (returnSigned sourceOperandTrimmed bits)
@@ -160,55 +160,56 @@ def getInstruction (instrs : Instructions) (pc : ℕ ) : Word :=
 def exeMain (stack : MemorySpace) (regs : Registers) (instr : Instructions) (fuel : ℕ) (pc : ℕ) : MemorySpace × Registers × Instructions :=
   --let regs := if fuel == 1000 then updateRegisters regs stack else regs
   match fuel with
-  | 0 => (stack, regs, instr)  -- Retorna o estado atual sem executar mais instruções
+  | 0 => (stack, regs, instr)  -- Returns the current state without executing more instructions
   | fuel' + 1 =>
         let word := getInstruction instr pc
         match word with
         | Word.mk _imm _offset _srcReg _destReg opCode =>
           match opCode with
-          | OpCode.Eof => (stack, regs, instr)  -- Parar execução no EOF
+          | OpCode.Eof => (stack, regs, instr)  -- Stop execution at EOF
           | OpCode.mk _msb _source lsb =>
             match lsb with
             | Lsb.bpf_alu =>
-              -- Operações que alteram os registradores
+              -- Operations that change registers
               let regs' := applyWordAlu regs word 32
               exeMain stack regs' instr fuel' (pc + 1)
 
             | Lsb.bpf_alu64 =>
-              -- Operações que alteram os registradores
+              -- Operations that change registers
               let regs' := applyWordAlu regs word 64
               exeMain stack regs' instr fuel' (pc + 1)
 
             | Lsb.bpf_ld | Lsb.bpf_ldx =>
-              -- Operações que alteram a memória
+              -- Operations that change memory
               let regs' := applyWordMemoryLD regs stack word
               exeMain stack regs' instr fuel' (pc + 1)
 
             | Lsb.bpf_st =>
-              -- Operações que alteram a memória
+              -- Operations that change memory
               let stack' := applyWordMemoryST regs stack word
               exeMain stack' regs instr fuel' (pc + 1)
 
             | Lsb.bpf_stx =>
-              -- Operações que alteram a memória
+              -- Operations that change memory
               let stack' := applyWordMemoryST regs stack word
               exeMain stack' regs instr fuel' (pc + 1)
 
             | Lsb.bpf_jmp32 =>
-              -- Operações de salto que alteram as instruções
+              -- Jump operations that change the instructions
               let offsetJMP := applyWordJmp stack regs instr word 32
               exeMain stack regs instr fuel' (pc + offsetJMP)
 
             | Lsb.bpf_jmp =>
-              -- Operações de salto que alteram as instruções
+              -- Jump operations that change the instructions
               match word with
-              | Word.mk _imm offset _srcReg _destReg (OpCode.mk Msb.bpf_call_local _source _lsb) => -- Caso seja um call chamo a função
-                --let pc_call := execJmp instr word -- Faço um jump até a posição da função
-                let (_retFuncStack,retFuncRegs,_retFuncInstr) := exeMain stack regs instr fuel' (pc + (getNatOffset offset 1))-- Executo a função e recebo os valores de retorno
+              | Word.mk _imm offset _srcReg _destReg (OpCode.mk Msb.bpf_call_local _source _lsb) => -- If it's a call, I call the function
+                --let pc_call := execJmp instr word -- I jump to the function's position
+                let (_retFuncStack,retFuncRegs,_retFuncInstr) := exeMain stack regs instr fuel' (pc + (getNatOffset offset 1))-- I execute the function and receive the return values
+
                 exeMain stack (updateRegistersCall regs retFuncRegs) instr fuel' (pc + 1)
-                -- Na linha acima, atualiza o valor de r0 retornado pela função
-                -- Consome uma instrução na lista de instruçoes
-                -- E por ultimo segue a execução do Main
+                -- In the line above, it updates the r0 value returned by the function
+                -- Consumes an instruction from the instruction list
+                -- And finally continues the execution of the Main
               | _ =>
                 let offsetJMP := applyWordJmp stack regs instr word 64
                 exeMain stack regs instr fuel' (pc + offsetJMP)
@@ -217,61 +218,61 @@ def exeMain (stack : MemorySpace) (regs : Registers) (instr : Instructions) (fue
 def exeMainDebug (stack : MemorySpace) (regs : Registers) (instr : Instructions) (fuel : ℕ) (pc : ℕ) (history: List ℕ ) : MemorySpace × Registers × Instructions × List ℕ :=
   let regs := if fuel == 1000 then updateRegisters regs stack else regs
   match fuel with
-  | 0 => (stack, regs, instr,history)  -- Retorna o estado atual sem executar mais instruções
+  | 0 => (stack, regs, instr,history)  -- Returns the current state without executing more instructions
   | fuel' + 1 =>
         let word := getInstruction instr pc
         match word with
         | Word.mk _imm _offset _srcReg _destReg opCode =>
           match opCode with
-          | OpCode.Eof => (stack, regs, instr,history)  -- Parar execução no EOF
+          | OpCode.Eof => (stack, regs, instr,history)  -- Stop execution at EOF
           | OpCode.mk _msb _source lsb =>
             match lsb with
             | Lsb.bpf_alu =>
-              -- Operações que alteram os registradores
+              -- Operations that change registers
               let regs' := applyWordAlu regs word 32
               let history' := regs'.r0 :: history
               exeMainDebug stack regs' instr fuel' (pc + 1) history'
 
             | Lsb.bpf_alu64 =>
-              -- Operações que alteram os registradores
+              -- Operations that change registers
               let regs' := applyWordAlu regs word 64
               let history' := regs'.r0 :: history
               exeMainDebug stack regs' instr fuel' (pc + 1) history'
 
             | Lsb.bpf_ld | Lsb.bpf_ldx =>
-              -- Operações que alteram a memória
+              -- Operations that change memory
               let regs' := applyWordMemoryLD regs stack word
               let history' := regs'.r0 :: history
               exeMainDebug stack regs' instr fuel' (pc + 1) history'
 
             | Lsb.bpf_st =>
-              -- Operações que alteram a memória
+              -- Operations that change memory
               let stack' := applyWordMemoryST regs stack word
               let history' := regs.r0 :: history
               exeMainDebug stack' regs instr fuel' (pc + 1) history'
 
             | Lsb.bpf_stx =>
-              -- Operações que alteram a memória
+              -- Operations that change memory
               let stack' := applyWordMemoryST regs stack word
               let history' := regs.r0 :: history
               exeMainDebug stack' regs instr fuel' (pc + 1) history'
 
             | Lsb.bpf_jmp32 =>
-              -- Operações de salto que alteram as instruções
+              -- Jump operations that change the instructions
               let offsetJMP := applyWordJmp stack regs instr word 32
               let history' := regs.r0 :: history
               exeMainDebug stack regs instr fuel' (pc + offsetJMP) history'
 
             | Lsb.bpf_jmp =>
-              -- Operações de salto que alteram as instruções
+              -- Jump operations that change the instructions
               match word with
-              | Word.mk _imm offset _srcReg _destReg (OpCode.mk Msb.bpf_call_local _source _lsb) => -- Caso seja um call chamo a função
-                let (_retFuncStack,retFuncRegs,_retFuncInstr) := exeMain stack regs instr fuel' (pc + (getNatOffset offset 1))-- Executo a função e recebo os valores de retorno
+              | Word.mk _imm offset _srcReg _destReg (OpCode.mk Msb.bpf_call_local _source _lsb) => -- If it's a call, I call the function
+                let (_retFuncStack,retFuncRegs,_retFuncInstr) := exeMain stack regs instr fuel' (pc + (getNatOffset offset 1))-- I execute the function and receive the return values
                 let history' := regs.r0 :: history
                 exeMainDebug stack (updateRegistersCall regs retFuncRegs) instr fuel' (pc + 1) history'
-                -- Na linha acima, atualiza o valor de r0 retornado pela função
-                -- Consome uma instrução na lista de instruçoes
-                -- E por ultimo segue a execução do Main
+                -- In the line above, it updates the r0 value returned by the function
+                -- Consumes an instruction from the instruction list
+                -- And finally continues the execution of the Main
               | _ =>
                 let offsetJMP := applyWordJmp stack regs instr word 64
                 let history' := regs.r0 :: history

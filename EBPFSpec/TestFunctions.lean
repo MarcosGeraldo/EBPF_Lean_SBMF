@@ -20,35 +20,35 @@ def exeConformanceDebug ( input : TestEval ) (stack : MemorySpace) : MemorySpace
     returnedResult
 
 
-
---Função que cria retorna um char dado um natural
+-- Function that returns a character given a natural number
 def charFromIndex (n : ℕ) : Char :=
   if n < 10 then
-    Char.ofNat (n + 48)  -- '0' é ASCII 48
+    Char.ofNat (n + 48)  -- '0' is ASCII 48
   else
-    Char.ofNat (n - 10 + 97)  -- 'a' é ASCII 97
+    Char.ofNat (n - 10 + 97)  -- 'a' is ASCII 97
 
--- Função para "randomizar" os valore tendo uma seed como base
+-- Function to "randomize" the values based on a seed
 def generateChar (seed : ℕ) : Char :=
-  charFromIndex (seed % 16)  -- 16 valores números entre 0 - 9 e a - f
+  charFromIndex (seed % 16)  -- 16 values between 0 - 9 and a - f
 
---Função que dada um tanho e uma seed retorna uma lista de caracteres hexadecimal
--- Lista essa que é utilziada para popular o pacote de entrada
+-- Function that, given a size and a seed, returns a list of hexadecimal characters
+-- This list is used to populate the input packet
 def generateRandomList (size : ℕ) (seed : ℕ) : List Char :=
   match size with
   | 0 => []
   | size' + 1 =>
       generateChar seed :: generateRandomList (size') (seed + 17)
 
---Função que dado uma lista de caracteres popula um espaço de memoria
+
+-- Function that, given a list of characters, populates a memory space
 def formatMemorySpace (input : List Char) : MemorySpace :=
   createStackMemoryCharList 0 emptyMemory input
 
---Macros do pacote, aqui posso definir qualquer valor esperado
+-- Packet macros, here I can define any expected value
 def ipv4 := ['0','8','0','0']--0x0800
 def arp := ['0','8','0','6']--0x0806
 
---Função que cria um pacote Arp, demais valores estão sendo randomizados
+-- Function that creates an Arp packet, other values are being randomized
 def inputPackgeGeneratorArp ( valid : Bool ) (seed : ℕ ) : MemorySpace :=
   let macDestino := generateRandomList 12 seed
   let macOrigem := generateRandomList 12 seed
@@ -59,7 +59,7 @@ def inputPackgeGeneratorArp ( valid : Bool ) (seed : ℕ ) : MemorySpace :=
   let tcpHeader := generateRandomList 80 seed
   formatMemorySpace (macDestino ++ macOrigem ++ eth_type ++ ipV4Header ++ tcpHeader)
 
---Função que cria um pacote IPv4, demais valores estão sendo randomizados
+-- Function that creates an IPv4 packet, other values are being randomized
 def inputPackgeGeneratorIPv4 ( valid : Bool ) (seed : ℕ ) : MemorySpace :=
   let macDestino := generateRandomList 12 seed
   let macOrigem := generateRandomList 12 seed
@@ -70,22 +70,22 @@ def inputPackgeGeneratorIPv4 ( valid : Bool ) (seed : ℕ ) : MemorySpace :=
   let tcpHeader := generateRandomList 80 seed
   formatMemorySpace (macDestino ++ macOrigem ++ eth_type ++ ipV4Header ++ tcpHeader)
 
--- Função que dado uma lista de booleanos retorna uma lista de pacotes Arp
--- Onde para cada boleano da lista fica definido se o pacote deve ser aceito ou não
+-- Function that, given a list of booleans, returns a list of Arp packets
+-- Where for each boolean in the list it is defined whether the packet should be accepted or not
 def inputPackgeGeneratorListArp (validList : List Bool ) (seed : ℕ ) : List MemorySpace:=
   match validList with
   | valid :: xs => inputPackgeGeneratorArp valid seed :: inputPackgeGeneratorListArp xs (seed + 7)
   | [] => []
 
--- Função que dado uma lista de booleanos retorna uma lista de pacotes IPv4
--- Onde para cada boleano da lista fica definido se o pacote deve ser aceito ou não
+-- Function that, given a list of booleans, returns a list of IPv4 packets
+-- Where for each boolean in the list it is defined whether the packet should be accepted or not
 def inputPackgeGeneratorListIPv4 (validList : List Bool ) (seed : ℕ ) : List MemorySpace:=
   match validList with
   | valid :: xs => inputPackgeGeneratorIPv4 valid seed :: inputPackgeGeneratorListIPv4 xs (seed + 7)
   | [] => []
 
--- Função que dado uma contagem de pacotes validos e um tamanho total
--- Cria uma lista de boleanos definindo os valores para pacotes aceitos ou não
+-- Function that, given a count of valid packets and a total size,
+-- creates a list of booleans defining the values for accepted or not accepted packets
 def createBooleanList(valid n : ℕ) : List Bool :=
   match n with
   |n' + 1 =>
@@ -94,20 +94,20 @@ def createBooleanList(valid n : ℕ) : List Bool :=
       | 0 => false :: createBooleanList 0 n'
   |0 => []
 
---Função que cria uma lista de pacotes ARP
---E retorna quais são validos e quais não pacote
+-- Function that creates a list of ARP packets
+-- and returns which are valid and which are not
 def cratePackgesArp ( valid n : ℕ ) (seed : ℕ )  : List MemorySpace × List Bool :=
     let validList := createBooleanList valid n
     (inputPackgeGeneratorListArp validList seed, validList)
 
---Função que cria uma lista de pacotes IPV4
---E retorna quais são validos e quais não pacote
+-- Function that creates a list of IPV4 packets
+-- and returns which are valid and which are not
 def cratePackgesIPV4 ( valid n : ℕ ) (seed : ℕ ) : List MemorySpace × List Bool :=
     let validList := createBooleanList valid n
     (inputPackgeGeneratorListIPv4 validList seed, validList)
 
--- Função que recebe um programa , uma lista de pacotes de entrada
--- E compara o resultado esperado com o obtido
+-- Function that receives a program, a list of input packets
+-- and compares the expected result with the obtained one
 def evalEbpfProg (prog : TestEval) (inputs : List MemorySpace) (validList : List Bool) : List Bool :=
   match inputs with
   | i :: is =>
@@ -137,12 +137,12 @@ def exeConformanceCompareResult (prog : TestEval) (inputs : MemorySpace) :=
   match prog with
     | TestEval.mk _instr expectedVal => (expectedVal == retVal.r0)
 
--- Função para "Desembrulhar" o retorno do cratePackges
+-- Function to "Unwrap" the return of createPackges
 def evaluateEbpfProg (prog : TestEval) (input : List MemorySpace × List Bool) : List Bool :=
   match input with
   | (inputMemory, validList) => evalEbpfProg prog inputMemory validList
 
--- Função para "Desembrulhar" o retorno do cratePackges
+-- Function to "Unwrap" the return of createPackges
 def evaluateEbpfProgCont (prog : TestEval) (input : List MemorySpace × List Bool) : ℕ :=
   match input with
   | (inputMemory, validList) => evalEbpfProgCont prog inputMemory validList
